@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "irang-backend"
+        DOCKER_CONTAINER = "irang-container"
+        DOCKER_PORT = "8090"
+        EC2_USER = "ubuntu"
+        EC2_IP = "15.164.225.251"
+        DOCKER_PATH = "/home/ubuntu/docker"
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'backend', url: 'https://lab.ssafy.com/s12-webmobile4-sub1/S12P11D208.git'
+            }
+        }
+        stage('Build Application') {
+            steps {
+                sh './gradlew clean build'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh """
+                docker build -t ${DOCKER_IMAGE}:latest .
+                """
+            }
+        }
+        stage('Save and Transfer Docker Image') {
+            steps {
+                sh """
+                docker save ${DOCKER_IMAGE}:latest | gzip > ${DOCKER_IMAGE}.tar.gz
+                scp -o StrictHostKeyChecking=no ${DOCKER_IMAGE}.tar.gz ${EC2_USER}@${EC2_IP}:${DOCKER_PATH}/
+                """
+            }
+        }
+        stage('Deploy to EC2') {
+            steps {
+                sh """
+                ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} << EOF
+                docker stop ${DOCKER_CONTAINER} || true
+                docker rm ${DOCKER_CONTAINER} || true
+                docker rmi ${DOCKER_IMAGE}:latest || true
+                docker load < ${DOCKER_PATH}/${DOCKER_IMAGE}.tar.gz
+                docker run -d --name ${DOCKER_CONTAINER} -p ${DOCKER_PORT}:8080 ${DOCKER_IMAGE}:latest
+                EOF
+                """
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Deployment failed.'
+        }
+    }
+}
