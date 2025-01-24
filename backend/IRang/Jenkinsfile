@@ -6,7 +6,7 @@ pipeline {
         DOCKER_CONTAINER = "irang-container"
         DOCKER_PORT = "8090"
         EC2_USER = "ubuntu"
-        EC2_IP = "15.164.225.251"
+        EC2_IP = "i12d208.p.ssafy.io"
         DOCKER_PATH = "/home/ubuntu/docker"
     }
 
