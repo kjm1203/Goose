@@ -28,7 +28,7 @@ pipeline {
             steps {
                 echo 'Building the application with system Gradle...'
                 dir('backend/IRang') { // Gradle 파일이 위치한 디렉토리로 이동
-                    sh 'gradle clean build'
+                    sh 'gradle clean build --no-build-cache'
                 }
             }
         }
