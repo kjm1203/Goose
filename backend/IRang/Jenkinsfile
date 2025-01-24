@@ -26,11 +26,8 @@ pipeline {
         }
         stage('Build Application') {
             steps {
-                echo 'Building the application using Gradle...'
-                sh '''
-                chmod +x gradlew
-                gradle clean build
-                '''
+                echo 'Building the application with system Gradle...'
+                sh 'gradle clean build'
             }
         }
         stage('Build Docker Image') {
