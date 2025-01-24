@@ -27,7 +27,9 @@ pipeline {
         stage('Build Application') {
             steps {
                 echo 'Building the application with system Gradle...'
-                sh 'gradle clean build'
+                dir('backend/IRang') { // Gradle 파일이 위치한 디렉토리로 이동
+                    sh 'gradle clean build'
+                }
             }
         }
         stage('Build Docker Image') {
