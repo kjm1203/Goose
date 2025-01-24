@@ -12,6 +12,7 @@ public class WebConfiguration implements WebMvcConfigurer{
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        // 테스트 주석
         registry
                 .addMapping("/**")
                 .allowedOrigins("*")
