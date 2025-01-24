@@ -2,9 +2,6 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
-        PATH = "${JAVA_HOME}/bin:${env.PATH}"
-        GRADLE_HOME = "/opt/gradle/gradle-8.2.1"
         DOCKER_IMAGE = "irang-backend"
         DOCKER_CONTAINER = "irang-container"
         DOCKER_PORT = "8090"
@@ -13,9 +10,15 @@ pipeline {
         DOCKER_PATH = "/home/ubuntu/docker"
     }
 
+    tools {
+        jdk 'jdk17'           // Jenkins에서 자동 설치로 설정된 JDK 이름
+        gradle 'gradle-8.11.1'  // Jenkins에서 자동 설치로 설정된 Gradle 이름
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
+                echo 'Cloning the repository...'
                 git branch: 'backend',
                     url: 'https://lab.ssafy.com/s12-webmobile4-sub1/S12P11D208.git',
                     credentialsId: 'GitLab-PAT'
@@ -23,14 +26,16 @@ pipeline {
         }
         stage('Build Application') {
             steps {
+                echo 'Building the application using Gradle...'
                 sh '''
                 chmod +x gradlew
-                ./gradlew clean build
+                gradle clean build
                 '''
             }
         }
         stage('Build Docker Image') {
             steps {
+                echo 'Building the Docker image...'
                 sh """
                 docker build -t ${DOCKER_IMAGE}:latest .
                 """
@@ -38,29 +43,33 @@ pipeline {
         }
         stage('Save and Transfer Docker Image') {
             steps {
-                sh """
+                echo 'Saving and transferring Docker image to EC2...'
+                sh '''
                 docker save ${DOCKER_IMAGE}:latest | gzip > ${DOCKER_IMAGE}.tar.gz
                 scp -o StrictHostKeyChecking=no ${DOCKER_IMAGE}.tar.gz ${EC2_USER}@${EC2_IP}:${DOCKER_PATH}/
-                """
+                '''
             }
         }
         stage('Deploy to EC2') {
             steps {
-                sh """
+                echo 'Deploying the application on EC2...'
+                sh '''
                 ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} << EOF
+                mkdir -p ${DOCKER_PATH}
                 docker stop ${DOCKER_CONTAINER} || true
                 docker rm ${DOCKER_CONTAINER} || true
                 docker rmi ${DOCKER_IMAGE}:latest || true
                 docker load < ${DOCKER_PATH}/${DOCKER_IMAGE}.tar.gz
                 docker run -d --name ${DOCKER_CONTAINER} -p ${DOCKER_PORT}:8080 ${DOCKER_IMAGE}:latest
                 EOF
-                """
+                '''
             }
         }
     }
 
     post {
         always {
+            echo 'Cleaning workspace...'
             cleanWs()
         }
         success {
