@@ -11,7 +11,7 @@ pipeline {
     }
 
     tools {
-        jdk 'jdk17'           // Jenkins에서 자동 설치로 설정된 JDK 이름
+        jdk 'JDK17'           // Jenkins에서 자동 설치로 설정된 JDK 이름
         gradle 'Gradle 8.1.1'  // Jenkins에서 자동 설치로 설정된 Gradle 이름
     }
 
