@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -13,7 +14,7 @@ import javax.sql.DataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.ssafy") // JPA Repository 경로 설정
+@EnableJpaRepositories(basePackages = "com.ssafy.irang.repository") // JPA Repository 경로 설정
 @EnableTransactionManagement // 트랜잭션 관리를 활성화
 public class DatabaseConfig {
 
@@ -43,7 +44,8 @@ public class DatabaseConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource);
-        emf.setPackagesToScan("com.example.entity"); // JPA Entity 경로 설정
+        emf.setPackagesToScan("com.ssafy.irang.entity"); // JPA Entity 경로 설정
+        emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter()); // Hibernate 설정 추가
         emf.setPersistenceUnitName("default");
         return emf;
     }
