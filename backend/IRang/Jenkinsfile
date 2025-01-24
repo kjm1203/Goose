@@ -14,7 +14,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 git branch: 'backend', url: 'https://lab.ssafy.com/s12-webmobile4-sub1/S12P11D208.git',
-                credentialsId: '059a3c41-e1cc-4320-b3f9-fd97ad4eb34d'
+                credentialsId: 'GitLab-PAT'
             }
         }
         stage('Build Application') {
