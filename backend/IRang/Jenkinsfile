@@ -4,7 +4,7 @@ pipeline {
     environment {
         JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
-        GRADLE_HOME = "/usr/bin"
+        GRADLE_HOME = "/opt/gradle/gradle-8.2.1"
         DOCKER_IMAGE = "irang-backend"
         DOCKER_CONTAINER = "irang-container"
         DOCKER_PORT = "8090"
