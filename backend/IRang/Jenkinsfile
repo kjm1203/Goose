@@ -2,6 +2,9 @@ pipeline {
     agent any
 
     environment {
+        JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+        GRADLE_HOME = "/usr/bin"
         DOCKER_IMAGE = "irang-backend"
         DOCKER_CONTAINER = "irang-container"
         DOCKER_PORT = "8090"
@@ -13,13 +16,17 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'backend', url: 'https://lab.ssafy.com/s12-webmobile4-sub1/S12P11D208.git',
-                credentialsId: 'GitLab-PAT'
+                git branch: 'backend',
+                    url: 'https://lab.ssafy.com/s12-webmobile4-sub1/S12P11D208.git',
+                    credentialsId: 'GitLab-PAT'
             }
         }
         stage('Build Application') {
             steps {
-                sh './gradlew clean build'
+                sh '''
+                chmod +x gradlew
+                ./gradlew clean build
+                '''
             }
         }
         stage('Build Docker Image') {
