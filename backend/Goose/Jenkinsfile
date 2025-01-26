@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Building the application with Gradle Wrapper...'
                 dir('backend/Goose') {
-                    sh 'gradle clean build --stacktrace --info --gradle-user-home=/var/jenkins_home/.gradle'
+                    sh 'gradle clean build'
                 }
             }
         }
