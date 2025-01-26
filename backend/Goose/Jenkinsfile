@@ -11,10 +11,10 @@ pipeline {
         // EC2 접속 정보
         EC2_USER = credentials('EC2_USER')             // EC2 사용자 이름
         EC2_IP = credentials('EC2_IP')                 // EC2 IP 주소
-        SSH_KEY = credentials('EC2_SSH_KEY')           // EC2 SSH 개인 키
+        SSH_KEY = credentials('SSH_KEY')           // EC2 SSH 개인 키
 
         // 모드 dev(X) prod(O)
-        SPRING_PROFILES_ACTIVE = 'prod' 
+        SPRING_PROFILES_ACTIVE = 'prod'
     }
 
     tools {
