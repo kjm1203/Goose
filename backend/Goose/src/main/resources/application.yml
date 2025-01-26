@@ -1,0 +1,3 @@
+spring:
+  profiles:
+    active: dev # 기본 프로파일 설정 (dev로 설정)

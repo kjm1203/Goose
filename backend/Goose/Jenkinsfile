@@ -1,0 +1,88 @@
+pipeline {
+    agent any
+
+    environment {
+        // Docker 관련 정보를 Jenkins Credentials로 관리
+        DOCKER_IMAGE = credentials('DOCKER_IMAGE')       // Docker 이미지 이름
+        DOCKER_CONTAINER = credentials('DOCKER_CONTAINER') // Docker 컨테이너 이름
+        DOCKER_PORT = credentials('DOCKER_PORT')        // Docker 포트
+        DOCKER_PATH = credentials('DOCKER_PATH')        // EC2의 Docker 저장 경로
+
+        // EC2 접속 정보
+        EC2_USER = credentials('EC2_USER')             // EC2 사용자 이름
+        EC2_IP = credentials('EC2_IP')                 // EC2 IP 주소
+        SSH_KEY = credentials('EC2_SSH_KEY')           // EC2 SSH 개인 키
+
+        // 모드 dev(X) prod(O)
+        SPRING_PROFILES_ACTIVE = 'prod' 
+    }
+
+    tools {
+        jdk 'JDK17'           // Jenkins에서 자동 설치로 설정된 JDK 이름
+        gradle 'Gradle 8.1.1' // Jenkins에서 자동 설치로 설정된 Gradle 이름
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                echo 'Cloning the repository...'
+                git branch: 'backend',
+                    url: 'https://lab.ssafy.com/s12-webmobile4-sub1/S12P11D208.git',
+                    credentialsId: 'GitLab-PAT' // GitLab Personal Access Token
+            }
+        }
+        stage('Build Application') {
+            steps {
+                echo 'Building the application with system Gradle...'
+                dir('backend/IRang') { // Gradle 파일이 위치한 디렉토리로 이동
+                    sh 'gradle clean build'
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                echo 'Building the Docker image...'
+                sh """
+                docker build -t ${DOCKER_IMAGE}:latest .
+                """
+            }
+        }
+        stage('Save and Transfer Docker Image') {
+            steps {
+                echo 'Saving and transferring Docker image to EC2...'
+                sh """
+                docker save ${DOCKER_IMAGE}:latest | gzip > ${DOCKER_IMAGE}.tar.gz
+                scp -o StrictHostKeyChecking=no -i ${SSH_KEY} ${DOCKER_IMAGE}.tar.gz ${EC2_USER}@${EC2_IP}:${DOCKER_PATH}/
+                """
+            }
+        }
+        stage('Deploy to EC2') {
+            steps {
+                echo 'Deploying the application on EC2...'
+                sh """
+                ssh -o StrictHostKeyChecking=no -i ${SSH_KEY} ${EC2_USER}@${EC2_IP} << EOF
+                mkdir -p ${DOCKER_PATH}
+                docker stop ${DOCKER_CONTAINER} || true
+                docker rm ${DOCKER_CONTAINER} || true
+                docker rmi ${DOCKER_IMAGE}:latest || true
+                docker load < ${DOCKER_PATH}/${DOCKER_IMAGE}.tar.gz
+                docker run -d --name ${DOCKER_CONTAINER} -p ${DOCKER_PORT}:8080 ${DOCKER_IMAGE}:latest
+                EOF
+                """
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning workspace...'
+            cleanWs()
+        }
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Deployment failed.'
+        }
+    }
+}
