@@ -8,7 +8,7 @@ WORKDIR /app
 COPY build/libs/goose-0.0.1-SNAPSHOT.jar app.jar
 
 # 4. 컨테이너에서 노출할 포트
-EXPOSE 8090
+EXPOSE 8080
 
 # 5. 애플리케이션 실행 명령어
 ENTRYPOINT ["java", "-jar", "app.jar"]

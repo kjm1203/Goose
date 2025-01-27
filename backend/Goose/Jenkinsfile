@@ -82,7 +82,7 @@ pipeline {
                                     docker rm ${DOCKER_CONTAINER} || true
                                     docker rmi ${DOCKER_IMAGE}:latest || true
                                     docker load < ${DOCKER_PATH}/goose-0.0.1-SNAPSHOT.tar.gz
-                                    docker run -d --name ${DOCKER_CONTAINER} -p ${DOCKER_PORT}:8090 ${DOCKER_IMAGE}:latest
+                                    docker run -d --name ${DOCKER_CONTAINER} -p ${DOCKER_PORT}:8080 ${DOCKER_IMAGE}:latest
                                 """.stripIndent()
                             )
                         ]
