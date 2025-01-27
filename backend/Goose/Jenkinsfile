@@ -12,6 +12,9 @@ pipeline {
         SSH_KEY = credentials('SSH_KEY')
 
         SPRING_PROFILES_ACTIVE = 'prod'
+        DB_URL = credentials('DB_URL')
+        DB_USERNAME = credentials('DB_USERNAME')
+        DB_PASSWORD = credentials('DB_PASSWORD')
 
         JAVA_HOME = '/opt/java/openjdk'
         GRADLE_HOME = '/opt/gradle/gradle-8.5'
@@ -82,7 +85,14 @@ pipeline {
                                     docker rm ${DOCKER_CONTAINER} || true
                                     docker rmi ${DOCKER_IMAGE}:latest || true
                                     docker load < ${DOCKER_PATH}/goose-0.0.1-SNAPSHOT.tar.gz
-                                    docker run -d --name ${DOCKER_CONTAINER} -p ${DOCKER_PORT}:8080 ${DOCKER_IMAGE}:latest
+                                    docker run -d --name ${DOCKER_CONTAINER} \
+                                      -p ${DOCKER_PORT}:${DOCKER_PORT} \
+                                      -e SPRING_PROFILES_ACTIVE=prod \
+                                      -e SERVER_PORT=${DOCKER_PORT} \
+                                      -e DB_URL=${DB_URL} \
+                                      -e DB_USERNAME=${DB_USERNAME} \
+                                      -e DB_PASSWORD=${DB_PASSWORD} \
+                                      ${DOCKER_IMAGE}:latest
                                 """.stripIndent()
                             )
                         ]
