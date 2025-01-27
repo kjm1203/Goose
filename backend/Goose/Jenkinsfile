@@ -58,7 +58,7 @@ pipeline {
                         configName: 'EC2-Server', // 설정한 Publish Over SSH 서버 이름
                         transfers: [
                             sshTransfer(
-                                sourceFiles: "${DOCKER_IMAGE}.tar.gz", // 로컬 파일
+                                sourceFiles: "backend/Goose/${DOCKER_IMAGE}.tar.gz", // 로컬 파일
                                 remoteDirectory: "${DOCKER_PATH}" // 원격 서버 경로
                             )
                         ]
@@ -75,6 +75,7 @@ pipeline {
                         transfers: [
                             sshTransfer(
                                 execCommand: """
+                                    mkdir -p ${DOCKER_PATH}
                                     docker stop ${DOCKER_CONTAINER} || true
                                     docker rm ${DOCKER_CONTAINER} || true
                                     docker rmi ${DOCKER_IMAGE}:latest || true
