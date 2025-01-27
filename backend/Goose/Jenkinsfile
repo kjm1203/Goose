@@ -3,28 +3,26 @@ pipeline {
 
     environment {
         // Docker 관련 정보를 Jenkins Credentials로 관리
-        DOCKER_IMAGE = credentials('DOCKER_IMAGE')       // Docker 이미지 이름
-        DOCKER_CONTAINER = credentials('DOCKER_CONTAINER') // Docker 컨테이너 이름
-        DOCKER_PORT = credentials('DOCKER_PORT')        // Docker 포트
-        DOCKER_PATH = credentials('DOCKER_PATH')        // EC2의 Docker 저장 경로
+        DOCKER_IMAGE = credentials('DOCKER_IMAGE')
+        DOCKER_CONTAINER = credentials('DOCKER_CONTAINER')
+        DOCKER_PORT = credentials('DOCKER_PORT')
+        DOCKER_PATH = credentials('DOCKER_PATH')
 
         // EC2 접속 정보
-        EC2_USER = credentials('EC2_USER')             // EC2 사용자 이름
-        EC2_IP = credentials('EC2_IP')                 // EC2 IP 주소
-        SSH_KEY = credentials('SSH_KEY')           // EC2 SSH 개인 키
+        EC2_USER = credentials('EC2_USER')
+        EC2_IP = credentials('EC2_IP')
+        SSH_KEY = credentials('SSH_KEY')
 
-        // 모드 dev(X) prod(O)
         SPRING_PROFILES_ACTIVE = 'prod'
 
-        // 명시적으로 JAVA_HOME과 PATH 설정
         JAVA_HOME = '/opt/java/openjdk'
         GRADLE_HOME = '/opt/gradle/gradle-8.5'
         PATH = "${JAVA_HOME}/bin:${GRADLE_HOME}/bin:${env.PATH}"
     }
 
     tools {
-        jdk 'JDK17'           // Jenkins에서 자동 설치로 설정된 JDK 이름
-        gradle 'Gradle 8.5' // Jenkins에서 자동 설치로 설정된 Gradle 이름
+        jdk 'JDK17'
+        gradle 'Gradle 8.5'
     }
 
     stages {
@@ -33,7 +31,7 @@ pipeline {
                 echo 'Cloning the repository...'
                 git branch: 'backend',
                     url: 'https://lab.ssafy.com/s12-webmobile4-sub1/S12P11D208.git',
-                    credentialsId: 'GitLab-PAT' // GitLab Personal Access Token
+                    credentialsId: 'GitLab-PAT'
             }
         }
         stage('Build Application') {
@@ -41,7 +39,7 @@ pipeline {
                 echo 'Building the application with Gradle Wrapper...'
                 dir('backend/Goose') {
                     sh 'gradle clean build'
-                    sh 'ls -al $(pwd)/build/libs' // 빌드 결과 경로 출력
+                    sh 'ls -al $(pwd)/build/libs'
                 }
             }
         }
@@ -49,7 +47,6 @@ pipeline {
             steps {
                 echo 'Building the Docker image...'
                 dir('backend/Goose') {
-                    // Gradle 빌드 결과를 Docker 빌드 컨텍스트로 복사
                     sh 'cp build/libs/goose-0.0.1-SNAPSHOT.jar .'
                     sh 'docker build -t ${DOCKER_IMAGE}:latest .'
                 }
@@ -60,7 +57,7 @@ pipeline {
                 echo 'Saving and transferring Docker image to EC2...'
                 sh """
                 docker save ${DOCKER_IMAGE}:latest | gzip > ${DOCKER_IMAGE}.tar.gz
-                scp -i ${SSH_KEY} ${DOCKER_IMAGE}.tar.gz ${EC2_USER}@${EC2_IP}:${DOCKER_PATH}/
+                scp -o StrictHostKeyChecking=no -i ${SSH_KEY} ${DOCKER_IMAGE}.tar.gz ${EC2_USER}@${EC2_IP}:${DOCKER_PATH}/
                 """
             }
         }
@@ -68,7 +65,7 @@ pipeline {
             steps {
                 echo 'Deploying the application on EC2...'
                 sh """
-                ssh -i ${SSH_KEY} ${EC2_USER}@${EC2_IP} << EOF
+                ssh -o StrictHostKeyChecking=no -i ${SSH_KEY} ${EC2_USER}@${EC2_IP} << EOF
                 mkdir -p ${DOCKER_PATH}
                 docker stop ${DOCKER_CONTAINER} || true
                 docker rm ${DOCKER_CONTAINER} || true
