@@ -2,13 +2,11 @@ pipeline {
     agent any
 
     environment {
-        // Docker 관련 정보를 Jenkins Credentials로 관리
         DOCKER_IMAGE = credentials('DOCKER_IMAGE')
         DOCKER_CONTAINER = credentials('DOCKER_CONTAINER')
         DOCKER_PORT = credentials('DOCKER_PORT')
-        DOCKER_PATH = credentials('DOCKER_PATH')
+        DOCKER_PATH = '/home/ubuntu/docker' // EC2 서버의 Docker 저장 경로
 
-        // EC2 접속 정보
         EC2_USER = credentials('EC2_USER')
         EC2_IP = credentials('EC2_IP')
         SSH_KEY = credentials('SSH_KEY')
@@ -55,25 +53,38 @@ pipeline {
         stage('Save and Transfer Docker Image') {
             steps {
                 echo 'Saving and transferring Docker image to EC2...'
-                sh """
-                docker save ${DOCKER_IMAGE}:latest | gzip > ${DOCKER_IMAGE}.tar.gz
-                scp -o StrictHostKeyChecking=no -i ${SSH_KEY} ${DOCKER_IMAGE}.tar.gz ${EC2_USER}@${EC2_IP}:${DOCKER_PATH}/
-                """
+                sshPublisher(publishers: [
+                    sshPublisherDesc(
+                        configName: 'EC2-Server', // 설정한 Publish Over SSH 서버 이름
+                        transfers: [
+                            sshTransfer(
+                                sourceFiles: "${DOCKER_IMAGE}.tar.gz", // 로컬 파일
+                                remoteDirectory: "${DOCKER_PATH}" // 원격 서버 경로
+                            )
+                        ]
+                    )
+                ])
             }
         }
         stage('Deploy to EC2') {
             steps {
                 echo 'Deploying the application on EC2...'
-                sh """
-                ssh -o StrictHostKeyChecking=no -i ${SSH_KEY} ${EC2_USER}@${EC2_IP} << EOF
-                mkdir -p ${DOCKER_PATH}
-                docker stop ${DOCKER_CONTAINER} || true
-                docker rm ${DOCKER_CONTAINER} || true
-                docker rmi ${DOCKER_IMAGE}:latest || true
-                docker load < ${DOCKER_PATH}/${DOCKER_IMAGE}.tar.gz
-                docker run -d --name ${DOCKER_CONTAINER} -p ${DOCKER_PORT}:8090 ${DOCKER_IMAGE}:latest
-                EOF
-                """
+                sshPublisher(publishers: [
+                    sshPublisherDesc(
+                        configName: 'EC2-Server',
+                        transfers: [
+                            sshTransfer(
+                                execCommand: """
+                                    docker stop ${DOCKER_CONTAINER} || true
+                                    docker rm ${DOCKER_CONTAINER} || true
+                                    docker rmi ${DOCKER_IMAGE}:latest || true
+                                    docker load < ${DOCKER_PATH}/${DOCKER_IMAGE}.tar.gz
+                                    docker run -d --name ${DOCKER_CONTAINER} -p ${DOCKER_PORT}:8090 ${DOCKER_IMAGE}:latest
+                                """.stripIndent()
+                            )
+                        ]
+                    )
+                ])
             }
         }
     }
