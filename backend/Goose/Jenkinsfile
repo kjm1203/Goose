@@ -53,13 +53,16 @@ pipeline {
         stage('Save and Transfer Docker Image') {
             steps {
                 echo 'Saving and transferring Docker image to EC2...'
+                sh """
+                docker save ${DOCKER_IMAGE}:latest | gzip > goose-0.0.1-SNAPSHOT.tar.gz
+                """
                 sshPublisher(publishers: [
                     sshPublisherDesc(
-                        configName: 'EC2-Server', // 설정한 Publish Over SSH 서버 이름
+                        configName: 'EC2-Server',
                         transfers: [
                             sshTransfer(
-                                sourceFiles: "backend/Goose/${DOCKER_IMAGE}.tar.gz", // 로컬 파일
-                                remoteDirectory: "${DOCKER_PATH}" // 원격 서버 경로
+                                sourceFiles: 'goose-0.0.1-SNAPSHOT.tar.gz',
+                                remoteDirectory: '/home/ubuntu/docker'
                             )
                         ]
                     )
