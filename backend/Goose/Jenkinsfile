@@ -82,6 +82,7 @@ pipeline {
                                     docker rm ${DOCKER_CONTAINER} || true
                                     docker rmi ${DOCKER_IMAGE}:latest || true
                                     docker load < ${DOCKER_PATH}/${DOCKER_IMAGE}.tar.gz
+                                    docker tag $(docker images --filter "dangling=true" -q | head -n 1) ${DOCKER_IMAGE}:latest
                                     docker run -d --name ${DOCKER_CONTAINER} -p ${DOCKER_PORT}:8090 ${DOCKER_IMAGE}:latest
                                 """.stripIndent()
                             )
