@@ -28,4 +28,15 @@ public class NewsArticle {
     private String topImage;      // 대표 이미지 URL
     private LocalDateTime extractedAt; // 데이터 크롤링 시간
 
+    public NewsArticle(String title, String originalLink, String naverLink, String description, String pubDate,
+                       String content, String topImage, LocalDateTime extractedAt) {
+        this.title = title;
+        this.originalLink = originalLink;
+        this.naverLink = naverLink;
+        this.description = description;
+        this.pubDate = pubDate;
+        this.content = content;
+        this.topImage = topImage;
+        this.extractedAt = extractedAt;
+    }
 }
