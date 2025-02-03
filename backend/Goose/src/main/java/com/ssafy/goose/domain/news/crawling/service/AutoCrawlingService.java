@@ -23,11 +23,11 @@ public class AutoCrawlingService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final NewsArticleRepository newsRepository;
-    private final NewsContentScraping newsContentScraping; // ✅ 변경: Newspaper3k 크롤링 서비스
+    private final NewsContentScraping newsContentScraping;
 
     public AutoCrawlingService(NewsArticleRepository newsRepository, NewsContentScraping newsContentScraping) {
         this.newsRepository = newsRepository;
-        this.newsContentScraping = newsContentScraping; // ✅ 변경
+        this.newsContentScraping = newsContentScraping;
     }
 
     /**
@@ -110,14 +110,25 @@ public class AutoCrawlingService {
     }
 
     /**
-     * 🔹 5. MongoDB에 뉴스 저장
+     * 🔹 5. MongoDB에 뉴스 저장 (본문 길이 100 이상 필터링 추가)
      */
     public void saveNewsToMongoDB(Map<String, Object> newsData) {
         List<Map<String, Object>> newsItems = (List<Map<String, Object>>) newsData.get("items");
 
         for (Map<String, Object> item : newsItems) {
             String url = (String) item.get("link");
-            Map<String, Object> newsResult = newsContentScraping.extractArticle(url); // ✅ 변경: Goose3 → Newspaper3k
+            Map<String, Object> scrapingResult = newsContentScraping.extractArticle(url);
+
+            if (scrapingResult == null) {
+                System.out.println("❌ 크롤링 실패: " + url);
+                continue;
+            }
+
+            String content = (String) scrapingResult.get("text");
+            if (content == null || content.length() < 100) {
+                System.out.println("⚠️ 본문이 너무 짧아 저장하지 않음 (길이: " + (content != null ? content.length() : 0) + ")");
+                continue;
+            }
 
             NewsArticle article = new NewsArticle(
                     (String) item.get("title"),
@@ -125,8 +136,8 @@ public class AutoCrawlingService {
                     url,
                     (String) item.get("description"),
                     (String) item.get("pubDate"),
-                    newsResult != null ? (String) newsResult.get("text") : null,  // ✅ 본문 크롤링
-                    newsResult != null ? (String) newsResult.get("image") : null, // ✅ 이미지 크롤링
+                    content,  // 본문 크롤링 (100자 이상)
+                    (String) scrapingResult.get("image"), // 대표 이미지
                     LocalDateTime.now()
             );
 
