@@ -6,7 +6,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 
 class Goose3Crawler:
     def __init__(self):
-        self.goose = Goose()
+        self.goose = Goose({'enable_image_fetching': True})
 
     def extract_article(self, url):
         """
@@ -16,14 +16,14 @@ class Goose3Crawler:
         logging.info(f"🔍 [Goose3] 크롤링 요청: {url}")
 
         try:
-            article = self.goose.extract(url)
+            article = self.goose.extract(url=url)
             print(f"✅ [Goose3] 크롤링 성공: {url}")
             logging.info(f"✅ [Goose3] 크롤링 성공: {url}")
 
             return {
                 "title": article.title,
                 "text": article.cleaned_text,  
-                "image": article.top_image
+                "image": article.top_image.src
             }
         except Exception as e:
             print(f"❌ [Goose3] 크롤링 실패: {url} | 오류: {str(e)}")
