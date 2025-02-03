@@ -23,10 +23,13 @@ public class AutoCrawlingService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final NewsArticleRepository newsRepository;
+    private final Goose3Service goose3Service;
 
-    public AutoCrawlingService(NewsArticleRepository newsRepository) {
+    public AutoCrawlingService(NewsArticleRepository newsRepository, Goose3Service goose3Service) {
         this.newsRepository = newsRepository;
+        this.goose3Service = goose3Service;
     }
+
 
     /**
      * 🔹 1. 네이버 뉴스 API로 최신 뉴스 제목에서 키워드 추출
@@ -114,18 +117,22 @@ public class AutoCrawlingService {
         List<Map<String, Object>> newsItems = (List<Map<String, Object>>) newsData.get("items");
 
         for (Map<String, Object> item : newsItems) {
+            String url = (String) item.get("link");
+            Map<String, Object> gooseResult = goose3Service.extractArticle(url);
+
             NewsArticle article = new NewsArticle(
                     (String) item.get("title"),
                     (String) item.get("originallink"),
-                    (String) item.get("link"),
+                    url,
                     (String) item.get("description"),
                     (String) item.get("pubDate"),
-                    null, // goose3로 본문 가져오기
-                    null, // goose3로 이미지 가져오기
+                    gooseResult != null ? (String) gooseResult.get("text") : null,  // 본문 크롤링
+                    gooseResult != null ? (String) gooseResult.get("image") : null, // 이미지 크롤링
                     LocalDateTime.now()
             );
 
             newsRepository.save(article);
         }
     }
+
 }
