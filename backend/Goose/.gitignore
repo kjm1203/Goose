@@ -39,5 +39,5 @@ out/
 ### VS Code ###
 .vscode/
 
-## gradle ##
-backend/Goose/.gradle/
+### gradle ###
+.gradle/
