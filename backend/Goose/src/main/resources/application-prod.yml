@@ -13,7 +13,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-  show-sql: true
+    show-sql: true
   data:
     mongodb:
       uri: ${MONGO_URI}
