@@ -54,4 +54,17 @@
         <item>@string/type_content</item>
     </string-array>
 
+    <string name="image_check">사진 판별하기</string>
+    <string name="image_check_caption">이 사진은 정말 진실일까요?\n
+사진을 판별해보아요.</string>
+    <string name="ai_check">AI 사진 판별하기</string>
+    <string name="composite_check">합성 사진 판별하기</string>
+
+    <string name="image_add">사진 넣기</string>
+    <string name="image_add_caption">판별할 사진을 선택해주세요.</string>
+
+    <string name="ai_check_result">AI 사진 판별 결과</string>
+    <string name="img_check_result_caption">사진 판별 결과를 알려드릴게요.</string>
+
+    <string name="other_img_check">다른 사진 판별하기</string>
 </resources>

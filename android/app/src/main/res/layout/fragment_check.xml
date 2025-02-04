@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +13,7 @@
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/btn_left_arrow"
+            android:src="@drawable/btn_arrow_left"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +30,7 @@
 
         <TextView
             android:id="@+id/tv_subtitle"
-            style="@style/Widget.TextView.Caption"
+            style="@style/Widget.TextView.Caption.Silver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_8dp"
@@ -43,7 +42,7 @@
 
         <TextView
             android:id="@+id/tv_check_type_title"
-            style="@style/Widget.TextView.Header.Small"
+            style="@style/Widget.TextView.Header.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_36dp"
@@ -53,9 +52,10 @@
 
         <TextView
             android:id="@+id/tv_check_type_subtitle"
-            style="@style/Widget.TextView.Caption"
+            style="@style/Widget.TextView.Caption.Silver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
             android:text="@string/check_subtitle_type"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_check_type_title" />
@@ -65,7 +65,7 @@
             style="?attr/textInputOutlinedExposedDropdownMenuStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_8dp"
+            android:layout_marginTop="@dimen/spacing_16dp"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidth="2dp"
             app:hintEnabled="false"
@@ -85,7 +85,7 @@
 
         <TextView
             android:id="@+id/tv_content_input_title"
-            style="@style/Widget.TextView.Header.Small"
+            style="@style/Widget.TextView.Header.Secondary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_24dp"
@@ -95,37 +95,41 @@
 
         <TextView
             android:id="@+id/tv_content_input_subtitle"
-            style="@style/Widget.TextView.Caption"
+            style="@style/Widget.TextView.Caption.Silver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
             android:text="@string/content_input_subtitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_content_input_title" />
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_img_input"
+        <ImageView
+            android:id="@+id/iv_add_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/spacing_8dp"
-            android:background="@drawable/bg_white_4dp"
+            android:layout_marginTop="@dimen/spacing_16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_white_15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.28"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_content_input_subtitle">
+            app:layout_constraintTop_toBottomOf="@id/tv_content_input_subtitle" />
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_add_box"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.22" />
+        <ImageView
+            android:id="@+id/iv_add_image_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_img_plus"
+            app:layout_constraintBottom_toBottomOf="@id/iv_add_image"
+            app:layout_constraintEnd_toEndOf="@id/iv_add_image"
+            app:layout_constraintStart_toStartOf="@id/iv_add_image"
+            app:layout_constraintTop_toTopOf="@id/iv_add_image" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_add_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="iv_add_image,iv_add_image_plus" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_content_input"

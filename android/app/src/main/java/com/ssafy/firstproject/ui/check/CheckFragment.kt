@@ -47,17 +47,19 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
     private fun showBySelectedItem(selectedItem: String) {
         when (selectedItem) {
             getString(R.string.type_img) -> {
-                binding.clImgInput.visibility = View.VISIBLE
+                binding.groupAddImg.visibility = View.VISIBLE
                 binding.tilUrlInput.visibility = View.GONE
                 binding.tilContentInput.visibility = View.GONE
             }
+
             getString(R.string.type_url) -> {
-                binding.clImgInput.visibility = View.GONE
+                binding.groupAddImg.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.VISIBLE
                 binding.tilContentInput.visibility = View.GONE
             }
+
             getString(R.string.type_content) -> {
-                binding.clImgInput.visibility = View.GONE
+                binding.groupAddImg.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.GONE
                 binding.tilContentInput.visibility = View.VISIBLE
             }

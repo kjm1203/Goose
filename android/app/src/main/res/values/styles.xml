@@ -34,8 +34,9 @@
         <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
     </style>
 
-    <style name="Widget.TextView.Header.Small">
+    <style name="Widget.TextView.Header.Secondary">
         <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">-0.025</item>
     </style>
 
     <style name="Widget.TextView.Title">

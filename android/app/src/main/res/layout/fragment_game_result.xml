@@ -16,7 +16,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/lavender"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:navigationIcon="@drawable/btn_left_arrow" />
+            app:navigationIcon="@drawable/btn_arrow_left" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -55,7 +55,7 @@
 
             <TextView
                 android:id="@+id/tv_answer_tag"
-                style="@style/Widget.TextView.Header.Small"
+                style="@style/Widget.TextView.Header.Secondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_24dp"
@@ -81,7 +81,7 @@
 
             <TextView
                 android:id="@+id/tv_time_tag"
-                style="@style/Widget.TextView.Header.Small"
+                style="@style/Widget.TextView.Header.Secondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_24dp"
@@ -107,7 +107,7 @@
 
             <TextView
                 android:id="@+id/tv_reason_tag"
-                style="@style/Widget.TextView.Header.Small"
+                style="@style/Widget.TextView.Header.Secondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_24dp"
@@ -132,7 +132,7 @@
 
             <TextView
                 android:id="@+id/tv_chart_tag"
-                style="@style/Widget.TextView.Header.Small"
+                style="@style/Widget.TextView.Header.Secondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_24dp"
