@@ -1,15 +1,20 @@
-package com.ssafy.goose.domain.news.crawling.service;
+package com.ssafy.goose.domain.news.crawling;
 
-import com.ssafy.goose.domain.news.crawling.model.NewsArticle;
-import com.ssafy.goose.domain.news.crawling.repository.NewsArticleRepository;
+import com.ssafy.goose.domain.news.entity.NewsArticle;
+import com.ssafy.goose.domain.news.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,10 +27,12 @@ public class AutoCrawlingService {
     private String clientSecret;
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final NewsArticleRepository newsRepository;
+
+    private final NewsRepository newsRepository;
+
     private final NewsContentScraping newsContentScraping;
 
-    public AutoCrawlingService(NewsArticleRepository newsRepository, NewsContentScraping newsContentScraping) {
+    public AutoCrawlingService(NewsRepository newsRepository, NewsContentScraping newsContentScraping) {
         this.newsRepository = newsRepository;
         this.newsContentScraping = newsContentScraping;
     }
@@ -94,7 +101,7 @@ public class AutoCrawlingService {
     /**
      * 🔹 4. 6시간마다 자동 실행하여 MongoDB에 뉴스 저장
      */
-    @Scheduled(cron = "0 40 18 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 0,6,12,18 * * *", zone = "Asia/Seoul")
     public void fetchAndSaveTrendingNews() {
         System.out.println("🕒 뉴스 크롤링 실행: " + LocalDateTime.now());
 
@@ -130,16 +137,17 @@ public class AutoCrawlingService {
                 continue;
             }
 
-            NewsArticle article = new NewsArticle(
-                    (String) item.get("title"),
-                    (String) item.get("originallink"),
-                    url,
-                    (String) item.get("description"),
-                    (String) item.get("pubDate"),
-                    content,  // 본문 크롤링 (100자 이상)
-                    (String) scrapingResult.get("image"), // 대표 이미지
-                    LocalDateTime.now()
-            );
+            NewsArticle article = NewsArticle.builder()
+                    .title((String) item.get("title"))
+                    .originalLink((String) item.get("originallink"))
+                    .naverLink(url)
+                    .description((String) item.get("description"))
+                    .pubDate((String) item.get("pubDate"))
+                    .content(content)  // 본문 크롤링 (100자 이상)
+                    .topImage((String) scrapingResult.get("image")) // 대표 이미지
+                    .extractedAt(LocalDateTime.now())
+                    .build();
+
 
             newsRepository.save(article);
         }

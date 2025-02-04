@@ -1,4 +1,4 @@
-package com.ssafy.goose.domain.news.crawling.service;
+package com.ssafy.goose.domain.news.crawling;
 
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
