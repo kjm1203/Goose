@@ -1,7 +1,7 @@
-package com.ssafy.goose.domain.news.crawling.service;
+package com.ssafy.goose.domain.news.crawling;
 
-import com.ssafy.goose.domain.news.crawling.model.NewsArticle;
-import com.ssafy.goose.domain.news.crawling.repository.NewsArticleRepository;
+import com.ssafy.goose.domain.news.model.NewsArticleDto;
+import com.ssafy.goose.domain.news.repository.NewsArticleRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -130,7 +130,7 @@ public class AutoCrawlingService {
                 continue;
             }
 
-            NewsArticle article = new NewsArticle(
+            NewsArticleDto article = new NewsArticleDto(
                     (String) item.get("title"),
                     (String) item.get("originallink"),
                     url,

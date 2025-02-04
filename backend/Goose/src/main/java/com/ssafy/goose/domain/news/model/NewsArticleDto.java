@@ -1,4 +1,4 @@
-package com.ssafy.goose.domain.news.crawling.model;
+package com.ssafy.goose.domain.news.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "news_articles") // MongoDB 컬렉션 이름 지정
-public class NewsArticle {
+public class NewsArticleDto {
 
     // Getters and Setters
     @Id
@@ -28,8 +28,8 @@ public class NewsArticle {
     private String topImage;      // 대표 이미지 URL
     private LocalDateTime extractedAt; // 데이터 크롤링 시간
 
-    public NewsArticle(String title, String originalLink, String naverLink, String description, String pubDate,
-                       String content, String topImage, LocalDateTime extractedAt) {
+    public NewsArticleDto(String title, String originalLink, String naverLink, String description, String pubDate,
+                          String content, String topImage, LocalDateTime extractedAt) {
         this.title = title;
         this.originalLink = originalLink;
         this.naverLink = naverLink;
