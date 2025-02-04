@@ -1,16 +1,20 @@
 package com.ssafy.goose.domain.news.crawling;
 
-import com.ssafy.goose.domain.news.dto.NewsArticleDto;
 import com.ssafy.goose.domain.news.entity.NewsArticle;
 import com.ssafy.goose.domain.news.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -97,7 +101,7 @@ public class AutoCrawlingService {
     /**
      * 🔹 4. 6시간마다 자동 실행하여 MongoDB에 뉴스 저장
      */
-    @Scheduled(cron = "0 40 18 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 0,6,12,18 * * *", zone = "Asia/Seoul")
     public void fetchAndSaveTrendingNews() {
         System.out.println("🕒 뉴스 크롤링 실행: " + LocalDateTime.now());
 

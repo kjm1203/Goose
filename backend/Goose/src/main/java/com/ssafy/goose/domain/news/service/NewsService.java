@@ -39,7 +39,11 @@ public class NewsService {
     public List<NewsArticleDto> getNewsList() {
         return newsRepository.findAll()
                 .stream()
-                .map(NewsArticleDto::fromEntity)
+                .map(article -> {
+                    NewsArticleDto dto = NewsArticleDto.fromEntity(article);
+                    dto.getPubDateTimestamp();
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -48,13 +52,21 @@ public class NewsService {
         String regexPattern = ".*" + keyword + ".*";  // MongoDB 정규식 패턴 적용
         return newsRepository.findByTitleRegex(regexPattern)
                 .stream()
-                .map(NewsArticleDto::fromEntity)
+                .map(article -> {
+                    NewsArticleDto dto = NewsArticleDto.fromEntity(article);
+                    dto.getPubDateTimestamp();
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 
-
     // 뉴스 상세 조회
     public Optional<NewsArticleDto> getNewsById(String newsId) {
-        return newsRepository.findById(newsId).map(NewsArticleDto::fromEntity);
+        return newsRepository.findById(newsId)
+                .map(article -> {
+                    NewsArticleDto dto = NewsArticleDto.fromEntity(article);
+                    dto.getPubDateTimestamp();
+                    return dto;
+                });
     }
 }
