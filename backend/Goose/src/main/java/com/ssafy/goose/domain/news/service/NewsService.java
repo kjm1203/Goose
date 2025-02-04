@@ -45,11 +45,13 @@ public class NewsService {
 
     // 뉴스 검색 (제목 기반)
     public List<NewsArticleDto> searchNews(String keyword) {
-        return newsRepository.findByTitleRegex(keyword)
+        String regexPattern = ".*" + keyword + ".*";  // MongoDB 정규식 패턴 적용
+        return newsRepository.findByTitleRegex(regexPattern)
                 .stream()
                 .map(NewsArticleDto::fromEntity)
                 .collect(Collectors.toList());
     }
+
 
     // 뉴스 상세 조회
     public Optional<NewsArticleDto> getNewsById(String newsId) {

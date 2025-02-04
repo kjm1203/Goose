@@ -35,4 +35,19 @@ public class NewsArticleDto {
                 .extractedAt(article.getExtractedAt())
                 .build();
     }
+
+    public NewsArticle toEntity() {
+        return NewsArticle.builder()
+                .id(this.id)
+                .title(this.title)
+                .originalLink(this.originalLink)
+                .naverLink(this.naverLink)
+                .description(this.description)
+                .pubDate(this.pubDate)
+                .content(this.content)
+                .topImage(this.topImage)
+                .extractedAt(this.extractedAt)
+                .build();
+    }
+
 }
