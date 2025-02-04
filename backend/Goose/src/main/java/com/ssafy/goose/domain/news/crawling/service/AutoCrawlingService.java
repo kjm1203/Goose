@@ -23,9 +23,11 @@ public class AutoCrawlingService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final NewsArticleRepository newsRepository;
+    private final NewsContentScraping newsContentScraping;
 
-    public AutoCrawlingService(NewsArticleRepository newsRepository) {
+    public AutoCrawlingService(NewsArticleRepository newsRepository, NewsContentScraping newsContentScraping) {
         this.newsRepository = newsRepository;
+        this.newsContentScraping = newsContentScraping;
     }
 
     /**
@@ -108,20 +110,34 @@ public class AutoCrawlingService {
     }
 
     /**
-     * 🔹 5. MongoDB에 뉴스 저장
+     * 🔹 5. MongoDB에 뉴스 저장 (본문 길이 100 이상 필터링 추가)
      */
     public void saveNewsToMongoDB(Map<String, Object> newsData) {
         List<Map<String, Object>> newsItems = (List<Map<String, Object>>) newsData.get("items");
 
         for (Map<String, Object> item : newsItems) {
+            String url = (String) item.get("link");
+            Map<String, Object> scrapingResult = newsContentScraping.extractArticle(url);
+
+            if (scrapingResult == null) {
+                System.out.println("❌ 크롤링 실패: " + url);
+                continue;
+            }
+
+            String content = (String) scrapingResult.get("text");
+            if (content == null || content.length() < 100) {
+                System.out.println("⚠️ 본문이 너무 짧아 저장하지 않음 (길이: " + (content != null ? content.length() : 0) + ")");
+                continue;
+            }
+
             NewsArticle article = new NewsArticle(
                     (String) item.get("title"),
                     (String) item.get("originallink"),
-                    (String) item.get("link"),
+                    url,
                     (String) item.get("description"),
                     (String) item.get("pubDate"),
-                    null, // goose3로 본문 가져오기
-                    null, // goose3로 이미지 가져오기
+                    content,  // 본문 크롤링 (100자 이상)
+                    (String) scrapingResult.get("image"), // 대표 이미지
                     LocalDateTime.now()
             );
 
