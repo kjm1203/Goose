@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class NewsService {
+public class NewsCrawlingService {
 
     private final NewsRepository newsRepository;
 
