@@ -1,6 +1,6 @@
 package com.ssafy.goose.domain.news.crawling;
 
-import com.ssafy.goose.domain.news.model.NewsArticleDto;
+import com.ssafy.goose.domain.news.dto.NewsArticleDto;
 import com.ssafy.goose.domain.news.repository.NewsArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,8 @@
 package com.ssafy.goose.domain.news.crawling;
 
-import com.ssafy.goose.domain.news.model.NewsArticleDto;
-import com.ssafy.goose.domain.news.repository.NewsArticleRepository;
+import com.ssafy.goose.domain.news.dto.NewsArticleDto;
+import com.ssafy.goose.domain.news.entity.NewsArticle;
+import com.ssafy.goose.domain.news.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,10 +23,12 @@ public class AutoCrawlingService {
     private String clientSecret;
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final NewsArticleRepository newsRepository;
+
+    private final NewsRepository newsRepository;
+
     private final NewsContentScraping newsContentScraping;
 
-    public AutoCrawlingService(NewsArticleRepository newsRepository, NewsContentScraping newsContentScraping) {
+    public AutoCrawlingService(NewsRepository newsRepository, NewsContentScraping newsContentScraping) {
         this.newsRepository = newsRepository;
         this.newsContentScraping = newsContentScraping;
     }
@@ -130,16 +133,17 @@ public class AutoCrawlingService {
                 continue;
             }
 
-            NewsArticleDto article = new NewsArticleDto(
-                    (String) item.get("title"),
-                    (String) item.get("originallink"),
-                    url,
-                    (String) item.get("description"),
-                    (String) item.get("pubDate"),
-                    content,  // 본문 크롤링 (100자 이상)
-                    (String) scrapingResult.get("image"), // 대표 이미지
-                    LocalDateTime.now()
-            );
+            NewsArticle article = NewsArticle.builder()
+                    .title((String) item.get("title"))
+                    .originalLink((String) item.get("originallink"))
+                    .naverLink(url)
+                    .description((String) item.get("description"))
+                    .pubDate((String) item.get("pubDate"))
+                    .content(content)  // 본문 크롤링 (100자 이상)
+                    .topImage((String) scrapingResult.get("image")) // 대표 이미지
+                    .extractedAt(LocalDateTime.now())
+                    .build();
+
 
             newsRepository.save(article);
         }

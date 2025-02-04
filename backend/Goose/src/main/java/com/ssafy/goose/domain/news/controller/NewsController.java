@@ -1,41 +1,44 @@
 package com.ssafy.goose.domain.news.controller;
 
-import com.ssafy.goose.domain.news.model.NewsArticleDto;
-import com.ssafy.goose.domain.news.crawling.NewsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ssafy.goose.domain.news.dto.NewsArticleDto;
+import com.ssafy.goose.domain.news.service.NewsService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/news")
+@RequestMapping("/api/news")
+@RequiredArgsConstructor
 public class NewsController {
 
-    @Autowired
-    private NewsService newsService;
+    private final NewsService newsService;
 
-    // 특정 날짜의 기사 조회 API
-    @GetMapping("/date")
-    public List<NewsArticleDto> getArticlesByDate(@RequestParam String date) {
-        return newsService.getArticlesByDate(date);
+    // 뉴스 업로드
+    @PostMapping("/upload")
+    public ResponseEntity<NewsArticleDto> uploadNews(@RequestBody NewsArticleDto newsDto) {
+        return ResponseEntity.ok(newsService.uploadNews(newsDto));
     }
 
-    // 특정 날짜 범위 기사 조회 API
-    @GetMapping("/date-range")
-    public List<NewsArticleDto> getArticlesBetweenDates(@RequestParam String start, @RequestParam String end) {
-        return newsService.getArticlesBetweenDates(start, end);
+    // 뉴스 리스트 조회
+    @GetMapping("/list")
+    public ResponseEntity<List<NewsArticleDto>> getNewsList() {
+        return ResponseEntity.ok(newsService.getNewsList());
     }
 
-    // 특정 키워드를 포함하는 기사 조회 API
+    // 뉴스 검색 (제목 기반)
     @GetMapping("/search")
-    public List<NewsArticleDto> getArticlesByKeyword(@RequestParam String keyword) {
-        return newsService.getArticlesByKeyword(keyword);
+    public ResponseEntity<List<NewsArticleDto>> searchNews(@RequestParam String keyword) {
+        return ResponseEntity.ok(newsService.searchNews(keyword));
     }
 
-    // 새로운 기사 저장 API
-    @PostMapping("/save")
-    public String saveArticle(@RequestBody NewsArticleDto article) {
-        newsService.saveNewsArticle(article);
-        return "News article saved successfully!";
+    // 뉴스 상세 조회
+    @GetMapping("/{newsId}")
+    public ResponseEntity<NewsArticleDto> getNewsById(@PathVariable String newsId) {
+        Optional<NewsArticleDto> news = newsService.getNewsById(newsId);
+        return news.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
