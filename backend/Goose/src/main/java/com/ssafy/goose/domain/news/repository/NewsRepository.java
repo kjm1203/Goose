@@ -8,5 +8,16 @@ import java.util.List;
 
 @Repository
 public interface NewsRepository extends MongoRepository<NewsArticle, String> {
-    List<NewsArticle> findByTitleContaining(String keyword);  // 제목 검색 기능
+
+    // 제목에 특정 키워드가 포함된 뉴스 조회 (대소문자 구분 없음)
+    List<NewsArticle> findByTitleContainingIgnoreCase(String keyword);
+
+    // 특정 날짜의 뉴스 조회
+    List<NewsArticle> findByPubDate(String pubDate);
+
+    // 날짜 범위로 뉴스 조회
+    List<NewsArticle> findByPubDateBetween(String startDate, String endDate);
+
+    // 제목에서 정규식을 사용하여 특정 단어 포함된 뉴스 조회
+    List<NewsArticle> findByTitleRegex(String regex);
 }

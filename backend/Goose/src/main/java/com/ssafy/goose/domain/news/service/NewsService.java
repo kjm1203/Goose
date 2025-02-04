@@ -45,7 +45,7 @@ public class NewsService {
 
     // 뉴스 검색 (제목 기반)
     public List<NewsArticleDto> searchNews(String keyword) {
-        return newsRepository.findByTitleContaining(keyword)
+        return newsRepository.findByTitleRegex(keyword)
                 .stream()
                 .map(NewsArticleDto::fromEntity)
                 .collect(Collectors.toList());
