@@ -8,11 +8,12 @@
 
     <ImageView
         android:id="@+id/iv_news_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/bg_radius_20dp"
         android:clipToOutline="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars"
@@ -25,8 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_16dp"
         android:layout_marginTop="@dimen/spacing_12dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_title"
         app:layout_constraintStart_toEndOf="@id/iv_news_img"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginTop="@dimen/spacing_12dp"
         tools:text="25-01-28" />
 
     <TextView
@@ -38,6 +41,7 @@
         android:layout_marginEnd="@dimen/spacing_16dp"
         android:ellipsize="end"
         android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@id/tv_summary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_date"
         app:layout_constraintTop_toBottomOf="@id/tv_date"
@@ -52,6 +56,7 @@
         android:layout_marginEnd="@dimen/spacing_16dp"
         android:ellipsize="end"
         android:maxLines="2"
+        app:layout_constraintBottom_toTopOf="@id/tv_truth_percent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_date"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
@@ -62,12 +67,15 @@
         style="@style/Widget.TextView.Body.small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/spacing_8dp"
+        android:layout_marginBottom="@dimen/spacing_12dp"
         android:background="@drawable/bg_lavender_blue_8dp"
         android:padding="@dimen/spacing_8dp"
         android:textColor="@color/plumpPurple"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_date"
         app:layout_constraintTop_toBottomOf="@id/tv_summary"
+        app:layout_goneMarginBottom="@dimen/spacing_12dp"
         tools:text="진실 80%" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
