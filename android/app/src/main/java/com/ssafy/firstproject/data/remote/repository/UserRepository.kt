@@ -1,4 +1,4 @@
-package com.ssafy.firstproject.data.remote
+package com.ssafy.firstproject.data.remote.repository
 
 class UserRepository {
 }
