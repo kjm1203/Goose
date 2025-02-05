@@ -65,6 +65,10 @@
         <item name="android:fontFamily">@font/spoqahansansneo_light</item>
     </style>
 
+    <style name="Widget.TextView.Body.small">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="Widget.TextView.Body.Medium">
         <item name="android:fontFamily">@font/spoqahansansneo_medium</item>
     </style>
