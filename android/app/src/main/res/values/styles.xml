@@ -69,6 +69,9 @@
         <item name="android:fontFamily">@font/spoqahansansneo_medium</item>
     </style>
 
+    <style name="Widget.TextView.Profile">
+        <item name="android:textSize">20sp</item>
+    </style>
     <!-- Button Style -->
     <style name="Widget.Button.Primary">
         <item name="android:textSize">18sp</item>
