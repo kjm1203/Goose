@@ -11,3 +11,6 @@ kss
 scikit-learn
 sentencepiece
 huggingface-hub
+sentence-transformers
+uvicorn
+soynlp
