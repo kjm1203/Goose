@@ -3,8 +3,8 @@ package com.ssafy.firstproject.base
 import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.ssafy.firstproject.data.local.SharedPreferencesUtil
-import com.ssafy.firstproject.data.remote.repository.NewsRepository
+import com.ssafy.firstproject.data.source.local.SharedPreferencesUtil
+import com.ssafy.firstproject.data.repository.NewsRepository
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Converter

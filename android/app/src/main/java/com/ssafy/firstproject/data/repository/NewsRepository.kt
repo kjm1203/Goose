@@ -1,7 +1,7 @@
-package com.ssafy.firstproject.data.remote.repository
+package com.ssafy.firstproject.data.repository
 
 import com.ssafy.firstproject.data.model.News
-import com.ssafy.firstproject.data.remote.RetrofitUtil
+import com.ssafy.firstproject.data.source.remote.RetrofitUtil
 
 class NewsRepository {
 
