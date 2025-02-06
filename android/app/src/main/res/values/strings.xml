@@ -92,4 +92,9 @@
     <string name="top_10_news_list">TOP 10 뉴스 보기</string>
     <string name="top_10_news_list_sub_title">오늘 인기있는 뉴스 10개를 소개합니다.</string>
 
+    <!-- 검색 -->
+    <string name="news_search">뉴스 검색</string>
+    <string name="news_search_caption">궁금한 뉴스를 검색해보세요.</string>
+    <string name="news_search_hint">검색어 입력</string>
+
 </resources>
