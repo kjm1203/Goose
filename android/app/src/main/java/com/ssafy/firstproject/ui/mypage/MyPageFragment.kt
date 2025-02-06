@@ -33,6 +33,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
 
         setBarChart()
     }
+
     private fun setBarChart() {
         val barChart = binding.barChart
 
@@ -48,8 +49,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
 
         // 2️⃣ 데이터셋 생성 및 스타일 지정
         val dataSet = BarDataSet(entries, "월 별").apply {
-            color = Color.parseColor("#7189FF") // 주황색 막대 색상
-            valueTextSize = 12f                // 값 텍스트 크기
+            color = Color.parseColor("#7189FF")
+            valueTextSize = 12f
         }
 
         // 3️⃣ BarData 객체 생성 및 차트에 설정
@@ -58,16 +59,16 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
 
         // 4️⃣ X축 설정 (하단 표시)
         barChart.xAxis.apply {
-            position = XAxis.XAxisPosition.BOTTOM   // X축 위치 하단으로 설정
-            setDrawGridLines(false)                // 격자선 제거
-            granularity = 1f                       // 간격 고정 (1 단위)
+            position = XAxis.XAxisPosition.BOTTOM
+            setDrawGridLines(false)
+            granularity = 1f
         }
 
         // 5️⃣ 기타 차트 속성 설정
         barChart.apply {
-            description.isEnabled = false          // 설명 텍스트 제거
-            animateY(1000)                         // Y축 애니메이션 적용 (1초)
-            invalidate()                           // 차트 새로고침
+            description.isEnabled = false
+            animateY(1000)
+            invalidate()
         }
     }
 }

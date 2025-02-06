@@ -66,9 +66,9 @@
                     style="@style/Widget.TextView.Profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/spoqahansansneo_bold"
                     android:text="@string/user_name"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/spoqahansansneo_bold"
                     app:layout_constraintBottom_toBottomOf="@id/iv_user_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_user_icon"
@@ -144,7 +144,6 @@
                     <ProgressBar
                         android:id="@+id/pb_progress_bar"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:progressDrawable="@drawable/pb_progress_bar"
                         android:layout_width="0dp"
                         android:layout_height="10dp"
                         android:layout_marginStart="20dp"
@@ -152,11 +151,12 @@
                         android:layout_marginEnd="20dp"
                         android:max="100"
                         android:progress="1"
+                        android:progressDrawable="@drawable/pb_progress_bar"
                         android:progressTint="@color/primary"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/tv_progress_percentage"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_progress_percentage"
@@ -166,43 +166,44 @@
                         android:text="1%"
                         android:textColor="@color/black"
                         android:textSize="14sp"
-                        app:layout_constraintStart_toEndOf="@id/pb_progress_bar"
+                        app:layout_constraintBottom_toBottomOf="@id/pb_progress_bar"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/pb_progress_bar"
-                        app:layout_constraintBottom_toBottomOf="@id/pb_progress_bar" />
+                        app:layout_constraintStart_toEndOf="@id/pb_progress_bar"
+                        app:layout_constraintTop_toTopOf="@id/pb_progress_bar" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_bar_chart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/spacing_24dp"
-            android:layout_marginTop="@dimen/spacing_12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/growth_progress_box">
 
-            <View
-                android:id="@+id/view_bar_chart"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_bar_chart"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/bg_white_15dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_24dp"
+                android:layout_marginTop="@dimen/spacing_12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/growth_progress_box">
 
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/bar_chart"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="@dimen/spacing_12dp"
-                app:layout_constraintBottom_toBottomOf="@id/view_bar_chart"
-                app:layout_constraintEnd_toEndOf="@id/view_bar_chart"
-                app:layout_constraintStart_toStartOf="@id/view_bar_chart"
-                app:layout_constraintTop_toTopOf="@id/view_bar_chart" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    android:id="@+id/view_bar_chart"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_white_15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/bar_chart"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/spacing_12dp"
+                    app:layout_constraintBottom_toBottomOf="@id/view_bar_chart"
+                    app:layout_constraintEnd_toEndOf="@id/view_bar_chart"
+                    app:layout_constraintStart_toStartOf="@id/view_bar_chart"
+                    app:layout_constraintTop_toTopOf="@id/view_bar_chart" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_profile_edit"
