@@ -1,6 +1,5 @@
 package com.ssafy.firstproject.ui.home
 
-import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
