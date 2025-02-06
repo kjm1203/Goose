@@ -2,6 +2,15 @@
 <resources>
 
     <!-- Base Style -->
+
+    <style name="Widget.TextView.Mypage" parent="@android:style/Widget.TextView">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/bg_white_15dp</item>
+        <item name="android:padding">@dimen/spacing_16dp</item>
+        <item name="android:textSize">20sp</item>
+
+
+    </style>
     <style name="Widget.TextView" parent="@android:style/Widget.DeviceDefault.TextView">
         <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
         <item name="android:textColor">@color/black</item>

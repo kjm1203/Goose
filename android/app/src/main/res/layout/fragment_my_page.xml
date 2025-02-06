@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- AppBar 및 툴바 -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -17,6 +18,7 @@
             app:navigationIcon="@drawable/btn_arrow_left" />
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- 스크롤 가능한 콘텐츠 -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +27,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tv_my_page_title"
@@ -38,84 +40,206 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_user"
-                style="@style/Widget.TextView.Body.Medium"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/user_card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
                 android:layout_marginTop="48dp"
                 android:background="@drawable/bg_white_15dp"
-                android:padding="@dimen/spacing_16dp"
-                android:textAlignment="center"
+                android:padding="@dimen/spacing_24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_my_page_title"
-                android:text="강인혁천재님" />
+                app:layout_constraintTop_toBottomOf="@id/tv_my_page_title">
+
+                <ImageView
+                    android:id="@+id/iv_user_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_my_page"
+                    android:layout_marginStart="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- 사용자 이름 -->
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    style="@style/Widget.TextView.Profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="강인혁천재님"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_user_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_user_icon"
+                    app:layout_constraintTop_toTopOf="@id/iv_user_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
                 android:id="@+id/tv_mygrowth"
+                style="@style/Widget.TextView.Body.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="24dp"
                 android:text="@string/my_growth_title"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_user" />
+                app:layout_constraintTop_toBottomOf="@id/user_card" />
 
-
-            <TextView
-                android:id="@+id/tv_mylevel"
-                style="@style/Widget.TextView.Body.Medium"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/growth_progress_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_16dp"
+                android:layout_marginTop="@dimen/spacing_8dp"
                 android:background="@drawable/bg_white_15dp"
-                android:padding="@dimen/spacing_16dp"
-                android:textAlignment="center"
+                android:padding="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_mygrowth"
-                android:text="@string/my_growth_text" />
+                app:layout_constraintTop_toBottomOf="@id/tv_mygrowth">
 
+                <!-- 원숭이 이미지와 설명 텍스트 그룹 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/growth_box"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:src="@drawable/img_test"
-                android:id="@+id/growth_graph"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_24dp"
+                    <ImageView
+                        android:id="@+id/iv_growth_img"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/img_growth"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_growth_description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="총 500문제를 풀어서 \n 5문제를 맞혔어요!"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_growth_img"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_growth_img"
+                        app:layout_constraintTop_toTopOf="@id/iv_growth_img" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/progress_group"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/growth_box">
+
+                    <!-- ProgressBar -->
+                    <ProgressBar
+                        android:id="@+id/pb_progress_bar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:progressDrawable="@drawable/pb_progress_bar"
+                        android:layout_width="0dp"
+                        android:layout_height="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="20dp"
+                        android:max="100"
+                        android:progress="1"
+                        android:progressTint="@color/primary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_progress_percentage"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <!-- Progress Percentage Text -->
+                    <TextView
+                        android:id="@+id/tv_progress_percentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_24dp"
+                        android:text="1%"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toEndOf="@id/pb_progress_bar"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/pb_progress_bar"
+                        app:layout_constraintBottom_toBottomOf="@id/pb_progress_bar" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bar_chart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_24dp"
+            android:layout_marginTop="@dimen/spacing_12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/growth_progress_layout">
+
+            <View
+                android:id="@+id/view_bar_chart"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_white_15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_mylevel" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-
-
-            <Button
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/bar_chart"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/spacing_12dp"
+                app:layout_constraintBottom_toBottomOf="@id/view_bar_chart"
+                app:layout_constraintEnd_toEndOf="@id/view_bar_chart"
+                app:layout_constraintStart_toStartOf="@id/view_bar_chart"
+                app:layout_constraintTop_toTopOf="@id/view_bar_chart" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- 하단 버튼들: 화면 하단에 고정 -->
+            <TextView
                 android:id="@+id/profile_edit"
-                style="@style/Widget.Button.Primary"
+                style="@style/Widget.TextView.Mypage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
                 android:layout_marginBottom="@dimen/spacing_16dp"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:gravity="left"
+                android:paddingStart="@dimen/spacing_24dp"
                 android:text="@string/profile_edit"
                 app:layout_constraintBottom_toTopOf="@id/my_news_list"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
+            <TextView
                 android:id="@+id/my_news_list"
-                style="@style/Widget.Button.Primary"
+                style="@style/Widget.TextView.Mypage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
                 android:layout_marginBottom="@dimen/spacing_24dp"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:gravity="left"
+                android:paddingStart="@dimen/spacing_24dp"
                 android:text="@string/my_news_list"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView> <!-- 닫는 태그 추가 -->
+    </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
