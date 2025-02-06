@@ -67,4 +67,11 @@
     <string name="img_check_result_caption">사진 판별 결과를 알려드릴게요.</string>
 
     <string name="other_img_check">다른 사진 판별하기</string>
+
+    <!-- 홈 화면 -->
+    <string name="logo">앱 로고</string>
+    <string name="go_news_search">뉴스 검색하러 가기</string>
+    <string name="top_10_news_list">TOP 10 뉴스 보기</string>
+    <string name="top_10_news_list_sub_title">오늘 인기있는 뉴스 10개를 소개합니다.</string>
+
 </resources>

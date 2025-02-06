@@ -1,4 +1,4 @@
-package com.ssafy.firstproject.data.local
+package com.ssafy.firstproject.data.source.local
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -3,7 +3,8 @@ package com.ssafy.firstproject.base
 import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.ssafy.firstproject.data.local.SharedPreferencesUtil
+import com.ssafy.firstproject.data.source.local.SharedPreferencesUtil
+import com.ssafy.firstproject.data.repository.NewsRepository
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Converter
@@ -17,7 +18,7 @@ private const val TAG = "ApplicationClass"
 class ApplicationClass : Application() {
     companion object {
         // 핸드폰으로 접속은 같은 인터넷으로 연결 되어있어야함 (유,무선)
-        const val SERVER_URL = "http://192.168.100.69:9987/"
+        const val SERVER_URL = "http://i12d208.p.ssafy.io:8090/api/"
         lateinit var sharedPreferencesUtil: SharedPreferencesUtil
         lateinit var retrofit: Retrofit
 
@@ -44,6 +45,9 @@ class ApplicationClass : Application() {
                 }
             }
         }
+
+        // repository 객체
+        lateinit var newsRepository: NewsRepository
     }
 
 
@@ -70,6 +74,9 @@ class ApplicationClass : Application() {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
+
+        // repository 초기화
+        newsRepository = NewsRepository()
     }
 
     //GSon은 엄격한 json type을 요구하는데, 느슨하게 하기 위한 설정. success, fail이 json이 아니라 단순 문자열로 리턴될 경우 처리..
