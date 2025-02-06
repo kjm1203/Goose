@@ -32,7 +32,7 @@
                 style="@style/Widget.TextView.Header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_32dp"
+                android:layout_marginTop="@dimen/spacing_36dp"
                 android:text="@string/my_page_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
