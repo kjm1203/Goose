@@ -26,7 +26,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        val exp = 90 // 예제
+        val exp = 90 // 예제 90까지 슬라이딩
         ObjectAnimator.ofInt(binding.pbProgressBar, "progress", exp)
             .setDuration(300)
             .start()

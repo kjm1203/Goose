@@ -6,7 +6,6 @@
     android:layout_height="match_parent">
 
 
-
     <!-- 스크롤 가능한 콘텐츠 -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -116,7 +115,7 @@
                         android:id="@+id/tv_growth_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="총 500문제를 풀어서 \n 5문제를 맞혔어요!"
+                        android:text="@string/my_growth_text"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -205,16 +204,16 @@
                 style="@style/Widget.TextView.Mypage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12dp"
                 android:layout_marginBottom="@dimen/spacing_12dp"
                 android:drawableRight="@drawable/ic_chevron_right"
                 android:gravity="left"
-                android:layout_marginTop="@dimen/spacing_12dp"
                 android:paddingStart="@dimen/spacing_24dp"
                 android:text="@string/profile_edit"
-                app:layout_constraintTop_toBottomOf="@id/cl_bar_chart"
                 app:layout_constraintBottom_toTopOf="@id/tv_my_news_list"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_bar_chart" />
 
             <TextView
                 android:id="@+id/tv_my_news_list"
