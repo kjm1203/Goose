@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/user_card"
+                android:id="@+id/cl_user_card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
@@ -54,23 +54,21 @@
 
                 <ImageView
                     android:id="@+id/iv_user_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:src="@drawable/ic_my_page"
-                    android:layout_marginStart="50dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!-- 사용자 이름 -->
                 <TextView
                     android:id="@+id/tv_user_name"
                     style="@style/Widget.TextView.Profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="강인혁천재님"
+                    android:text="@string/user_name"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:fontFamily="@font/spoqahansansneo_bold"
                     app:layout_constraintBottom_toBottomOf="@id/iv_user_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_user_icon"
@@ -87,10 +85,10 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/my_growth_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/user_card" />
+                app:layout_constraintTop_toBottomOf="@id/cl_user_card" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/growth_progress_layout"
+                android:id="@+id/growth_progress_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
@@ -101,7 +99,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_mygrowth">
 
-                <!-- 원숭이 이미지와 설명 텍스트 그룹 -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/growth_box"
                     android:layout_width="0dp"
@@ -120,7 +117,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_growth_description"
+                        android:id="@+id/tv_growth_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="총 500문제를 풀어서 \n 5문제를 맞혔어요!"
@@ -135,7 +132,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/progress_group"
+                    android:id="@+id/cl_progress_group"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -144,7 +141,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/growth_box">
 
-                    <!-- ProgressBar -->
                     <ProgressBar
                         android:id="@+id/pb_progress_bar"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -162,7 +158,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
-                    <!-- Progress Percentage Text -->
                     <TextView
                         android:id="@+id/tv_progress_percentage"
                         android:layout_width="wrap_content"
@@ -176,7 +171,6 @@
                         app:layout_constraintTop_toTopOf="@id/pb_progress_bar"
                         app:layout_constraintBottom_toBottomOf="@id/pb_progress_bar" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_bar_chart"
@@ -186,7 +180,7 @@
             android:layout_marginTop="@dimen/spacing_12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/growth_progress_layout">
+            app:layout_constraintTop_toBottomOf="@id/growth_progress_box">
 
             <View
                 android:id="@+id/view_bar_chart"
@@ -209,9 +203,9 @@
                 app:layout_constraintStart_toStartOf="@id/view_bar_chart"
                 app:layout_constraintTop_toTopOf="@id/view_bar_chart" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-            <!-- 하단 버튼들: 화면 하단에 고정 -->
+
             <TextView
-                android:id="@+id/profile_edit"
+                android:id="@+id/tv_profile_edit"
                 style="@style/Widget.TextView.Mypage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -221,12 +215,12 @@
                 android:gravity="left"
                 android:paddingStart="@dimen/spacing_24dp"
                 android:text="@string/profile_edit"
-                app:layout_constraintBottom_toTopOf="@id/my_news_list"
+                app:layout_constraintBottom_toTopOf="@id/tv_my_news_list"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/my_news_list"
+                android:id="@+id/tv_my_news_list"
                 style="@style/Widget.TextView.Mypage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
