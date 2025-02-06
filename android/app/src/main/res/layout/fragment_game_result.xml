@@ -201,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_24dp"
-                android:text="@string/login"
+                android:text="@string/go_login"
                 app:layout_constraintBottom_toBottomOf="@id/cl_chart"
                 app:layout_constraintEnd_toEndOf="@id/cl_chart"
                 app:layout_constraintStart_toStartOf="@id/cl_chart"

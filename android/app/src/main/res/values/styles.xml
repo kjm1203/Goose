@@ -49,8 +49,20 @@
     </style>
 
     <style name="Widget.TextView.Caption.Silver">
+        <item name="android:textColor">@color/sonicSilver</item>
+    </style>
+
+    <style name="Widget.TextView.Caption.GraniteGray">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/graniteGray</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+    </style>
+
+    <style name="Widget.TextView.Meta">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/sonicSilver</item>
+        <item name="android:letterSpacing">-0.06</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
     </style>
 
     <style name="Widget.TextView.Date">
@@ -71,6 +83,12 @@
 
     <style name="Widget.TextView.Body.Medium">
         <item name="android:fontFamily">@font/spoqahansansneo_medium</item>
+    </style>
+
+    <!-- TextInputEditText -->
+    <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Primary">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
     </style>
 
     <!-- Button Style -->

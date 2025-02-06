@@ -70,4 +70,16 @@
         android:label="ImageAiResultFragment"
         tools:layout="ImageAiResultFragment" />
 
+    <fragment
+        android:id="@+id/dest_login"
+        android:name="com.ssafy.firstproject.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/dest_signup"
+        android:name="com.ssafy.firstproject.ui.signup.SignupFragment"
+        android:label="SignupFragment"
+        tools:layout="@layout/fragment_signup" />
+
 </navigation>
