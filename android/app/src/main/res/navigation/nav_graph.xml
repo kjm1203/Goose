@@ -82,4 +82,10 @@
         android:label="SignupFragment"
         tools:layout="@layout/fragment_signup" />
 
+    <fragment
+        android:id="@+id/dest_search"
+        android:name="com.ssafy.firstproject.ui.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" />
+
 </navigation>
