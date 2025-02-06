@@ -67,7 +67,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         // 5️⃣ 기타 차트 속성 설정
         barChart.apply {
             description.isEnabled = false
-            animateY(1000)
+            animateY(300)
             invalidate()
         }
     }

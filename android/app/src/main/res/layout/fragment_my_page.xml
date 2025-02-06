@@ -214,8 +214,10 @@
                 android:layout_marginBottom="@dimen/spacing_16dp"
                 android:drawableRight="@drawable/ic_chevron_right"
                 android:gravity="left"
+                android:layout_marginTop="@dimen/spacing_16dp"
                 android:paddingStart="@dimen/spacing_24dp"
                 android:text="@string/profile_edit"
+                app:layout_constraintTop_toBottomOf="@id/cl_bar_chart"
                 app:layout_constraintBottom_toTopOf="@id/tv_my_news_list"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
