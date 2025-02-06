@@ -23,7 +23,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbar.setNavigationOnClickListener {
+        binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
         val exp = 90 // 예제
