@@ -2,7 +2,11 @@ from transformers import BertTokenizer, BertModel
 import torch
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
+
+# ✅ Sentence-BERT 모델 로드
+sbert_model = SentenceTransformer("sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
 
 def split_sentences_by_period(text):
     """
@@ -69,20 +73,23 @@ def merge_short_paragraphs(paragraphs, min_length=10):
 
 def merge_based_on_similarity(paragraphs, threshold):
     """
-    문맥이 유사한 문단을 하나로 합치는 함수
+    문맥이 유사한 문단을 하나로 합치는 함수 (Sentence-BERT 기반)
     """
     if len(paragraphs) < 2:
-        return paragraphs  # 문단이 하나면 병합할 필요 없음
+        return paragraphs  # 병합할 문단이 하나뿐이면 그대로 반환
 
-    vectorizer = TfidfVectorizer()
-    vectors = vectorizer.fit_transform(paragraphs).toarray()
+    vectors = sbert_model.encode(paragraphs)  # ✅ SBERT 문장 임베딩 생성
 
     merged_paragraphs = [paragraphs[0]]
+
+    # ✅ 연결어 리스트 (문단 시작 시 병합 기준)
+    connection_words = {"특히", "그러나", "게다가", "또한", "이와 함께", "한편", "더불어", "이에 따라", "결과적으로", "즉", "이는"}
 
     for i in range(1, len(paragraphs)):
         similarity = cosine_similarity([vectors[i - 1]], [vectors[i]])[0][0]
 
-        if similarity > threshold:  # 유사도가 높으면 문단 병합
+        # ✅ 유사도가 높거나, 문장이 연결어로 시작하면 병합
+        if similarity > threshold or paragraphs[i].split()[0] in connection_words:
             merged_paragraphs[-1] += " " + paragraphs[i]
         else:
             merged_paragraphs.append(paragraphs[i])
