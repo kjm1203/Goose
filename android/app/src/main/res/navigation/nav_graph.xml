@@ -88,4 +88,10 @@
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search" />
 
+    <fragment
+        android:id="@+id/dest_news_detail"
+        android:name="com.ssafy.firstproject.ui.newsdetail.NewsDetailFragment"
+        android:label="NewsDetailFragment"
+        tools:layout="@layout/fragment_news_detail" />
+
 </navigation>
