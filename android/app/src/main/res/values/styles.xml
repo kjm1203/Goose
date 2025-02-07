@@ -85,10 +85,18 @@
         <item name="android:fontFamily">@font/spoqahansansneo_medium</item>
     </style>
 
-    <!-- TextInputEditText -->
-    <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Primary">
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+    <style name="Widget.TextView.Profile">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">"@font/spoqahansansneo_bold"</item>
+    </style>
+
+    <style name="Widget.TextView.Mypage">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/bg_white_15dp</item>
+        <item name="android:padding">@dimen/spacing_16dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingStart">@dimen/spacing_24dp</item>
+        <item name="android:gravity">start</item>
     </style>
 
     <!-- Button Style -->
