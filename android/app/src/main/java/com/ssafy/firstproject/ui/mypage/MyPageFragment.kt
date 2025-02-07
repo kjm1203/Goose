@@ -22,10 +22,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ivBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
         setBarChart()
         setBarChartAnimation()
     }

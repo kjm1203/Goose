@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="scroll"
             app:navigationIcon="@drawable/btn_arrow_left" />
 
     </com.google.android.material.appbar.AppBarLayout>

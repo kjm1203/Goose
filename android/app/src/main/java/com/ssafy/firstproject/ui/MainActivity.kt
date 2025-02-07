@@ -33,7 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 R.id.dest_check -> View.VISIBLE
                 R.id.dest_image -> View.VISIBLE
                 R.id.dest_my_page -> View.VISIBLE
-                R.id.dest_image_ai_result -> View.VISIBLE
+                R.id.dest_image_result -> View.VISIBLE
                 else -> View.GONE
             }
         }

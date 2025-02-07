@@ -65,10 +65,10 @@
         tools:layout="@layout/fragment_check_result_detail" />
 
     <fragment
-        android:id="@+id/dest_image_ai_result"
+        android:id="@+id/dest_image_result"
         android:name="com.ssafy.firstproject.ui.imageresult.ImageResultFragment"
         android:label="ImageAiResultFragment"
-        tools:layout="ImageAiResultFragment" />
+        tools:layout="@layout/fragment_image_result" />
 
     <fragment
         android:id="@+id/dest_login"
