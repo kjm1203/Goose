@@ -20,9 +20,8 @@
 
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"/>
 
         <!-- 스플래시 화면으로 변경 예정-->
         <activity
