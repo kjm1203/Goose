@@ -26,7 +26,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
 
         val trustPercentage = 70f
 
-        binding.acvTrustPercent.setUsePercentValues(true)
+        binding.pcTrustPercent.setUsePercentValues(true)
 
         // 데이터 세팅
         val entries = ArrayList<PieEntry>()
@@ -46,7 +46,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
         }
 
         val pieData = PieData(pieDataSet)
-        binding.acvTrustPercent.apply {
+        binding.pcTrustPercent.apply {
             data = pieData
             legend.isEnabled = false
             description.isEnabled = false
@@ -60,40 +60,5 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
             setDrawEntryLabels(false)
         }
     }
-
-
-//    private fun setPieChart() {
-//
-//        val total = 100f
-//        val target = 70f
-//
-//        // 그래프에 나타낼 데이터
-//        val dataAnychart = mutableListOf<DataEntry>()
-//        dataAnychart.add(ValueDataEntry("신뢰도", target))
-//        dataAnychart.add(ValueDataEntry("불신도", total - target))
-//
-//        // 그래프 색상(데이터 순서)
-//        val fillColors = arrayOf<String>(
-//            "#50A56F",
-//            "#D2D1D4"
-//        )
-//
-//        // AnyChart의 Pie차트 생성
-//        val anyPieChart = AnyChart.pie()
-//        // 데이터 설정
-//        anyPieChart.data(dataAnychart)
-//        // 라벨, 범례,크레딧 텍스트 비활성화
-//        anyPieChart.labels(true)
-//        anyPieChart.legend(false)
-//        anyPieChart.credits(false)
-//        // 그래프 색상 설정
-//        anyPieChart.palette(fillColors)
-//        // 그래프 애니메이션 설정
-//        anyPieChart.animation(true, 800);
-//
-//        // 그래프를 화면에 표시
-//        binding.acvTruthPercent.setChart(anyPieChart)
-//    }
-
 
 }
