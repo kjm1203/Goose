@@ -18,15 +18,11 @@ class ImageFragment : BaseFragment<FragmentImageBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnAiCheck.setOnClickListener {
-            findNavController().navigate(R.id.dest_image_ai_result)
+            findNavController().navigate(R.id.dest_image_result)
         }
 
         binding.btnCompositeCheck.setOnClickListener {
-            findNavController().navigate(R.id.dest_image_ai_result)
-        }
-
-        binding.ivBack.setOnClickListener {
-            findNavController().popBackStack() // 이전 화면으로 이동
+            findNavController().navigate(R.id.dest_image_result)
         }
     }
 }
