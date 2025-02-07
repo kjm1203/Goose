@@ -10,7 +10,6 @@ import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentSignupBinding
 
-private const val TAG = "SignupFragment_ssafy"
 class SignupFragment : BaseFragment<FragmentSignupBinding>(
     FragmentSignupBinding::bind,
     R.layout.fragment_signup
@@ -31,6 +30,14 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
         binding.tieSignupNicknameInput.addTextChangedListener {
             validateInput(binding.tieSignupNicknameInput, binding.tvNicknameMetaInfo)
         }
+
+        binding.tieSignupPwCheckInput.addTextChangedListener {
+            validatePassword(
+                passwordEditText = binding.tieSignupPwInput,
+                confirmPasswordEditText = binding.tieSignupPwCheckInput,
+                metaTextView = binding.tvPwMetaInfo
+            )
+        }
     }
 
     private fun validateInput(editText: TextInputEditText, textView: TextView) {
@@ -39,8 +46,28 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
 
         when {
             text.isEmpty() -> { textView.visibility = View.GONE }
-            !pattern.matches(text) -> { textView.visibility = View.VISIBLE }
+            !pattern.matches(text) -> {
+                textView.visibility = View.VISIBLE
+                textView.text = getString(R.string.user_limit_message)
+            }
             else -> { textView.visibility = View.GONE }
+        }
+    }
+
+    private fun validatePassword(
+        passwordEditText: TextInputEditText,
+        confirmPasswordEditText: TextInputEditText,
+        metaTextView: TextView) {
+        val password = passwordEditText.text.toString().trim()
+        val confirmPassword = confirmPasswordEditText.text.toString().trim()
+
+        when {
+            password.isEmpty() || confirmPassword.isEmpty() -> { metaTextView.visibility = View.GONE }
+            password != confirmPassword -> {
+                metaTextView.visibility = View.VISIBLE
+                metaTextView.text = getString(R.string.user_not_correct_message)
+            }
+            else -> { metaTextView.visibility = View.GONE }
         }
     }
 }
