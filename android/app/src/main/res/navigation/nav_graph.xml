@@ -93,5 +93,11 @@
         android:name="com.ssafy.firstproject.ui.newsdetail.NewsDetailFragment"
         android:label="NewsDetailFragment"
         tools:layout="@layout/fragment_news_detail" />
+    
+    <fragment
+        android:id="@+id/dest_record"
+        android:name="com.ssafy.firstproject.ui.record.RecordFragment"
+        android:label="RecordFragment"
+        tools:layout="@layout/fragment_record" />
 
 </navigation>

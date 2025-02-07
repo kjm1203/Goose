@@ -113,4 +113,7 @@
     <string name="profile_edit">프로필 수정</string>
     <string name="my_news_list">판별한 뉴스</string>
 
+    <!-- 판별한 뉴스 보기 -->
+    <string name="record_list">판별한 뉴스 보기</string>
+
 </resources>
