@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 class NewsRequest(BaseModel):
     url: str
 
-def extract_news_content(url):
+def extract_news_content(url): 
     """ HTML을 직접 파싱하여 뉴스 본문을 추출하는 함수 """
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
