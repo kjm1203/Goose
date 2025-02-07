@@ -12,4 +12,5 @@
     <color name="graniteGray">#636363</color>
     <color name="brightGray">#EFEFEF</color>
     <color name="platinum">#E5E5E5</color>
+    <color name="shadowGray">#1F000000</color>
 </resources>
