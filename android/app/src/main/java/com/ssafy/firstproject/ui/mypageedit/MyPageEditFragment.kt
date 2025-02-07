@@ -16,4 +16,5 @@ class MyPageEditFragment : BaseFragment<FragmentProfileEditBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ivEditClose.setOnClickListener { findNavController().popBackStack() }}}
+        binding.ivEditClose.setOnClickListener { findNavController().popBackStack() }
+    }}
