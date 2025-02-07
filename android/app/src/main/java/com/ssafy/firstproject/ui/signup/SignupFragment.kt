@@ -17,6 +17,10 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initEvent()
+    }
+
+    private fun initEvent() {
         binding.ivSignupClose.setOnClickListener { findNavController().popBackStack() }
 
         binding.tieSignupIdInput.addTextChangedListener {
