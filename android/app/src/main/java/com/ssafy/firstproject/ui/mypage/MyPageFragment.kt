@@ -22,7 +22,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvProfileEdit.setOnClickListener {
+        binding.tvMyNewsList.setOnClickListener {
             findNavController().navigate(R.id.dest_record)
         }
 
