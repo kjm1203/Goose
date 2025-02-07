@@ -12,4 +12,4 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # FastAPI 애플리케이션 실행 (uvicorn)
-CMD ["uvicorn", "news-paragraph-split:app", "--host", "0.0.0.0", "--port", "5050"]
+CMD ["uvicorn", "news_paragraph_split:app", "--host", "0.0.0.0", "--port", "5052"]
