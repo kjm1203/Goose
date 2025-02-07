@@ -11,7 +11,7 @@ import java.util.Map;
 public class NewsContentScraping {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private static final String FASTAPI_NEWS_URL = "http://localhost:5002/extract"; // ✅ Newspaper3k FastAPI 서버 주소
+    private static final String FASTAPI_NEWS_URL = "http://i12d208.p.ssafy.io:5050/extract"; // ✅ 뉴스 크롤링 FastAPI 서버 URL
 
     /**
      * 🔹 FastAPI (Newspaper3k) 호출하여 뉴스 본문과 대표 이미지를 가져옴
