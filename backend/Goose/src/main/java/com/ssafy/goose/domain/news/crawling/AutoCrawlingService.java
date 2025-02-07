@@ -32,6 +32,8 @@ public class AutoCrawlingService {
 
     private final NewsContentScraping newsContentScraping;
 
+    private final String fastApiUrl = "http://localhost:5052/analyze-bias"; // FastAPI 서버 주소
+
     public AutoCrawlingService(NewsRepository newsRepository, NewsContentScraping newsContentScraping) {
         this.newsRepository = newsRepository;
         this.newsContentScraping = newsContentScraping;
@@ -110,7 +112,7 @@ public class AutoCrawlingService {
         for (String keyword : trendingKeywords) {
             System.out.println("🔍 검색어: " + keyword);
             Map<String, Object> newsData = getNews(keyword);
-            saveNewsToMongoDB(newsData);
+            saveNewsToMongoDB(newsData, keyword);
         }
 
         System.out.println("✅ 뉴스 저장 완료!");
@@ -119,7 +121,7 @@ public class AutoCrawlingService {
     /**
      * 🔹 5. MongoDB에 뉴스 저장 (본문 길이 100 이상 필터링 추가)
      */
-    public void saveNewsToMongoDB(Map<String, Object> newsData) {
+    public void saveNewsToMongoDB(Map<String, Object> newsData, String keyword) {
         List<Map<String, Object>> newsItems = (List<Map<String, Object>>) newsData.get("items");
 
         for (Map<String, Object> item : newsItems) {
@@ -137,6 +139,16 @@ public class AutoCrawlingService {
                 continue;
             }
 
+            // ✅ 같은 키워드의 기존 뉴스 기사 가져오기
+            List<NewsArticle> relatedArticles = newsRepository.findByTitleRegex(keyword);
+            List<String> existingContents = relatedArticles.stream()
+                    .map(NewsArticle::getContent)
+                    .collect(Collectors.toList());
+
+            // ✅ FastAPI로 편향성 분석 요청
+            Double biasScore = getBiasScore(existingContents, content, keyword);
+            System.out.println("🔍 편향성: " + biasScore);
+
             NewsArticle article = NewsArticle.builder()
                     .title((String) item.get("title"))
                     .originalLink((String) item.get("originallink"))
@@ -146,10 +158,29 @@ public class AutoCrawlingService {
                     .content(content)  // 본문 크롤링 (100자 이상)
                     .topImage((String) scrapingResult.get("image")) // 대표 이미지
                     .extractedAt(LocalDateTime.now())
+                    .biasScore(biasScore)
                     .build();
 
 
             newsRepository.save(article);
         }
+    }
+
+    private Double getBiasScore(List<String> contents, String targetContent, String keyword) {
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("keyword", keyword);
+        requestBody.put("contents", contents);
+        requestBody.put("target_content", targetContent);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+
+        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);
+        ResponseEntity<Map> response = restTemplate.postForEntity(fastApiUrl, requestEntity, Map.class);
+
+        if (response.getBody() != null && response.getBody().containsKey("biasScore")) {
+            return ((Number) response.getBody().get("biasScore")).doubleValue();
+        }
+        return 50.0; // 기본값 (편향성 중립)
     }
 }
