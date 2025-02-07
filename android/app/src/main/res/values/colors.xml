@@ -13,4 +13,5 @@
     <color name="brightGray">#EFEFEF</color>
     <color name="platinum">#E5E5E5</color>
     <color name="shadowGray">#1F000000</color>
+    <color name="maximumRed">#db2323</color>
 </resources>

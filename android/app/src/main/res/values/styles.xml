@@ -60,9 +60,11 @@
 
     <style name="Widget.TextView.Meta">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/sonicSilver</item>
+        <item name="android:textColor">@color/maximumRed</item>
         <item name="android:letterSpacing">-0.06</item>
         <item name="android:lineSpacingMultiplier">1.3</item>
+        <item name="android:layout_marginStart">@dimen/spacing_8dp</item>
+        <item name="android:layout_marginTop">@dimen/spacing_8dp</item>
     </style>
 
     <style name="Widget.TextView.Date">
