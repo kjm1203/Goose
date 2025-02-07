@@ -27,7 +27,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building the Docker image...'
-                dir('ai/news-paragraph-split') {
+                dir('ai/news-paragraphs') {
                     sh 'docker build -t ${DOCKER_IMAGE}:latest .'
                 }
             }
