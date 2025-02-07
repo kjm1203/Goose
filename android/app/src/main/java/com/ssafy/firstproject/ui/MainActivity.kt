@@ -22,13 +22,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         navController = navHostFragment.navController
         binding.bnv.setupWithNavController(navController)
 
-            navController.navigate(R.id.dest_signup)
+        navController.navigate(R.id.dest_signup)
 
-            hideBottomNavigationView(navController)
-        }
+        hideBottomNavigationView(navController)
+    }
 
-        private fun hideBottomNavigationView(navController: NavController) {
-            navController.addOnDestinationChangedListener { _, destination, _ ->
+    private fun hideBottomNavigationView(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bnv.visibility = when (destination.id) {
                 R.id.dest_home -> View.VISIBLE
                 R.id.dest_game_start -> View.VISIBLE
