@@ -72,10 +72,10 @@
                 app:layout_constraintTop_toBottomOf="@id/iv"
                 tools:text="슈퍼스타 강인혁, 열애" />
 
-            <com.anychart.AnyChartView
-                android:id="@+id/acv_truth_percent"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/acv_trust_percent"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginEnd="@dimen/spacing_24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_date"
                 app:layout_constraintEnd_toEndOf="parent"
