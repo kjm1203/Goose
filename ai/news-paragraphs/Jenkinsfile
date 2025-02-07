@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'news_bias_analysis'
-        DOCKER_CONTAINER = 'news_bias_analysis-container'
-        DOCKER_PORT = '5051'
+        DOCKER_IMAGE = 'news-paragraph-split'
+        DOCKER_CONTAINER = 'news-paragraph-split-container'
+        DOCKER_PORT = '5052'
         DOCKER_PATH = credentials('DOCKER_PATH')
 
         EC2_USER = credentials('EC2_USER')
@@ -27,7 +27,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building the Docker image...'
-                dir('ai/news_bias_analysis') {
+                dir('ai/news-paragraph-split') {
                     sh 'docker build -t ${DOCKER_IMAGE}:latest .'
                 }
             }
@@ -36,14 +36,14 @@ pipeline {
         stage('Save and Transfer Docker Image') {
             steps {
                 echo 'Saving and transferring Docker image to EC2...'
-                sh "docker save ${DOCKER_IMAGE}:latest | gzip > news_bias_analysis.tar.gz"
+                sh "docker save ${DOCKER_IMAGE}:latest | gzip > news-paragraph-split.tar.gz"
 
                 sshPublisher(publishers: [
                     sshPublisherDesc(
                         configName: 'EC2-Server',
                         transfers: [
                             sshTransfer(
-                                sourceFiles: 'news_bias_analysis.tar.gz',
+                                sourceFiles: 'news-paragraph-split.tar.gz',
                             )
                         ]
                     )
@@ -64,7 +64,7 @@ pipeline {
                                     docker stop ${DOCKER_CONTAINER} || true
                                     docker rm ${DOCKER_CONTAINER} || true
                                     docker rmi ${DOCKER_IMAGE}:latest || true
-                                    docker load < ${DOCKER_PATH}/news_bias_analysis.tar.gz
+                                    docker load < ${DOCKER_PATH}/news-paragraph-split.tar.gz
                                     docker run -d --name ${DOCKER_CONTAINER} -p ${DOCKER_PORT}:${DOCKER_PORT} ${DOCKER_IMAGE}:latest
                                 """.stripIndent()
                             )
