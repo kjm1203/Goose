@@ -17,8 +17,8 @@ class ImageResultFragment : BaseFragment<FragmentImageResultBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.arrowLeft.setOnClickListener {
-            findNavController().popBackStack() // 이전 화면으로 이동
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
 
         binding.btnOtherImgCheck.setOnClickListener {
