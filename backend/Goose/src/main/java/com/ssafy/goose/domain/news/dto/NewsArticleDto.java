@@ -25,6 +25,8 @@ public class NewsArticleDto {
     private String topImage;
     private LocalDateTime extractedAt;
 
+    private Double biasScore; // ✅ 편향성 점수 필드 추가
+
     public static NewsArticleDto fromEntity(NewsArticle article) {
         return NewsArticleDto.builder()
                 .id(article.getId())
@@ -36,6 +38,7 @@ public class NewsArticleDto {
                 .content(article.getContent())
                 .topImage(article.getTopImage())
                 .extractedAt(article.getExtractedAt())
+                .biasScore(article.getBiasScore() != null ? article.getBiasScore() : 50.0) // ✅ 기본값 50.0 설정
                 .build();
     }
 
@@ -50,19 +53,25 @@ public class NewsArticleDto {
                 .content(this.content)
                 .topImage(this.topImage)
                 .extractedAt(this.extractedAt)
+                .biasScore(this.biasScore != null ? this.biasScore : 50.0) // ✅ 기본값 50.0 설정
                 .build();
     }
 
-    // ✅ 날짜 변환 메서드 추가
+    // ✅ 날짜 변환 메서드 개선 (ISO 8601, RFC 1123 형식 지원)
     public long getPubDateTimestamp() {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
                     "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH
             );
             ZonedDateTime zonedDateTime = ZonedDateTime.parse(this.pubDate, formatter);
-            return zonedDateTime.toInstant().toEpochMilli(); // Timestamp 변환
+            return zonedDateTime.toInstant().toEpochMilli(); // ✅ Timestamp 변환
         } catch (Exception e) {
-            return -1; // 변환 실패 시 -1 반환
+            try {
+                // ✅ ISO 8601 날짜 형식 지원
+                return ZonedDateTime.parse(this.pubDate).toInstant().toEpochMilli();
+            } catch (Exception ex) {
+                return -1; // 변환 실패 시 -1 반환
+            }
         }
     }
 }
