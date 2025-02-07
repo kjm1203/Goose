@@ -22,9 +22,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvProfileEdit.setOnClickListener{
+        binding.tvProfileEdit.setOnClickListener {
             findNavController().navigate(R.id.dest_profile_edit)
         }
+
+
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }

@@ -98,6 +98,7 @@
         android:id="@+id/dest_profile_edit"
         android:name="com.ssafy.firstproject.ui.mypageedit.MyPageEditFragment"
         android:label="ProfileEditFragment"
-        tools:layout="@layout/fragment_profile_edit"/>
+        tools:layout="@layout/fragment_profile_edit" />
+
 
 </navigation>
