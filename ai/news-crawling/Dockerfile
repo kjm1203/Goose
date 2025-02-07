@@ -12,4 +12,4 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # FastAPI 애플리케이션 실행 (uvicorn)
-CMD ["uvicorn", "fastapi_bs4:app", "--host", "0.0.0.0", "--port", "5050"]
+CMD ["uvicorn", "news_crawling:app", "--host", "0.0.0.0", "--port", "5050"]
