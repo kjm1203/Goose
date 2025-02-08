@@ -32,18 +32,32 @@ repositories {
 }
 
 dependencies {
+	// ✅ Spring Boot Starter Dependencies
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb' // ✅ MongoDB 지원
+
+	// ✅ SpringDoc for API Documentation (Swagger UI)
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+	// ✅ Lombok for reducing boilerplate code
 	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// ✅ Development Tools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
+
+	// ✅ Testing Dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	// Spring Data MongoDB
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	// ✅ HTML 태그 제거 및 HTML 엔터티 변환 (Jsoup & Apache Commons Text)
+	implementation 'org.jsoup:jsoup:1.15.3'               // ✅ HTML 파싱 및 태그 제거
+	implementation 'org.apache.commons:commons-text:1.10.0' // ✅ HTML 엔터티 변환
+
+	// ✅ REST API 요청 시 JSON 처리 (Jackson)
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
 }
 
 tasks.named('test') {

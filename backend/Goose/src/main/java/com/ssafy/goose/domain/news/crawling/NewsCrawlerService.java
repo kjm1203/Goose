@@ -74,7 +74,7 @@ public class NewsCrawlerService {
      */
     public Map<String, Object> getNews(String query) {
         String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
-        String url = "https://openapi.naver.com/v1/search/news.json?query=" + encodedQuery + "&display=20&sort=sim";
+        String url = "https://openapi.naver.com/v1/search/news.json?query=" + encodedQuery + "&display=7&sort=sim";
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Naver-Client-Id", clientId);

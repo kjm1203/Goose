@@ -26,5 +26,6 @@ public class NewsArticle {
     private String content;             // 뉴스 본문 내용
     private String topImage;            // 뉴스 대표 이미지 URL
     private LocalDateTime extractedAt;  // 뉴스 크롤링 시점
-    private Double biasScore;
+    private Double biasScore;           // ✅ 편향성 점수
+    private Double reliability;         // ✅ 기사 신뢰도 점수 추가
 }

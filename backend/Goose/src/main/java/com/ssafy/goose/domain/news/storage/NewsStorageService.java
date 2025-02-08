@@ -46,6 +46,7 @@ public class NewsStorageService {
                 continue;
             }
 
+            String cleanTitle = (String) scrapedData.get("title");
             String content = (String) scrapedData.get("text");
             String topImage = (String) scrapedData.get("image"); // ✅ 대표 이미지
 
@@ -68,7 +69,7 @@ public class NewsStorageService {
 
             // ✅ MongoDB에 저장
             NewsArticle article = NewsArticle.builder()
-                    .title((String) item.get("title"))
+                    .title(cleanTitle)
                     .originalLink((String) item.get("originallink"))
                     .naverLink(link)
                     .description((String) item.get("description"))
@@ -78,6 +79,7 @@ public class NewsStorageService {
                     .topImage(topImage) // ✅ 크롤링된 대표 이미지 저장
                     .extractedAt(LocalDateTime.now())
                     .biasScore(biasScore)
+                    .reliability(100.0) // ✅ 임시 신뢰도 100
                     .build();
 
             newsRepository.save(article);

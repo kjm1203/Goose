@@ -1,5 +1,7 @@
 package com.ssafy.goose.domain.news.crawling;
 
+import org.apache.commons.text.StringEscapeUtils;
+import org.jsoup.Jsoup;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -32,8 +34,18 @@ public class NewsContentScraping {
 
             // ✅ 크롤링 성공 로그
             if (result != null) {
+                // 🔹 1. HTML 엔터티 디코딩 (`&lt;`, `&gt;`, `&#x27;` 등)
+                String rawTitle = (String) result.get("title");
+                String decodedTitle = StringEscapeUtils.unescapeHtml4(rawTitle); // ✅ HTML 엔터티 변환
+
+                // 🔹 2. HTML 태그 제거 (`<b>`, `</b>` 등)
+                String cleanTitle = Jsoup.parse(decodedTitle).text(); // ✅ HTML 태그 제거
+
+                // 🔹 결과 반영
+                result.put("title", cleanTitle);
+
                 System.out.println("✅ [NewsContentScraping] 크롤링 성공");
-                System.out.println("  📌 제목: " + result.get("title"));
+                System.out.println("  📌 제목: " + cleanTitle);
                 System.out.println("  📌 본문 (앞부분): " + ((String) result.get("text")).substring(0, Math.min(200, ((String) result.get("text")).length())) + "...");
                 System.out.println("  📌 대표 이미지: " + result.get("image"));
             } else {
