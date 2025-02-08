@@ -16,11 +16,11 @@ public class GooseApplication {
 	}
 
 	// 🔹 앱 시작 후 즉시 뉴스 크롤링 실행
-//	@Bean
-//	public CommandLineRunner run(AutoCrawlingService autoCrawlingService) {
-//		return args -> {
-//			System.out.println("🚀 애플리케이션 실행 후 즉시 뉴스 크롤링 시작...");
-//			autoCrawlingService.fetchAndSaveTrendingNews(); // 즉시 실행
-//		};
-//	}
+	@Bean
+	public CommandLineRunner run(AutoCrawlingService autoCrawlingService) {
+		return args -> {
+			System.out.println("🚀 애플리케이션 실행 후 즉시 뉴스 크롤링 시작...");
+			autoCrawlingService.fetchAndSaveTrendingNews(); // 즉시 실행
+		};
+	}
 }
