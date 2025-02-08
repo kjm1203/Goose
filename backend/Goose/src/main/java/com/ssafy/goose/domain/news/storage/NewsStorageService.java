@@ -44,8 +44,9 @@ public class NewsStorageService {
             if (scrapedData == null || !scrapedData.containsKey("text")) {
                 System.out.println("❌ [NewsStorageService] 본문 크롤링 실패: " + item.get("title"));
                 continue;
-            }
+            }튻
 
+            String cleanTitle = (String) scrapedData.get("title");
             String content = (String) scrapedData.get("text");
             String topImage = (String) scrapedData.get("image"); // ✅ 대표 이미지
 
@@ -68,7 +69,7 @@ public class NewsStorageService {
 
             // ✅ MongoDB에 저장
             NewsArticle article = NewsArticle.builder()
-                    .title((String) item.get("title"))
+                    .title(title)
                     .originalLink((String) item.get("originallink"))
                     .naverLink(link)
                     .description((String) item.get("description"))
