@@ -114,6 +114,8 @@
     <string name="my_news_list">판별한 뉴스</string>
     <string name="logout">로그아웃</string>
     <string name="login_required_message">로그인이 필요합니다.</string>
+    <string name="mypage_go_login">로그인 하기</string>
+    <string name="mypage_go_signup">회원가입 하기</string>
 
     <!-- 프로필 수정 -->
     <string name="user_profile_edit">프로필 수정</string>
