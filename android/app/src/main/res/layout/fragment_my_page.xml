@@ -6,23 +6,25 @@
     android:layout_height="match_parent">
 
 
+        <!-- 비로그인 사용자에게 표시할 메시지 -->
     <!-- 비로그인 사용자에게 표시할 메시지 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_login_required"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/spacing_24dp"
+        android:padding="@dimen/spacing_24dp"
         android:visibility="gone">
 
         <!-- 비로그인 메시지 -->
         <TextView
             android:id="@+id/tv_login_required"
+            style="@style/Widget.TextView.Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_required_message"
             android:textColor="@color/black"
-            android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -32,24 +34,27 @@
             style="@style/Widget.Button.Primary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_16dp"
             android:text="@string/mypage_go_login"
-            app:layout_constraintBottom_toTopOf="@id/btn_sign_up"
+            app:layout_constraintTop_toBottomOf="@id/tv_login_required"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginTop="@dimen/spacing_32dp" />
 
+        <!-- 회원가입 버튼 -->
         <Button
             android:id="@+id/btn_sign_up"
             style="@style/Widget.Button.Primary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/mypage_go_signup"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_login"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
+            android:layout_marginTop="@dimen/spacing_8dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <!-- 스크롤 가능한 콘텐츠 -->
     <androidx.core.widget.NestedScrollView
