@@ -28,7 +28,7 @@ async def analyze_bias(request: BiasRequest):
 
         # ✅ ZeroDivisionError 방지
         if total_count == 0:
-            bias_score = 50.0  # 기존 뉴스 없음 → 50
+            bias_score = 0.0  # 기존 뉴스 없음 → 0
         else:
             bias_score = (1 - (similar_count / total_count)) * 100 # 편향성 계산 (낮을수록 중립적)
         
