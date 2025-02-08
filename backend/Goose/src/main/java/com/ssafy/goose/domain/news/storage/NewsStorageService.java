@@ -79,6 +79,7 @@ public class NewsStorageService {
                     .topImage(topImage) // ✅ 크롤링된 대표 이미지 저장
                     .extractedAt(LocalDateTime.now())
                     .biasScore(biasScore)
+                    .reliability(100.0) // ✅ 임시 신뢰도 100
                     .build();
 
             newsRepository.save(article);
