@@ -22,10 +22,23 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 로그인 여부 확인 (false:비로그인)
+        val isLoggedIn = false
+
+        if (isLoggedIn) {
+            // 로그인된 경우: 마이페이지 콘텐츠 표시
+            binding.tvLoginRequired.visibility = View.GONE
+            binding.nestedScrollView.visibility = View.VISIBLE
+        } else {
+            // 비로그인된 경우: "로그인이 필요합니다" 메시지 표시
+            binding.tvLoginRequired.visibility = View.VISIBLE
+            binding.nestedScrollView.visibility = View.GONE
+        }
+
+        // 기존 클릭 리스너 유지
         binding.tvProfileEdit.setOnClickListener {
             findNavController().navigate(R.id.dest_profile_edit)
         }
-
 
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
@@ -34,6 +47,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         setBarChart()
         setBarChartAnimation()
     }
+
+
 
     private fun setBarChartAnimation() {
         val exp = 90 // 예제 90까지 슬라이딩
