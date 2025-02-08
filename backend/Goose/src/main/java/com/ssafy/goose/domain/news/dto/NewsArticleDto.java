@@ -23,10 +23,11 @@ public class NewsArticleDto {
     private String description;
     private String pubDate;
     private String content;
-    private List<String> paragraphs; // ✅ 누락된 필드 추가 (전문으로부터 분리된 문단들)
+    private List<String> paragraphs; // ✅ 뉴스 문단 정보 추가
     private String topImage;
     private LocalDateTime extractedAt;
     private Double biasScore; // ✅ 편향성 점수 필드
+    private Double reliability; // ✅ 기사 신뢰도 점수 필드 추가
 
     /**
      * 🔹 엔티티 → DTO 변환
@@ -40,10 +41,11 @@ public class NewsArticleDto {
                 .description(article.getDescription())
                 .pubDate(article.getPubDate())
                 .content(article.getContent())
-                .paragraphs(article.getParagraphs()) // ✅ 문단 정보 추가
+                .paragraphs(article.getParagraphs())
                 .topImage(article.getTopImage())
                 .extractedAt(article.getExtractedAt())
-                .biasScore(article.getBiasScore() != null ? article.getBiasScore() : 0.0) // ✅ 기본값 0.0 설정
+                .biasScore(article.getBiasScore() != null ? article.getBiasScore() : 0.0)
+                .reliability(article.getReliability() != null ? article.getReliability() : 50.0) // ✅ 기본값 50.0 설정
                 .build();
     }
 
@@ -59,10 +61,11 @@ public class NewsArticleDto {
                 .description(this.description)
                 .pubDate(this.pubDate)
                 .content(this.content)
-                .paragraphs(this.paragraphs) // ✅ 문단 정보 추가
+                .paragraphs(this.paragraphs)
                 .topImage(this.topImage)
                 .extractedAt(this.extractedAt)
-                .biasScore(this.biasScore != null ? this.biasScore : 0.0) // ✅ 기본값 0.0 설정
+                .biasScore(this.biasScore != null ? this.biasScore : 0.0)
+                .reliability(this.reliability != null ? this.reliability : 50.0) // ✅ 기본값 50.0 설정
                 .build();
     }
 
@@ -75,13 +78,12 @@ public class NewsArticleDto {
                     "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH
             );
             ZonedDateTime zonedDateTime = ZonedDateTime.parse(this.pubDate, formatter);
-            return zonedDateTime.toInstant().toEpochMilli(); // ✅ Timestamp 변환
+            return zonedDateTime.toInstant().toEpochMilli();
         } catch (Exception e) {
             try {
-                // ✅ ISO 8601 날짜 형식 지원
                 return ZonedDateTime.parse(this.pubDate).toInstant().toEpochMilli();
             } catch (Exception ex) {
-                return -1; // 변환 실패 시 -1 반환
+                return -1;
             }
         }
     }
