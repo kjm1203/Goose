@@ -35,15 +35,11 @@ public class NewsService {
         return NewsArticleDto.fromEntity(savedArticle);
     }
 
-    // 뉴스 리스트 조회
+    // 🔹 최신순으로 상위 10개 뉴스 리스트 조회
     public List<NewsArticleDto> getNewsList() {
-        return newsRepository.findAll()
+        return newsRepository.findTop10ByOrderByExtractedAtDesc()
                 .stream()
-                .map(article -> {
-                    NewsArticleDto dto = NewsArticleDto.fromEntity(article);
-                    dto.getPubDateTimestamp();
-                    return dto;
-                })
+                .map(NewsArticleDto::fromEntity)
                 .collect(Collectors.toList());
     }
 
