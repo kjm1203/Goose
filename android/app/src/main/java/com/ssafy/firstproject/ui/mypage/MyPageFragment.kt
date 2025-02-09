@@ -59,7 +59,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     }
 
 
-
     private fun setBarChartAnimation() {
         val exp = 90 // 예제 90까지 슬라이딩
         ObjectAnimator.ofInt(binding.pbProgressBar, "progress", exp)

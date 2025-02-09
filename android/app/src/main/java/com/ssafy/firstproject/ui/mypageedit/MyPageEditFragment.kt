@@ -12,6 +12,7 @@ import com.ssafy.firstproject.databinding.FragmentProfileEditBinding
 
 
 private const val TAG = "MyPageEditFragment"
+
 class MyPageEditFragment : BaseFragment<FragmentProfileEditBinding>(
     FragmentProfileEditBinding::bind,
     R.layout.fragment_profile_edit
@@ -40,40 +41,52 @@ class MyPageEditFragment : BaseFragment<FragmentProfileEditBinding>(
         }
     }
 
-        private fun validateInput(editText: TextInputEditText, textView: TextView){
-            val text = editText.text.toString().trim()
-            val pattern = "^[a-z0-9]{4,12}$".toRegex()
+    private fun validateInput(editText: TextInputEditText, textView: TextView) {
+        val text = editText.text.toString().trim()
+        val pattern = "^[a-z0-9]{4,12}$".toRegex()
 
-            when {
-                text.isEmpty() -> {textView.visibility = View.GONE}
-                !pattern.matches(text)-> {
-                    textView.visibility = View.VISIBLE
-                    textView.text = getString(R.string.user_limit_message)
-                }
-                else -> {textView.visibility = View.GONE}
-                }
+        when {
+            text.isEmpty() -> {
+                textView.visibility = View.GONE
             }
 
+            !pattern.matches(text) -> {
+                textView.visibility = View.VISIBLE
+                textView.text = getString(R.string.user_limit_message)
+            }
 
-        private fun validatePassword(
-            passwordEditText: TextInputEditText,
-            confirmPasswordEditText: TextInputEditText,
-            metaTextView: TextView){
-            val password = passwordEditText.text.toString().trim()
-            val confirmPassword = confirmPasswordEditText.text.toString().trim()
-
-            when {
-                password.isEmpty() || confirmPassword.isEmpty()-> {
-                    metaTextView.visibility = View.GONE }
-                password != confirmPassword -> {
-                    metaTextView.visibility = View.VISIBLE
-                    metaTextView.text =
-                        getString(R.string.user_not_correct_message)
-
-                }
-                else -> {metaTextView.visibility = View.GONE}
-                }
+            else -> {
+                textView.visibility = View.GONE
             }
         }
+    }
+
+
+    private fun validatePassword(
+        passwordEditText: TextInputEditText,
+        confirmPasswordEditText: TextInputEditText,
+        metaTextView: TextView
+    ) {
+        val password = passwordEditText.text.toString().trim()
+        val confirmPassword = confirmPasswordEditText.text.toString().trim()
+
+        when {
+            password.isEmpty() || confirmPassword.isEmpty() -> {
+                metaTextView.visibility = View.GONE
+            }
+
+            password != confirmPassword -> {
+                metaTextView.visibility = View.VISIBLE
+                metaTextView.text =
+                    getString(R.string.user_not_correct_message)
+
+            }
+
+            else -> {
+                metaTextView.visibility = View.GONE
+            }
+        }
+    }
+}
 
 
