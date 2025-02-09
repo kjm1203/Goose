@@ -22,11 +22,16 @@ public class AutoCrawlingService {
     public void fetchAndSaveTrendingNews() {
         System.out.println("🕒 뉴스 크롤링 실행: " + LocalDateTime.now());
 
+        // 1. 최신 인기 키워드들 가져오기
         List<String> trendingKeywords = newsCrawlerService.extractTrendingKeywords();
 
         for (String keyword : trendingKeywords) {
             System.out.println("🔍 검색어: " + keyword);
+
+            // 2. 키워드로 뉴스 검색해서 가져오기
             Map<String, Object> newsData = newsCrawlerService.getNews(keyword);
+
+            // 3. 뉴스 데이터를 갖고 메인 로직 수행 + 몽고DB 저장
             newsStorageService.saveNewsToMongoDB(newsData, keyword);
         }
 
