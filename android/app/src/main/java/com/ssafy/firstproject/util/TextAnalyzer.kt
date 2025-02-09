@@ -28,7 +28,7 @@ class TextAnalyzer(
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.e("TextAnalyzer", "텍스트 인식 실패", e)
+                    Log.e(TAG, "텍스트 인식 실패", e)
                 }
                 .addOnCompleteListener {
                     imageProxy.close()
