@@ -97,12 +97,15 @@ public class NewsStorageService {
 
     // 단순 참고용 뉴스들을 저장하는 메서드
     public void saveReferenceNewsToMongoDB(Map<String, Object> newsData, String keyword) {
+        // 1. 키워드로 뉴스 검색해서 가져오기 (AutoCrawlingService로부터 saveNewsToMongoDB로 넘어옴)
         List<Map<String, Object>> newsItems = (List<Map<String, Object>>) newsData.get("items");
 
         for (Map<String, Object> item : newsItems) {
+            // 2. 뉴스데이터에서 기사 링크 추출
             String link = (String) item.get("link");
             if (link == null || link.isEmpty()) continue;
 
+            // ✅ 3. FastAPI를 이용해 뉴스 본문과 대표 이미지 가져오기
             Map<String, Object> scrapedData = newsContentScraping.extractArticle(link);
             if (scrapedData == null || !scrapedData.containsKey("text")) continue;
 
@@ -112,8 +115,6 @@ public class NewsStorageService {
 
             if (content.length() < 100) continue;
 
-            List<String> paragraphs = newsParagraphSplitService.getSplitParagraphs(content);
-
             ReferenceNewsArticle article = ReferenceNewsArticle.builder()
                     .title(cleanTitle)
                     .originalLink((String) item.get("originallink"))
@@ -121,7 +122,6 @@ public class NewsStorageService {
                     .description((String) item.get("description"))
                     .pubDate((String) item.get("pubDate"))
                     .content(content)
-                    .paragraphs(paragraphs)
                     .topImage(topImage)
                     .extractedAt(LocalDateTime.now())
                     .build();

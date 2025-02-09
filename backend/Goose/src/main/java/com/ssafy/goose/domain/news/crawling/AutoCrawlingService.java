@@ -29,7 +29,7 @@ public class AutoCrawlingService {
             System.out.println("🔍 검색어: " + keyword);
 
             // 2. 키워드로 뉴스 검색해서 가져오기
-            Map<String, Object> newsData = newsCrawlerService.getNews(keyword);
+            Map<String, Object> newsData = newsCrawlerService.getNews(keyword, 7);
 
             // 3. 뉴스 데이터를 갖고 메인 로직 수행 + 몽고DB 저장
             newsStorageService.saveNewsToMongoDB(newsData, keyword);
@@ -47,7 +47,7 @@ public class AutoCrawlingService {
         for (String keyword : trendingKeywords) {
             System.out.println("🔍 참고용 검색어: " + keyword);
 
-            Map<String, Object> newsData = newsCrawlerService.getNews(keyword);
+            Map<String, Object> newsData = newsCrawlerService.getNews(keyword, 50);
 
             // ✅ 참고용 뉴스 저장
             newsStorageService.saveReferenceNewsToMongoDB(newsData, keyword);
