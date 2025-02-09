@@ -1,6 +1,7 @@
 package com.ssafy.firstproject.ui.check
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,6 +15,11 @@ import androidx.navigation.fragment.findNavController
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import java.io.FileOutputStream
 
 class CheckFragment : BaseFragment<FragmentCheckBinding>(
     FragmentCheckBinding::bind,
@@ -33,6 +39,9 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                     binding.ivAddImagePlus.visibility = View.GONE
                     binding.ivAddImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
                     binding.ivAddImage.setImageURI(it) // 이미지 설정
+
+                    //multipart 형식으로 변환
+                    val multipartBody = uriToMultipart(it, requireContext())
                 }
             }
         }
@@ -94,6 +103,25 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 binding.tilUrlInput.visibility = View.GONE
                 binding.tilContentInput.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private fun uriToMultipart(uri: Uri, context: Context, paramName: String = "image"): MultipartBody.Part? {
+        val contentResolver = context.contentResolver
+        val file = File(context.cacheDir, "upload_image.jpg")
+
+        return runCatching {
+            contentResolver.openInputStream(uri)?.use { inputStream ->
+                FileOutputStream(file).use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+
+            val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData(paramName, file.name, requestFile)
+        }.getOrElse {
+            it.printStackTrace()
+            null
         }
     }
 }
