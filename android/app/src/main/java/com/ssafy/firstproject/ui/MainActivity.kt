@@ -9,7 +9,6 @@ import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseActivity
 import com.ssafy.firstproject.databinding.ActivityMainBinding
 
-private const val TAG = "MainActivity"
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
