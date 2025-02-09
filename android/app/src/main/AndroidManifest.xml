@@ -5,6 +5,10 @@
     <!--  서버와의 통신을 위한 Internet 허용  -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- 카메라 권한 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.any" />
+
     <application
         android:name=".base.ApplicationClass"
         android:allowBackup="true"
