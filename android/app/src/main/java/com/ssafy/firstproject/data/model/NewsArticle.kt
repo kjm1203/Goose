@@ -1,7 +1,7 @@
 package com.ssafy.firstproject.data.model
 
 data class NewsArticle(
-    val biasScore: Int,
+    val biasScore: Double,
     val content: String,
     val description: String,
     val extractedAt: List<Int>,
