@@ -30,16 +30,18 @@ public class NewsStorageService {
     }
 
     public void saveNewsToMongoDB(Map<String, Object> newsData, String keyword) {
+        // 1. 키워드로 뉴스 검색해서 가져오기 (AutoCrawlingService로부터 saveNewsToMongoDB로 넘어옴)
         List<Map<String, Object>> newsItems = (List<Map<String, Object>>) newsData.get("items");
 
         for (Map<String, Object> item : newsItems) {
+            // 2. 뉴스데이터에서 기사 링크 추출
             String link = (String) item.get("link"); // ✅ 뉴스 기사 URL 가져오기
             if (link == null || link.isEmpty()) {
                 System.out.println("❌ [NewsStorageService] 링크 없음: " + item.get("title"));
                 continue;
             }
 
-            // ✅ FastAPI를 이용해 뉴스 본문과 대표 이미지 가져오기
+            // ✅ 3. FastAPI를 이용해 뉴스 본문과 대표 이미지 가져오기
             Map<String, Object> scrapedData = newsContentScraping.extractArticle(link);
             if (scrapedData == null || !scrapedData.containsKey("text")) {
                 System.out.println("❌ [NewsStorageService] 본문 크롤링 실패: " + item.get("title"));
@@ -55,19 +57,19 @@ public class NewsStorageService {
                 continue;
             }
 
-            // ✅ 문단 분리 수행 (FastAPI)
+            // ✅ 4. 문단 분리 수행 (FastAPI)
             List<String> paragraphs = newsParagraphSplitService.getSplitParagraphs(content);
 
-            // ✅ 기존 같은 키워드 뉴스 가져오기
+            // ✅ 5.1. 기존 같은 키워드 뉴스 가져오기
             List<NewsArticle> relatedArticles = newsRepository.findByTitleRegex(keyword);
             List<String> existingContents = relatedArticles.stream()
                     .map(NewsArticle::getContent)
                     .collect(Collectors.toList());
 
-            // ✅ 편향성 분석
+            // ✅ 5.2. 편향성 분석
             Double biasScore = newsBiasAnalysisService.getBiasScore(existingContents, content, keyword);
 
-            // ✅ MongoDB에 저장
+            // ✅ 6. MongoDB에 저장
             NewsArticle article = NewsArticle.builder()
                     .title(cleanTitle)
                     .originalLink((String) item.get("originallink"))
