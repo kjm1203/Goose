@@ -3,8 +3,10 @@ package com.ssafy.goose.domain.news.storage;
 import com.ssafy.goose.domain.news.crawling.NewsContentScraping;
 import com.ssafy.goose.domain.news.crawling.NewsParagraphSplitService;
 import com.ssafy.goose.domain.news.entity.NewsArticle;
+import com.ssafy.goose.domain.news.entity.ReferenceNewsArticle;
 import com.ssafy.goose.domain.news.repository.NewsRepository;
 import com.ssafy.goose.domain.news.analysis.NewsBiasAnalysisService;
+import com.ssafy.goose.domain.news.repository.ReferenceNewsRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,20 +17,25 @@ import java.util.stream.Collectors;
 @Service
 public class NewsStorageService {
     private final NewsRepository newsRepository;
+    private final ReferenceNewsRepository referenceNewsRepository;
+
     private final NewsBiasAnalysisService newsBiasAnalysisService;
     private final NewsParagraphSplitService newsParagraphSplitService;
     private final NewsContentScraping newsContentScraping; // ✅ FastAPI 뉴스 크롤링 서비스 추가
 
     public NewsStorageService(NewsRepository newsRepository,
+                              ReferenceNewsRepository referenceNewsRepository,
                               NewsBiasAnalysisService newsBiasAnalysisService,
                               NewsParagraphSplitService newsParagraphSplitService,
                               NewsContentScraping newsContentScraping) {
         this.newsRepository = newsRepository;
+        this.referenceNewsRepository = referenceNewsRepository;
         this.newsBiasAnalysisService = newsBiasAnalysisService;
         this.newsParagraphSplitService = newsParagraphSplitService;
         this.newsContentScraping = newsContentScraping;
     }
 
+    // 주요 기능
     public void saveNewsToMongoDB(Map<String, Object> newsData, String keyword) {
         // 1. 키워드로 뉴스 검색해서 가져오기 (AutoCrawlingService로부터 saveNewsToMongoDB로 넘어옴)
         List<Map<String, Object>> newsItems = (List<Map<String, Object>>) newsData.get("items");
@@ -85,6 +92,41 @@ public class NewsStorageService {
                     .build();
 
             newsRepository.save(article);
+        }
+    }
+
+    // 단순 참고용 뉴스들을 저장하는 메서드
+    public void saveReferenceNewsToMongoDB(Map<String, Object> newsData, String keyword) {
+        List<Map<String, Object>> newsItems = (List<Map<String, Object>>) newsData.get("items");
+
+        for (Map<String, Object> item : newsItems) {
+            String link = (String) item.get("link");
+            if (link == null || link.isEmpty()) continue;
+
+            Map<String, Object> scrapedData = newsContentScraping.extractArticle(link);
+            if (scrapedData == null || !scrapedData.containsKey("text")) continue;
+
+            String cleanTitle = (String) scrapedData.get("title");
+            String content = (String) scrapedData.get("text");
+            String topImage = (String) scrapedData.get("image");
+
+            if (content.length() < 100) continue;
+
+            List<String> paragraphs = newsParagraphSplitService.getSplitParagraphs(content);
+
+            ReferenceNewsArticle article = ReferenceNewsArticle.builder()
+                    .title(cleanTitle)
+                    .originalLink((String) item.get("originallink"))
+                    .naverLink(link)
+                    .description((String) item.get("description"))
+                    .pubDate((String) item.get("pubDate"))
+                    .content(content)
+                    .paragraphs(paragraphs)
+                    .topImage(topImage)
+                    .extractedAt(LocalDateTime.now())
+                    .build();
+
+            referenceNewsRepository.save(article);
         }
     }
 }

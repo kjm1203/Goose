@@ -37,4 +37,23 @@ public class AutoCrawlingService {
 
         System.out.println("✅ 뉴스 저장 완료!");
     }
+
+    @Scheduled(cron = "0 30 0,6,12,18 * * *", zone = "Asia/Seoul")
+    public void fetchAndSaveReferenceNews() {
+        System.out.println("🕒 참고용 뉴스 크롤링 실행: " + LocalDateTime.now());
+
+        List<String> trendingKeywords = newsCrawlerService.extractTrendingKeywords();
+
+        for (String keyword : trendingKeywords) {
+            System.out.println("🔍 참고용 검색어: " + keyword);
+
+            Map<String, Object> newsData = newsCrawlerService.getNews(keyword);
+
+            // ✅ 참고용 뉴스 저장
+            newsStorageService.saveReferenceNewsToMongoDB(newsData, keyword);
+        }
+
+        System.out.println("✅ 참고용 뉴스 저장 완료!");
+    }
+
 }
