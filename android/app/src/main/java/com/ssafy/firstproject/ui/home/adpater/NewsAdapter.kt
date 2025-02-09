@@ -6,19 +6,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ssafy.firstproject.data.model.News
+import com.ssafy.firstproject.data.model.NewsArticle
 import com.ssafy.firstproject.databinding.ItemNewsBinding
 
 
 class NewsAdapter(private val itemClickListener: ItemClickListener) :
-    ListAdapter<News, NewsAdapter.CustomViewHolder>(CustomComparator) {
+    ListAdapter<NewsArticle, NewsAdapter.CustomViewHolder>(CustomComparator) {
 
-    companion object CustomComparator : DiffUtil.ItemCallback<News>() {
-        override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
+    companion object CustomComparator : DiffUtil.ItemCallback<NewsArticle>() {
+        override fun areItemsTheSame(oldItem: NewsArticle, newItem: NewsArticle): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+        override fun areContentsTheSame(oldItem: NewsArticle, newItem: NewsArticle): Boolean {
             return oldItem == newItem
         }
     }
@@ -30,14 +30,14 @@ class NewsAdapter(private val itemClickListener: ItemClickListener) :
     inner class CustomViewHolder(private val binding: ItemNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: News) {
+        fun bind(item: NewsArticle) {
             Glide.with(binding.root)
                 .load(item.topImage)
                 .into(binding.ivNewsImg)
             binding.tvDate.text = item.pubDate
             binding.tvTitle.text = item.title
             binding.tvSummary.text = item.description
-            binding.tvTruthPercent.text = item.pubDate
+            binding.tvTruthPercent.text = item.reliability.toString()
         }
     }
 
