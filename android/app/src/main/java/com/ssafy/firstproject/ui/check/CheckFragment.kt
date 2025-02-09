@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
@@ -12,6 +13,8 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
     FragmentCheckBinding::bind,
     R.layout.fragment_check
 ) {
+
+    private val args by navArgs<CheckFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,6 +28,15 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 
         binding.btnCheck.setOnClickListener {
             findNavController().navigate(R.id.dest_check_detail)
+        }
+
+        binding.ivCamera.setOnClickListener {
+            findNavController().navigate(R.id.dest_camera)
+        }
+
+        if (args.recognizedText.isNotEmpty()) {
+            binding.actvCheckType.setText(getString(R.string.type_content))
+            binding.tieContentInput.setText(args.recognizedText)
         }
     }
 
@@ -50,18 +62,21 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 binding.groupAddImg.visibility = View.VISIBLE
                 binding.tilUrlInput.visibility = View.GONE
                 binding.tilContentInput.visibility = View.GONE
+                binding.ivCamera.visibility = View.GONE
             }
 
             getString(R.string.type_url) -> {
                 binding.groupAddImg.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.VISIBLE
                 binding.tilContentInput.visibility = View.GONE
+                binding.ivCamera.visibility = View.GONE
             }
 
             getString(R.string.type_content) -> {
                 binding.groupAddImg.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.GONE
                 binding.tilContentInput.visibility = View.VISIBLE
+                binding.ivCamera.visibility = View.VISIBLE
             }
         }
     }
