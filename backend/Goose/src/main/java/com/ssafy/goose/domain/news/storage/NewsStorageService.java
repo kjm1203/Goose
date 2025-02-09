@@ -100,6 +100,12 @@ public class NewsStorageService {
         // 1. 키워드로 뉴스 검색해서 가져오기 (AutoCrawlingService로부터 saveNewsToMongoDB로 넘어옴)
         List<Map<String, Object>> newsItems = (List<Map<String, Object>>) newsData.get("items");
 
+        // 링크 테스트
+        for (Map<String, Object> item : newsItems) {
+            String link = (String) item.get("link");
+            System.out.println("뉴스 검색 API가 가져온 링크 : "+link);
+        }
+
         for (Map<String, Object> item : newsItems) {
             // 2. 뉴스데이터에서 기사 링크 추출
             String link = (String) item.get("link");

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -22,6 +23,9 @@ public class NewsCrawlerService {
     private String clientSecret;
 
     private final RestTemplate restTemplate = new RestTemplate();
+
+    // ✅ AI 키워드 추출 API 주소
+    private final String aiKeywordExtractionUrl = "http://localhost:5053/extract-keywords";
 
     /**
      * 🔹 1. 네이버 뉴스 API에서 최신 뉴스 제목 가져오기
@@ -41,40 +45,37 @@ public class NewsCrawlerService {
                 .map(item -> ((String) item.get("title")).replaceAll("<[^>]*>", "")) // ✅ HTML 태그 제거
                 .collect(Collectors.toList());
 
-        // 🔹 2. 뉴스 제목에서 주요 키워드 추출 (빈도 기반)
-        return extractKeywordsFromTitles(titles);
+        // 🔹 2. AI 기반 키워드 추출
+        return extractKeywordsUsingAI(titles);
     }
 
     /**
-     * 🔹 2. 뉴스 제목에서 주요 키워드 추출 (빈도 기반)
+     * 🔹 2. AI를 활용한 주요 키워드 추출
      */
-    private List<String> extractKeywordsFromTitles(List<String> titles) {
-        Map<String, Integer> wordCount = new HashMap<>();
+    private List<String> extractKeywordsUsingAI(List<String> titles) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
 
-        for (String title : titles) {
-            String[] words = title.split("\\s+"); // 띄어쓰기 기준으로 단어 분리
-            for (String word : words) {
-                word = word.replaceAll("[^가-힣a-zA-Z0-9]", "").trim(); // ✅ 특수문자 제거
-                if (word.length() > 1) { // ✅ 1글자 이하 단어 제외
-                    wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
-                }
-            }
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("titles", titles);
+
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<Map> response = restTemplate.exchange(aiKeywordExtractionUrl, HttpMethod.POST, entity, Map.class);
+        if (response.getBody() == null || !response.getBody().containsKey("keywords")) {
+            return Collections.emptyList();
         }
 
-        // 🔹 상위 10개 키워드 반환 (빈도수 기준 정렬)
-        return wordCount.entrySet().stream()
-                .sorted((a, b) -> b.getValue().compareTo(a.getValue())) // ✅ 빈도수 기준 내림차순 정렬
-                .limit(10) // ✅ 상위 10개 키워드 선택
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+        return (List<String>) response.getBody().get("keywords");
     }
 
     /**
      * 🔹 3. 특정 키워드 기반 뉴스 검색
      */
-    public Map<String, Object> getNews(String query, int displayCount) {
-        String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
-        String url = "https://openapi.naver.com/v1/search/news.json?query=" + encodedQuery + "&display="+ displayCount +"&sort=sim";
+    public Map<String, Object> getNews(String keyword, int displayCount) {
+        String encodedKeyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
+        String url = "https://openapi.naver.com/v1/search/news.json?query=" + encodedKeyword + "&display="+ displayCount +"&sort=date";
+        System.out.println("요청 API URL : " + url);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Naver-Client-Id", clientId);

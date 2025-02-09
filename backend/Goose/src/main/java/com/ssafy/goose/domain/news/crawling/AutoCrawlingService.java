@@ -47,7 +47,7 @@ public class AutoCrawlingService {
         for (String keyword : trendingKeywords) {
             System.out.println("🔍 참고용 검색어: " + keyword);
 
-            Map<String, Object> newsData = newsCrawlerService.getNews(keyword, 50);
+            Map<String, Object> newsData = newsCrawlerService.getNews(keyword, 10);
 
             // ✅ 참고용 뉴스 저장
             newsStorageService.saveReferenceNewsToMongoDB(newsData, keyword);
