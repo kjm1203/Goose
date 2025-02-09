@@ -24,13 +24,18 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             kotlin.runCatching {
                 ApplicationClass.newsRepository.getNewsList()
-            }.onSuccess {
-                _newsList.value = it
-                Log.d(TAG, "getNewsList: $it")
+            }.onSuccess { response ->
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _newsList.value = it
+                    }
+                    Log.d(TAG, "getNewsList: ${response.body()}")
+                } else {
+                    Log.d(TAG, "getNewsList fail: ${response.code()}")
+                }
             }.onFailure {
                 Log.e(TAG, "getNewsList: ${it.message}", it)
             }
         }
     }
-
 }

@@ -20,9 +20,15 @@ class SearchViewModel : ViewModel() {
         viewModelScope.launch {
             kotlin.runCatching {
                 ApplicationClass.newsRepository.getSearchNewsList(keyword)
-            }.onSuccess {
-                _newsList.value = it
-                Log.d(TAG, "getSearchNewsList: $it")
+            }.onSuccess { response ->
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _newsList.value = it
+                    }
+                    Log.d(TAG, "getSearchNewsList: ${response.body()}")
+                } else {
+                    Log.d(TAG, "getSearchNewsList fail: ${response.code()}")
+                }
             }.onFailure {
                 Log.e(TAG, "getSearchNewsList: ${it.message}", it)
             }
