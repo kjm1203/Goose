@@ -122,5 +122,6 @@
     <string name="user_new_password">새 비밀번호</string>
     <string name="user_new_nickname">새 닉네임</string>
     <string name="user_do_edit">변경하기</string>
-
+    <string name="user_not_correct_message">비밀번호가 일치하지 않습니다.</string>
+    <string name="user_limit_message">4~12자 영문 소문자와 숫자 조합으로 입력해주세요.</string>
 </resources>

@@ -23,7 +23,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         // 로그인 여부 확인 (false:비로그인)
-        val isLoggedIn = false
+        val isLoggedIn = true
 
         if (isLoggedIn) {
             // 로그인된 경우: 마이페이지 콘텐츠 표시

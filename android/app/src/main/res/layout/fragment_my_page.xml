@@ -18,7 +18,7 @@
         <!-- 비로그인 메시지 -->
         <TextView
             android:id="@+id/tv_login_required"
-            style="@style/Widget.TextView.Header"
+            style="@style/Widget.TextView.Header.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_required_message"
@@ -224,26 +224,26 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/tv_profile_edit"
+                android:id="@+id/tv_my_news_list"
                 style="@style/Widget.TextView.Mypage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_12dp"
                 android:layout_marginBottom="@dimen/spacing_12dp"
-                android:text="@string/profile_edit"
+                android:text="@string/my_news_list"
                 app:drawableEndCompat="@drawable/ic_chevron_right"
-                app:layout_constraintBottom_toTopOf="@id/tv_my_news_list"
+                app:layout_constraintBottom_toTopOf="@id/tv_profile_edit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_bar_chart" />
 
             <TextView
-                android:id="@+id/tv_my_news_list"
+                android:id="@+id/tv_profile_edit"
                 style="@style/Widget.TextView.Mypage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_12dp"
-                android:text="@string/my_news_list"
+                android:text="@string/profile_edit"
                 app:drawableEndCompat="@drawable/ic_chevron_right"
                 app:layout_constraintBottom_toTopOf="@id/tv_logout"
                 app:layout_constraintEnd_toEndOf="parent"
