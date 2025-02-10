@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentSearchBinding
+import com.ssafy.firstproject.ui.home.HomeFragmentDirections
 import com.ssafy.firstproject.ui.home.adpater.NewsAdapter
 import com.ssafy.firstproject.ui.search.viewmodel.SearchViewModel
 
@@ -35,7 +36,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(
     }
 
     private fun initAdapter() {
-        adapter = NewsAdapter {}
+        adapter = NewsAdapter { id ->
+            val action = SearchFragmentDirections.actionDestSearchToDestNewsDetail(id)
+            findNavController().navigate(action)
+        }
         binding.rvNews.adapter = adapter
     }
 

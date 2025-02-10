@@ -44,6 +44,10 @@ class NewsAdapter(private val itemClickListener: ItemClickListener) :
             binding.tvSummary.text = item.description
             binding.tvTruthPercent.text =
                 binding.root.context.getString(R.string.reliability, item.reliability)
+
+            binding.root.setOnClickListener {
+                itemClickListener.onClick(item.id)
+            }
         }
     }
 
