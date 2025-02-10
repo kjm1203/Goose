@@ -1,6 +1,7 @@
 package com.ssafy.goose;
 
 import com.ssafy.goose.domain.news.scheduler.AutoCrawlingService;
+import com.ssafy.goose.domain.factcheck.scheduler.AutoFactCheckCrawlingService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,10 +18,13 @@ public class GooseApplication {
 
 	// 🔹 앱 시작 후 즉시 뉴스 크롤링 실행
 	@Bean
-	public CommandLineRunner run(AutoCrawlingService autoCrawlingService) {
+	public CommandLineRunner run(AutoCrawlingService autoCrawlingService, AutoFactCheckCrawlingService autoFactCheckCrawlingService) {
 		return args -> {
-			System.out.println("🚀 애플리케이션 실행 후 즉시 뉴스 크롤링 시작...");
-			autoCrawlingService.fetchAndSaveTrendingNews(); // 즉시 실행
+//			System.out.println("🚀 애플리케이션 실행 후 즉시 뉴스 크롤링 시작...");
+//			autoCrawlingService.fetchAndSaveTrendingNews(); // 즉시 실행
+
+			// 팩트 체크 크롤링
+			autoFactCheckCrawlingService.fetchAndStoreFactChecks();
 		};
 	}
 }

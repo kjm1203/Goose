@@ -2,10 +2,11 @@ package com.ssafy.goose.domain.factcheck.scheduler;
 
 import com.ssafy.goose.domain.factcheck.crawling.FactCheckCrawlerService;
 import com.ssafy.goose.domain.factcheck.storage.FactCheckStorageService;
+import com.ssafy.goose.domain.factcheck.model.FactCheck;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class AutoFactCheckCrawlingService {
@@ -17,14 +18,16 @@ public class AutoFactCheckCrawlingService {
         this.factCheckStorageService = factCheckStorageService;
     }
 
-    @Scheduled(cron = "0 0 6,18 * * *", zone = "Asia/Seoul")  // ✅ 하루 두 번 실행 (06:00, 18:00)
-    public void fetchAndSaveFactChecks() {
-        System.out.println("🕒 팩트체크 크롤링 실행: " + LocalDateTime.now());
+    @Scheduled(cron = "0 0 6,18 * * *", zone = "Asia/Seoul")  // ✅ 하루 2회 (06:00, 18:00)
+    public void fetchAndStoreFactChecks() {
+        System.out.println("🕒 FastAPI 팩트체크 크롤링 요청");
 
-        // 1. 팩트체크 데이터 가져오기
-        var factChecks = factCheckCrawlerService.fetchFactChecks();
-
-        // 2. MongoDB 저장
-        factCheckStorageService.saveFactChecks(factChecks);
+        List<FactCheck> factChecks = factCheckCrawlerService.fetchFactChecks();
+        if (!factChecks.isEmpty()) {
+            factCheckStorageService.saveFactChecks(factChecks);
+            System.out.println("✅ 팩트체크 저장 완료: " + factChecks.size() + "개");
+        } else {
+            System.out.println("❌ 팩트체크 데이터를 가져오지 못했습니다.");
+        }
     }
 }

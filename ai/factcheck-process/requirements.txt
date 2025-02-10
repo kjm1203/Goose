@@ -1,0 +1,14 @@
+# ✅ FastAPI 및 ASGI 서버 (비동기 지원)
+fastapi==0.115.8
+uvicorn==0.34.0
+
+# ✅ PyTorch 및 Transformers (KoBART & KLUE-RoBERTa 모델 사용)
+torch==2.1.0
+torchvision==0.16.0
+torchaudio==2.1.0
+transformers==4.41.2
+tokenizers==0.15.1
+accelerate==0.28.0  # 모델 최적화
+
+# ✅ 기타 필수 라이브러리
+numpy==1.23.5  # 호환성 문제 해결
