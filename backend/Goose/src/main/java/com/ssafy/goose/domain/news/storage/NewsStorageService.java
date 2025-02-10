@@ -68,9 +68,9 @@ public class NewsStorageService {
             List<String> paragraphs = newsParagraphSplitService.getSplitParagraphs(content);
 
             // ✅ 5.1. 기존 같은 키워드 뉴스 가져오기
-            List<NewsArticle> relatedArticles = newsRepository.findByTitleRegex(keyword);
+            List<ReferenceNewsArticle> relatedArticles = referenceNewsRepository.findByTitleContainingIgnoreCase(keyword);
             List<String> existingContents = relatedArticles.stream()
-                    .map(NewsArticle::getContent)
+                    .map(ReferenceNewsArticle::getContent)
                     .collect(Collectors.toList());
 
             // ✅ 5.2. 편향성 분석
