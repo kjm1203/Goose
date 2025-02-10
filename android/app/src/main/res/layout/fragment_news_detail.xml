@@ -72,14 +72,25 @@
                 app:layout_constraintTop_toBottomOf="@id/iv"
                 tools:text="슈퍼스타 강인혁, 열애" />
 
+            <TextView
+                android:id="@+id/tv_truth_percent"
+                style="@style/Widget.TextView.Header.Percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8dp"
+                android:text="신뢰도"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/iv" />
+
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pc_trust_percent"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginEnd="@dimen/spacing_24dp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_date"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_date"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_title" />
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_truth_percent" />
 
             <TextView
                 android:id="@+id/tv_date"
