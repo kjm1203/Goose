@@ -31,7 +31,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     private fun initAdapter() {
-        adapter = NewsAdapter {}
+        adapter = NewsAdapter { id ->
+            val action = HomeFragmentDirections.actionDestHomeToDestNewsDetail(id)
+            findNavController().navigate(action)
+        }
         binding.rvNews.adapter = adapter
     }
 
