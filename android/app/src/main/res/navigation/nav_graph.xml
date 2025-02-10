@@ -9,7 +9,12 @@
         android:id="@+id/dest_home"
         android:name="com.ssafy.firstproject.ui.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_dest_home_to_dest_news_detail"
+            app:destination="@id/dest_news_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/dest_game_start"
@@ -93,13 +98,23 @@
         android:id="@+id/dest_search"
         android:name="com.ssafy.firstproject.ui.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+
+        <action
+            android:id="@+id/action_dest_search_to_dest_news_detail"
+            app:destination="@id/dest_news_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/dest_news_detail"
         android:name="com.ssafy.firstproject.ui.newsdetail.NewsDetailFragment"
         android:label="NewsDetailFragment"
-        tools:layout="@layout/fragment_news_detail" />
+        tools:layout="@layout/fragment_news_detail">
+
+        <argument
+            android:name="newsId"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/dest_record"
