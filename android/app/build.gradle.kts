@@ -86,4 +86,7 @@ dependencies {
 
     // ML Kit
     implementation(libs.text.recognition.korean)
+
+    // Lottie
+    implementation(libs.lottie)
 }
