@@ -22,6 +22,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.lavLoadingAnimation.playAnimation()
+
         initAdapter()
         observeNewsList()
 
@@ -40,6 +42,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     private fun observeNewsList() {
         viewModel.newsList.observe(viewLifecycleOwner) {
+            binding.lavLoadingAnimation.visibility = View.GONE
+            binding.lavLoadingAnimation.pauseAnimation()
             adapter.submitList(it)
         }
     }
