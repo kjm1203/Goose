@@ -1,17 +1,51 @@
 package com.ssafy.firstproject.ui.check
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import java.io.FileOutputStream
 
 class CheckFragment : BaseFragment<FragmentCheckBinding>(
     FragmentCheckBinding::bind,
     R.layout.fragment_check
 ) {
+
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // 갤러리에서 이미지를 가져오는 ActivityResultLauncher 초기화
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val imageUri: Uri? = result.data?.data
+                imageUri?.let {
+                    binding.ivAddImagePlus.visibility = View.GONE
+                    binding.ivAddImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                    binding.ivAddImage.setImageURI(it) // 이미지 설정
+
+                    //multipart 형식으로 변환
+                    val multipartBody = uriToMultipart(it, requireContext())
+                }
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,6 +59,12 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 
         binding.btnCheck.setOnClickListener {
             findNavController().navigate(R.id.dest_check_detail)
+        }
+
+        // 이미지 추가 버튼 클릭 시 갤러리 실행
+        binding.ivAddImagePlus.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            imagePickerLauncher.launch(intent)
         }
     }
 
@@ -63,6 +103,25 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 binding.tilUrlInput.visibility = View.GONE
                 binding.tilContentInput.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private fun uriToMultipart(uri: Uri, context: Context, paramName: String = "image"): MultipartBody.Part? {
+        val contentResolver = context.contentResolver
+        val file = File(context.cacheDir, "upload_image.jpg")
+
+        return runCatching {
+            contentResolver.openInputStream(uri)?.use { inputStream ->
+                FileOutputStream(file).use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+
+            val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData(paramName, file.name, requestFile)
+        }.getOrElse {
+            it.printStackTrace()
+            null
         }
     }
 }
