@@ -73,8 +73,7 @@ public class NewsCrawlerService {
      * 🔹 3. 특정 키워드 기반 뉴스 검색
      */
     public Map<String, Object> getNews(String keyword, int displayCount) {
-        String encodedKeyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
-        String url = "https://openapi.naver.com/v1/search/news.json?query=" + encodedKeyword + "&display="+ displayCount +"&sort=date";
+        String url = "https://openapi.naver.com/v1/search/news.json?query=" + keyword + "&display="+ displayCount +"&sort=date";
         System.out.println("요청 API URL : " + url);
 
         HttpHeaders headers = new HttpHeaders();
