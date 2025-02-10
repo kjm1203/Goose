@@ -73,6 +73,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             findNavController().navigate(R.id.dest_camera)
         }
 
+        // EditText 터치시 Scrollview 스크롤 무시
         binding.tieExtractTextInput.setOnTouchListener { _, event ->
             view.parent.requestDisallowInterceptTouchEvent(true)
             when (event.action and MotionEvent.ACTION_MASK) {
@@ -137,7 +138,8 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             val image = InputImage.fromFilePath(requireContext(), img)
 
             // 한글 텍스트 인식기 초기화
-            val recognizer = TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
+            val recognizer =
+                TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
 
             // 이미지 처리 시작
             recognizer.process(image)
