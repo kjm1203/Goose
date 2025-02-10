@@ -56,7 +56,7 @@
 
     <!-- 스크롤 가능한 콘텐츠 -->
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll_view"
+        android:id="@+id/nsv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
