@@ -2,6 +2,7 @@ package com.ssafy.goose;
 
 import com.ssafy.goose.domain.news.scheduler.AutoCrawlingService;
 import com.ssafy.goose.domain.factcheck.scheduler.AutoFactCheckCrawlingService;
+import com.ssafy.goose.domain.news.service.titlecheck.TitleCheckService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,15 +17,25 @@ public class GooseApplication {
 		SpringApplication.run(GooseApplication.class, args);
 	}
 
-	// 🔹 앱 시작 후 즉시 뉴스 크롤링 실행
+	// 🔹 앱 시작 후 즉시 뉴스 크롤링 실행 및 제목 검증 테스트
 	@Bean
-	public CommandLineRunner run(AutoCrawlingService autoCrawlingService, AutoFactCheckCrawlingService autoFactCheckCrawlingService) {
+	public CommandLineRunner run(
+			AutoCrawlingService autoCrawlingService,
+			AutoFactCheckCrawlingService autoFactCheckCrawlingService,
+			TitleCheckService titleCheckService
+	) {
 		return args -> {
-//			System.out.println("🚀 애플리케이션 실행 후 즉시 뉴스 크롤링 시작...");
-//			autoCrawlingService.fetchAndSaveTrendingNews(); // 즉시 실행
+			// ✅ 자동 뉴스 크롤링 (비활성화 가능)
+			 System.out.println("🚀 애플리케이션 실행 후 즉시 뉴스 크롤링 시작...");
+			 autoCrawlingService.fetchAndSaveTrendingNews();
+//			 autoFactCheckCrawlingService.fetchAndStoreFactChecks();
 
-			// 팩트 체크 크롤링
-//			autoFactCheckCrawlingService.fetchAndStoreFactChecks();
+			// ✅ 제목 검증 테스트 실행
+//			String testTitle = "트럼프 ‘관세전쟁’ 확전 우려에 코스피 약세";  // 테스트할 기사 제목
+//			System.out.println("📝 제목 검증 테스트 시작: " + testTitle);
+//
+//			String factCheckResult = titleCheckService.analyzeTitleAgainstReferences(testTitle);
+//			System.out.println("🔍 제목 검증 결과: " + factCheckResult);
 		};
 	}
 }

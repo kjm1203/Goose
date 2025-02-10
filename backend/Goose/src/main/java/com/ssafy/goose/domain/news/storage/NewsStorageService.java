@@ -121,6 +121,9 @@ public class NewsStorageService {
 
             if (content.length() < 100) continue;
 
+            // ✅ 4. 문단 분리 수행 (FastAPI)
+            List<String> paragraphs = newsParagraphSplitService.getSplitParagraphs(content);
+
             ReferenceNewsArticle article = ReferenceNewsArticle.builder()
                     .title(cleanTitle)
                     .originalLink((String) item.get("originallink"))
@@ -128,6 +131,7 @@ public class NewsStorageService {
                     .description((String) item.get("description"))
                     .pubDate((String) item.get("pubDate"))
                     .content(content)
+                    .paragraphs(paragraphs)
                     .topImage(topImage)
                     .extractedAt(LocalDateTime.now())
                     .build();

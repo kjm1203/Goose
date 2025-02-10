@@ -30,7 +30,7 @@ public class AutoCrawlingService {
             System.out.println("🔍 검색어: " + keyword);
 
             // 2.1. 참고용 뉴스 데이터 먼저 찾아보기
-            Map<String, Object> referenceNewsData = newsCrawlerService.getNews(keyword, 100);
+            Map<String, Object> referenceNewsData = newsCrawlerService.getNews(keyword, 50);
 
             // ✅ 2.2. 참고용 뉴스 저장
             newsStorageService.saveReferenceNewsToMongoDB(referenceNewsData, keyword);
