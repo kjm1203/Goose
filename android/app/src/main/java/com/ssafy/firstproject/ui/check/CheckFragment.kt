@@ -12,6 +12,7 @@ import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
@@ -26,25 +27,27 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
     R.layout.fragment_check
 ) {
 
+    private val args by navArgs<CheckFragmentArgs>()
     private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // 갤러리에서 이미지를 가져오는 ActivityResultLauncher 초기화
-        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val imageUri: Uri? = result.data?.data
-                imageUri?.let {
-                    binding.ivAddImagePlus.visibility = View.GONE
-                    binding.ivAddImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
-                    binding.ivAddImage.setImageURI(it) // 이미지 설정
+        imagePickerLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val imageUri: Uri? = result.data?.data
+                    imageUri?.let {
+                        binding.ivAddImagePlus.visibility = View.GONE
+                        binding.ivAddImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                        binding.ivAddImage.setImageURI(it) // 이미지 설정
 
-                    //multipart 형식으로 변환
-                    val multipartBody = uriToMultipart(it, requireContext())
+                        //multipart 형식으로 변환
+                        val multipartBody = uriToMultipart(it, requireContext())
+                    }
                 }
             }
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,6 +68,15 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         binding.ivAddImagePlus.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             imagePickerLauncher.launch(intent)
+        }
+
+        binding.ivCamera.setOnClickListener {
+            findNavController().navigate(R.id.dest_camera)
+        }
+
+        if (args.recognizedText.isNotEmpty()) {
+            binding.actvCheckType.setText(getString(R.string.type_content))
+            binding.tieContentInput.setText(args.recognizedText)
         }
     }
 
@@ -90,23 +102,30 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 binding.groupAddImg.visibility = View.VISIBLE
                 binding.tilUrlInput.visibility = View.GONE
                 binding.tilContentInput.visibility = View.GONE
+                binding.ivCamera.visibility = View.GONE
             }
 
             getString(R.string.type_url) -> {
                 binding.groupAddImg.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.VISIBLE
                 binding.tilContentInput.visibility = View.GONE
+                binding.ivCamera.visibility = View.GONE
             }
 
             getString(R.string.type_content) -> {
                 binding.groupAddImg.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.GONE
                 binding.tilContentInput.visibility = View.VISIBLE
+                binding.ivCamera.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun uriToMultipart(uri: Uri, context: Context, paramName: String = "image"): MultipartBody.Part? {
+    private fun uriToMultipart(
+        uri: Uri,
+        context: Context,
+        paramName: String = "image"
+    ): MultipartBody.Part? {
         val contentResolver = context.contentResolver
         val file = File(context.cacheDir, "upload_image.jpg")
 

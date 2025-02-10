@@ -8,6 +8,10 @@
     <!-- 갤러리 이미지 선택 허용  -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
 
+    <!-- 카메라 권한 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.any" />
+
     <application
         android:name=".base.ApplicationClass"
         android:allowBackup="true"

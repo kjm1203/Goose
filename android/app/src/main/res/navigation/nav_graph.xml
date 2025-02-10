@@ -21,7 +21,13 @@
         android:id="@+id/dest_check"
         android:name="com.ssafy.firstproject.ui.check.CheckFragment"
         android:label="CheckFragment"
-        tools:layout="@layout/fragment_check" />
+        tools:layout="@layout/fragment_check">
+
+        <argument
+            android:name="recognizedText"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/dest_image"
@@ -52,6 +58,7 @@
         android:name="com.ssafy.firstproject.ui.game.ChoiceDialogFragment"
         android:label="ChoiceDialogFragment"
         tools:layout="@layout/dialog_choice">
+
         <action
             android:id="@+id/action_dest_choice_dialog_to_dest_game_result"
             app:destination="@id/dest_game_result"
@@ -93,11 +100,22 @@
         android:name="com.ssafy.firstproject.ui.newsdetail.NewsDetailFragment"
         android:label="NewsDetailFragment"
         tools:layout="@layout/fragment_news_detail" />
-    
+
     <fragment
         android:id="@+id/dest_record"
         android:name="com.ssafy.firstproject.ui.record.RecordFragment"
         android:label="RecordFragment"
         tools:layout="@layout/fragment_record" />
+
+    <fragment
+        android:id="@+id/dest_camera"
+        android:name="com.ssafy.firstproject.ui.camera.CameraFragment"
+        android:label="CameraFragment"
+        tools:layout="@layout/fragment_camera">
+
+        <action
+            android:id="@+id/action_dest_camera_to_dest_check"
+            app:destination="@id/dest_check" />
+    </fragment>
 
 </navigation>
