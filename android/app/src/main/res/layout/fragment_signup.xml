@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -75,7 +74,7 @@
 
         <Button
             android:id="@+id/btn_check_id"
-            style="@style/Widget.Button.Primary"
+            style="@style/Widget.Button.Secondary"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_16dp"
@@ -103,8 +102,8 @@
             style="@style/Widget.TextView.Caption.GraniteGray"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/user_password"
             android:layout_marginTop="64dp"
+            android:text="@string/user_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_signup_id_input" />
 
@@ -213,7 +212,7 @@
 
         <Button
             android:id="@+id/btn_check_nickname"
-            style="@style/Widget.Button.Primary"
+            style="@style/Widget.Button.Secondary"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_16dp"
