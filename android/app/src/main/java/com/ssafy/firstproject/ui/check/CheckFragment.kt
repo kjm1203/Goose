@@ -1,11 +1,12 @@
 package com.ssafy.firstproject.ui.check
 
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -13,14 +14,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.File
-import java.io.FileOutputStream
 
 class CheckFragment : BaseFragment<FragmentCheckBinding>(
     FragmentCheckBinding::bind,
@@ -43,13 +42,13 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                         binding.ivAddImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
                         binding.ivAddImage.setImageURI(it) // 이미지 설정
 
-                        //multipart 형식으로 변환
-                        val multipartBody = uriToMultipart(it, requireContext())
+                        extractTextByImage(it)
                     }
                 }
             }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -72,6 +71,15 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 
         binding.ivCamera.setOnClickListener {
             findNavController().navigate(R.id.dest_camera)
+        }
+
+        // EditText 터치시 Scrollview 스크롤 무시
+        binding.tieExtractTextInput.setOnTouchListener { _, event ->
+            view.parent.requestDisallowInterceptTouchEvent(true)
+            when (event.action and MotionEvent.ACTION_MASK) {
+                MotionEvent.ACTION_UP -> view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            false
         }
 
         if (args.recognizedText.isNotEmpty()) {
@@ -100,6 +108,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         when (selectedItem) {
             getString(R.string.type_img) -> {
                 binding.groupAddImg.visibility = View.VISIBLE
+                binding.tilExtractTextInput.visibility = View.VISIBLE
                 binding.tilUrlInput.visibility = View.GONE
                 binding.tilContentInput.visibility = View.GONE
                 binding.ivCamera.visibility = View.GONE
@@ -107,6 +116,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 
             getString(R.string.type_url) -> {
                 binding.groupAddImg.visibility = View.GONE
+                binding.tilExtractTextInput.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.VISIBLE
                 binding.tilContentInput.visibility = View.GONE
                 binding.ivCamera.visibility = View.GONE
@@ -114,6 +124,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 
             getString(R.string.type_content) -> {
                 binding.groupAddImg.visibility = View.GONE
+                binding.tilExtractTextInput.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.GONE
                 binding.tilContentInput.visibility = View.VISIBLE
                 binding.ivCamera.visibility = View.VISIBLE
@@ -121,26 +132,25 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         }
     }
 
-    private fun uriToMultipart(
-        uri: Uri,
-        context: Context,
-        paramName: String = "image"
-    ): MultipartBody.Part? {
-        val contentResolver = context.contentResolver
-        val file = File(context.cacheDir, "upload_image.jpg")
+    private fun extractTextByImage(img: Uri) {
+        runCatching {
+            // URI로부터 InputImage 객체 생성
+            val image = InputImage.fromFilePath(requireContext(), img)
 
-        return runCatching {
-            contentResolver.openInputStream(uri)?.use { inputStream ->
-                FileOutputStream(file).use { outputStream ->
-                    inputStream.copyTo(outputStream)
+            // 한글 텍스트 인식기 초기화
+            val recognizer =
+                TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
+
+            // 이미지 처리 시작
+            recognizer.process(image)
+                .addOnSuccessListener { visionText ->
+                    binding.tieExtractTextInput.setText(visionText.text)
                 }
-            }
-
-            val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData(paramName, file.name, requestFile)
-        }.getOrElse {
-            it.printStackTrace()
-            null
+                .addOnFailureListener { exception ->
+                    binding.tieExtractTextInput.setText(exception.message)
+                }
+        }.onFailure { exception ->
+            exception.printStackTrace()
         }
     }
 }
