@@ -28,32 +28,20 @@ public class AutoCrawlingService {
         for (String keyword : trendingKeywords) {
             System.out.println("🔍 검색어: " + keyword);
 
-            // 2. 키워드로 뉴스 검색해서 가져오기
+            // 2.1. 참고용 뉴스 데이터 먼저 찾아보기
+            Map<String, Object> referenceNewsData = newsCrawlerService.getNews(keyword, 100);
+
+            // ✅ 2.2. 참고용 뉴스 저장
+            newsStorageService.saveReferenceNewsToMongoDB(referenceNewsData, keyword);
+
+            // 3.1. 키워드로 뉴스 검색해서 가져오기
             Map<String, Object> newsData = newsCrawlerService.getNews(keyword, 7);
 
-            // 3. 뉴스 데이터를 갖고 메인 로직 수행 + 몽고DB 저장
+            // ✅ 3.2. 뉴스 데이터를 갖고 메인 로직 수행 + 몽고DB 저장
             newsStorageService.saveNewsToMongoDB(newsData, keyword);
         }
 
         System.out.println("✅ 뉴스 저장 완료!");
-    }
-
-    @Scheduled(cron = "0 55 5,8,11,14,17,20,23 * * *", zone = "Asia/Seoul")
-    public void fetchAndSaveReferenceNews() {
-        System.out.println("🕒 참고용 뉴스 크롤링 실행: " + LocalDateTime.now());
-
-        List<String> trendingKeywords = newsCrawlerService.extractTrendingKeywords();
-
-        for (String keyword : trendingKeywords) {
-            System.out.println("🔍 참고용 검색어: " + keyword);
-
-            Map<String, Object> newsData = newsCrawlerService.getNews(keyword, 10);
-
-            // ✅ 참고용 뉴스 저장
-            newsStorageService.saveReferenceNewsToMongoDB(newsData, keyword);
-        }
-
-        System.out.println("✅ 참고용 뉴스 저장 완료!");
     }
 
 }
