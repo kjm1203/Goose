@@ -5,8 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- 비로그인 사용자에게 표시할 메시지 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_login_required"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/spacing_24dp"
+        android:visibility="gone">
+
+        <!-- 비로그인 메시지 -->
+        <TextView
+            android:id="@+id/tv_login_required"
+            style="@style/Widget.TextView.Header.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_required_message"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 로그인 버튼 -->
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/Widget.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_32dp"
+            android:text="@string/mypage_go_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_login_required" />
+
+        <!-- 회원가입 버튼 -->
+        <Button
+            android:id="@+id/btn_sign_up"
+            style="@style/Widget.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8dp"
+            android:text="@string/mypage_go_signup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <!-- 스크롤 가능한 콘텐츠 -->
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -163,26 +211,38 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/tv_profile_edit"
+                android:id="@+id/tv_my_news_list"
                 style="@style/Widget.TextView.Mypage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_12dp"
                 android:layout_marginBottom="@dimen/spacing_12dp"
-                android:text="@string/profile_edit"
+                android:text="@string/my_news_list"
                 app:drawableEndCompat="@drawable/ic_chevron_right"
-                app:layout_constraintBottom_toTopOf="@id/tv_my_news_list"
+                app:layout_constraintBottom_toTopOf="@id/tv_profile_edit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_bar_chart" />
 
             <TextView
-                android:id="@+id/tv_my_news_list"
+                android:id="@+id/tv_profile_edit"
+                style="@style/Widget.TextView.Mypage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_12dp"
+                android:text="@string/profile_edit"
+                app:drawableEndCompat="@drawable/ic_chevron_right"
+                app:layout_constraintBottom_toTopOf="@id/tv_logout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_logout"
                 style="@style/Widget.TextView.Mypage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_24dp"
-                android:text="@string/my_news_list"
+                android:text="@string/logout"
                 app:drawableEndCompat="@drawable/ic_chevron_right"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

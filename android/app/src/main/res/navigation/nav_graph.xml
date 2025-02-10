@@ -118,4 +118,10 @@
             app:destination="@id/dest_check" />
     </fragment>
 
+    <fragment
+        android:id="@+id/dest_profile_edit"
+        android:name="com.ssafy.firstproject.ui.profileedit.ProfileEditFragment"
+        android:label="ProfileEditFragment"
+        tools:layout="@layout/fragment_profile_edit" />
+
 </navigation>

@@ -26,8 +26,39 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
             findNavController().navigate(R.id.dest_record)
         }
 
+        // 로그인 여부 확인 (false:비로그인)
+        val isLoggedIn = true
+        handleLoginState(isLoggedIn)
+
+        // 기존 클릭 리스너 유지
+        binding.tvProfileEdit.setOnClickListener {
+            findNavController().navigate(R.id.dest_profile_edit)
+        }
+
         setBarChart()
         setBarChartAnimation()
+    }
+
+    private fun handleLoginState(isLoggedIn: Boolean) {
+        if (isLoggedIn) {
+            // 로그인된 경우: 마이페이지 콘텐츠 표시
+            binding.clLoginRequired.visibility = View.GONE
+            binding.nsv.visibility = View.VISIBLE
+        } else {
+            // 비로그인된 경우: "로그인이 필요합니다" 메시지 표시
+            binding.clLoginRequired.visibility = View.VISIBLE
+            binding.nsv.visibility = View.GONE
+
+            // 로그인 버튼 클릭 이벤트 설정
+            binding.btnLogin.setOnClickListener {
+                findNavController().navigate(R.id.dest_login) // 로그인 화면으로 이동
+            }
+
+            // 회원가입 버튼 클릭 이벤트 설정
+            binding.btnSignUp.setOnClickListener {
+                findNavController().navigate(R.id.dest_signup) // 회원가입 화면으로 이동
+            }
+        }
     }
 
     private fun setBarChartAnimation() {
@@ -36,6 +67,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
             .setDuration(300)
             .start()
     }
+
 
     private fun setBarChart() {
         val barChart = binding.barChart
