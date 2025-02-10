@@ -24,7 +24,7 @@ public class GooseApplication {
 //			autoCrawlingService.fetchAndSaveTrendingNews(); // 즉시 실행
 
 			// 팩트 체크 크롤링
-			autoFactCheckCrawlingService.fetchAndStoreFactChecks();
+//			autoFactCheckCrawlingService.fetchAndStoreFactChecks();
 		};
 	}
 }

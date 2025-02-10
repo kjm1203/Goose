@@ -1,4 +1,4 @@
-package com.ssafy.goose.domain.news.crawling;
+package com.ssafy.goose.domain.news.service.crawling;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;

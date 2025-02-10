@@ -1,4 +1,4 @@
-package com.ssafy.goose.domain.news.crawling;
+package com.ssafy.goose.domain.news.service.paragraph;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

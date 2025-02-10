@@ -1,4 +1,4 @@
-package com.ssafy.goose.domain.news.analysis;
+package com.ssafy.goose.domain.news.service.analysis;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

@@ -1,6 +1,6 @@
 package com.ssafy.goose.domain.news.scheduler;
 
-import com.ssafy.goose.domain.news.crawling.NewsCrawlerService;
+import com.ssafy.goose.domain.news.service.crawling.NewsCrawlerService;
 import com.ssafy.goose.domain.news.storage.NewsStorageService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

@@ -1,11 +1,11 @@
 package com.ssafy.goose.domain.news.storage;
 
-import com.ssafy.goose.domain.news.crawling.NewsContentScraping;
-import com.ssafy.goose.domain.news.crawling.NewsParagraphSplitService;
+import com.ssafy.goose.domain.news.service.crawling.NewsContentScraping;
+import com.ssafy.goose.domain.news.service.paragraph.NewsParagraphSplitService;
 import com.ssafy.goose.domain.news.entity.NewsArticle;
 import com.ssafy.goose.domain.news.entity.ReferenceNewsArticle;
 import com.ssafy.goose.domain.news.repository.NewsRepository;
-import com.ssafy.goose.domain.news.analysis.NewsBiasAnalysisService;
+import com.ssafy.goose.domain.news.service.analysis.NewsBiasAnalysisService;
 import com.ssafy.goose.domain.news.repository.ReferenceNewsRepository;
 import org.springframework.stereotype.Service;
 
