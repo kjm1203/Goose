@@ -28,11 +28,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         if (isLoggedIn) {
             // 로그인된 경우: 마이페이지 콘텐츠 표시
             binding.clLoginRequired.visibility = View.GONE
-            binding.nestedScrollView.visibility = View.VISIBLE
+            binding.nsv.visibility = View.VISIBLE
         } else {
             // 비로그인된 경우: "로그인이 필요합니다" 메시지 표시
             binding.clLoginRequired.visibility = View.VISIBLE
-            binding.nestedScrollView.visibility = View.GONE
+            binding.nsv.visibility = View.GONE
 
             // 로그인 버튼 클릭 이벤트
             binding.btnLogin.setOnClickListener {

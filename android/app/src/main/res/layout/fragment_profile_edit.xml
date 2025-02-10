@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:paddingHorizontal="@dimen/spacing_24dp"
     android:paddingBottom="@dimen/spacing_24dp"
-    tools:context=".ui.mypageedit.MyPageEditFragment">
+    tools:context=".ui.mypageedit.ProfileEditFragment">
 
     <ImageView
         android:id="@+id/iv_edit_close"

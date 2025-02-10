@@ -13,7 +13,7 @@ import com.ssafy.firstproject.databinding.FragmentProfileEditBinding
 
 private const val TAG = "MyPageEditFragment"
 
-class MyPageEditFragment : BaseFragment<FragmentProfileEditBinding>(
+class ProfileEditFragment : BaseFragment<FragmentProfileEditBinding>(
     FragmentProfileEditBinding::bind,
     R.layout.fragment_profile_edit
 ) {
