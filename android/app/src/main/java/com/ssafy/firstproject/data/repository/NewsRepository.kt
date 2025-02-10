@@ -15,4 +15,8 @@ class NewsRepository {
     suspend fun getSearchNewsList(keyword: String): Response<List<NewsArticle>> {
         return newsService.getSearchNewsList(keyword)
     }
+
+    suspend fun getNewsArticle(newsId: String): Response<NewsArticle> {
+        return newsService.getNewsArticle(newsId)
+    }
 }
