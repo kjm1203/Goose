@@ -1,4 +1,4 @@
-package com.ssafy.firstproject.ui.home.viewmodel
+package com.ssafy.firstproject.ui.search.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -9,33 +9,30 @@ import com.ssafy.firstproject.base.ApplicationClass
 import com.ssafy.firstproject.data.model.NewsArticle
 import kotlinx.coroutines.launch
 
-private const val TAG = "HomeViewModel"
+private const val TAG = "SearchViewModel"
 
-class HomeViewModel : ViewModel() {
+class SearchViewModel : ViewModel() {
 
     private val _newsList: MutableLiveData<List<NewsArticle>> = MutableLiveData()
     val newsList: LiveData<List<NewsArticle>> get() = _newsList
 
-    init {
-        getNewsList()
-    }
-
-    private fun getNewsList() {
+    fun getSearchNewsList(keyword: String) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ApplicationClass.newsRepository.getNewsList()
+                ApplicationClass.newsRepository.getSearchNewsList(keyword)
             }.onSuccess { response ->
                 if (response.isSuccessful) {
                     response.body()?.let {
                         _newsList.value = it
                     }
-                    Log.d(TAG, "getNewsList: ${response.body()}")
+                    Log.d(TAG, "getSearchNewsList: ${response.body()}")
                 } else {
-                    Log.d(TAG, "getNewsList fail: ${response.code()}")
+                    Log.d(TAG, "getSearchNewsList fail: ${response.code()}")
                 }
             }.onFailure {
-                Log.e(TAG, "getNewsList: ${it.message}", it)
+                Log.e(TAG, "getSearchNewsList: ${it.message}", it)
             }
         }
     }
+
 }
