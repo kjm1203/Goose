@@ -86,4 +86,5 @@ dependencies {
 
     // ML Kit
     implementation(libs.text.recognition.korean)
+    implementation(libs.text.recognition.korean.v1600beta5)
 }
