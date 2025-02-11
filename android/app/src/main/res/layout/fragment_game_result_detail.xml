@@ -31,38 +31,16 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/spacing_48dp">
 
-            <ImageView
-                android:id="@+id/iv_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_24dp"
-                android:contentDescription="@string/result_img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/tv_result"
-                style="@style/Widget.TextView.Header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_21dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_result"
-                tools:text="오답" />
-
             <TextView
                 android:id="@+id/tv_answer_tag"
                 style="@style/Widget.TextView.Header.Secondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_21dp"
+                android:layout_marginTop="@dimen/spacing_24dp"
                 android:text="@string/answer"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_result" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_answer"
@@ -194,7 +172,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_24dp"
+                android:layout_marginTop="@dimen/spacing_48dp"
                 android:text="@string/go_next_game"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
