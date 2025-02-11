@@ -58,10 +58,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/dest_game_result"
-        android:name="com.ssafy.firstproject.ui.gameresult.GameResultFragment"
-        android:label="GameResultFragment"
-        tools:layout="@layout/fragment_game_result">
+        android:id="@+id/dest_game_result_detail"
+        android:name="com.ssafy.firstproject.ui.gameresultdetail.GameResultDetailFragment"
+        android:label="GameResultDetailFragment"
+        tools:layout="@layout/fragment_game_result_detail">
 
         <argument
             android:name="totalTimeSpent"
@@ -78,8 +78,8 @@
             android:name="totalTimeSpent"
             app:argType="long" />
         <action
-            android:id="@+id/action_dest_choice_dialog_to_dest_game_result"
-            app:destination="@id/dest_game_result"
+            android:id="@+id/action_dest_choice_dialog_to_dest_game_result_detail"
+            app:destination="@id/dest_game_result_detail"
             app:popUpTo="@id/dest_game_start" />
     </dialog>
 

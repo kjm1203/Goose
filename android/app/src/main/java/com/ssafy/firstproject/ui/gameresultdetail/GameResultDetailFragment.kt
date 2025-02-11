@@ -1,4 +1,4 @@
-package com.ssafy.firstproject.ui.gameresult
+package com.ssafy.firstproject.ui.gameresultdetail
 
 import android.graphics.Color
 import android.os.Bundle
@@ -13,17 +13,17 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
-import com.ssafy.firstproject.databinding.FragmentGameResultBinding
+import com.ssafy.firstproject.databinding.FragmentGameResultDetailBinding
 import eightbitlab.com.blurview.RenderScriptBlur
 
-private const val TAG = "GameResultFragment"
+private const val TAG = "GameResultDetailFragmen"
 
-class GameResultFragment : BaseFragment<FragmentGameResultBinding>(
-    FragmentGameResultBinding::bind,
-    R.layout.fragment_game_result
+class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
+    FragmentGameResultDetailBinding::bind,
+    R.layout.fragment_game_result_detail
 ) {
 
-    private val args: GameResultFragmentArgs by navArgs()
+    private val args: GameResultDetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
