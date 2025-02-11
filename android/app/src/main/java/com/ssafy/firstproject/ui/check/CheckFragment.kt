@@ -74,10 +74,12 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         }
 
         // EditText 터치시 Scrollview 스크롤 무시
-        binding.tieExtractTextInput.setOnTouchListener { _, event ->
-            view.parent.requestDisallowInterceptTouchEvent(true)
-            when (event.action and MotionEvent.ACTION_MASK) {
-                MotionEvent.ACTION_UP -> view.parent.requestDisallowInterceptTouchEvent(false)
+        binding.tieExtractTextInput.setOnTouchListener { v, event ->
+            if (v.canScrollVertically(1) || v.canScrollVertically(-1)) {
+                v.parent.requestDisallowInterceptTouchEvent(true)
+                if (event.action == MotionEvent.ACTION_UP) {
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
             }
             false
         }
