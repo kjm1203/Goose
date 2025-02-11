@@ -9,7 +9,10 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@EnableMongoRepositories(basePackages = "com.ssafy.goose.domain.news.repository") // MongoDB 관련 Repository 패키지
+@EnableMongoRepositories(basePackages = {
+        "com.ssafy.goose.domain.news.repository",
+        "com.ssafy.goose.domain.contentsearch.repository.mongo"
+}) // MongoDB 관련 Repository 패키지
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
 
     @Value("${spring.data.mongodb.uri}")
@@ -29,4 +32,3 @@ public class MongoDBConfig extends AbstractMongoClientConfiguration {
         return MongoClients.create(mongoUri);
     }
 }
-

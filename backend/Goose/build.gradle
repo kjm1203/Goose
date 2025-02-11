@@ -58,6 +58,9 @@ dependencies {
 
 	// ✅ REST API 요청 시 JSON 처리 (Jackson)
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+
+	// ✅ org.json 의존성 추가. 파이썬 키워드 추출 후 JSON 파싱 시 사용.
+	implementation 'org.json:json:20231013'
 }
 
 tasks.named('test') {
