@@ -24,7 +24,7 @@ public class TitleCheckService {
         this.keywordExtractorService = keywordExtractorService;
     }
 
-    public String analyzeTitleAgainstReferences(String title) {
+    public double analyzeTitleAgainstReferences(String title) {
         // ✅ 1. 제목에서 주요 키워드 3개 추출
         List<String> keywords = keywordExtractorService.extractTopKeywords(title, 3);
         System.out.println("🔹 추출된 키워드: " + keywords);
@@ -35,7 +35,7 @@ public class TitleCheckService {
 
         if (recentArticles.isEmpty()) {
             System.out.println("❌ 해당 키워드와 관련된 최근 뉴스 없음");
-            return "No Relevant Data";
+            return 50.0;
         }
 
         // ✅ 3. 검색된 뉴스 기사들의 본문 내용 추출

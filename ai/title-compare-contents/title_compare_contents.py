@@ -54,18 +54,9 @@ async def fact_check(request: FactCheckRequest):
         neutral_prob = probs[0][1].item() if num_classes == 3 else 0.5  # 2-class 모델 대비
         contradiction_prob = probs[0][2].item() if num_classes == 3 else 1 - entailment_prob  # 2-class 모델 대비
 
-        if contradiction_prob > 0.6:
-            result = "False"
-        elif entailment_prob > 0.6:
-            result = "True"
-        elif neutral_prob > 0.6:
-            result = "Neutral"
-        else:
-            result = "Partially True"
+        print(f"🔹 [유사도] : {entailment_prob:.4f}")        
 
-        print(f"🔹 [검증 결과] : {result} (Entailment: {entailment_prob:.2f}, Contradiction: {contradiction_prob:.2f})")
-
-        return {"title": title, "summary": summary, "factcheck_result": result}
+        return {"similarity_score": entailment_prob}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

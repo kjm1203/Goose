@@ -34,7 +34,7 @@ public class GooseApplication {
 			String testTitle = "1월 아파트 매매물량 46% 가격 낮췄다";  // 테스트할 기사 제목
 			System.out.println("📝 제목 검증 테스트 시작: " + testTitle);
 
-			String factCheckResult = titleCheckService.analyzeTitleAgainstReferences(testTitle);
+			double factCheckResult = titleCheckService.analyzeTitleAgainstReferences(testTitle);
 			System.out.println("🔍 제목 검증 결과: " + factCheckResult);
 		};
 	}
