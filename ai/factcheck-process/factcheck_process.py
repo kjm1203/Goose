@@ -31,6 +31,7 @@ async def fact_check(request: FactCheckRequest):
         summary_ids = kobart_model.generate(inputs, max_length=150, num_beams=4, early_stopping=True)
         summary = kobart_tokenizer.decode(summary_ids[0], skip_special_tokens=True)
 
+        print("🔹 [메인 뉴스 타이틀] :", title)
         print("🔹 [요약된 내용] :", summary)
 
         # ✅ 2. 자연어 추론 (팩트 검증)

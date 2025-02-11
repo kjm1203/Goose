@@ -31,7 +31,7 @@ public class GooseApplication {
 //			 autoFactCheckCrawlingService.fetchAndStoreFactChecks();
 
 			// ✅ 제목 검증 테스트 실행
-			String testTitle = "[오늘 날씨] 아침 추위 '영하 13도'·낮부터 기온↑…겨울에도 선크림 발라야 하는 이유";  // 테스트할 기사 제목
+			String testTitle = "1월 아파트 매매물량 46% 가격 낮췄다";  // 테스트할 기사 제목
 			System.out.println("📝 제목 검증 테스트 시작: " + testTitle);
 
 			String factCheckResult = titleCheckService.analyzeTitleAgainstReferences(testTitle);
