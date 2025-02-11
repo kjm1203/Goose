@@ -9,7 +9,6 @@ import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseActivity
 import com.ssafy.firstproject.databinding.ActivityMainBinding
 
-
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
     private lateinit var navController: NavController
@@ -30,7 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 R.id.dest_home -> View.VISIBLE
                 R.id.dest_game_start -> View.VISIBLE
                 R.id.dest_check -> View.VISIBLE
-                R.id.dest_image -> View.VISIBLE
+                R.id.dest_search -> View.VISIBLE
                 R.id.dest_my_page -> View.VISIBLE
                 R.id.dest_image_result -> View.VISIBLE
                 else -> View.GONE
