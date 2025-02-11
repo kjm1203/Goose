@@ -48,6 +48,11 @@
         <item name="android:fontFamily">@font/spoqahansansneo_medium</item>
     </style>
 
+    <style name="Widget.TextView.Title.NEWS">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_medium</item>
+    </style>
+
     <style name="Widget.TextView.Caption">
         <item name="android:textSize">14sp</item>
     </style>
