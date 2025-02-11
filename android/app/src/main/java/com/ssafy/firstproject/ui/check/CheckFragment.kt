@@ -84,6 +84,8 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             false
         }
 
+        binding.btnCheck.setOnClickListener { findNavController().navigate(R.id.dest_news_result) }
+
         if (args.recognizedText.isNotEmpty()) {
             binding.actvCheckType.setText(getString(R.string.type_content))
             binding.tieContentInput.setText(args.recognizedText)
