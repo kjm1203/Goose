@@ -152,4 +152,9 @@
         android:label="ProfileEditFragment"
         tools:layout="@layout/fragment_profile_edit" />
 
+    <fragment
+        android:id="@+id/dest_news_result"
+        android:name="com.ssafy.firstproject.ui.newsresult.NewsResultFragment"
+        android:label="NewsResultFragment"
+        tools:layout="@layout/fragment_news_result" />
 </navigation>
