@@ -29,7 +29,7 @@ class ChoiceDialogFragment : BottomSheetDialogFragment() {
 
         binding.btnReal.setOnClickListener {
             val action =
-                ChoiceDialogFragmentDirections.actionDestChoiceDialogToDestGameResultDetail(args.totalTimeSpent)
+                ChoiceDialogFragmentDirections.actionDestChoiceDialogToDestGameResult(args.totalTimeSpent)
             findNavController().navigate(action)
         }
     }
