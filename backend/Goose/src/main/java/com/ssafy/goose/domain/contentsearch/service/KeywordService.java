@@ -14,7 +14,7 @@ public class KeywordService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    private String fastApiUrl = "127.0.0.1:8080";
+    private String fastApiUrl = "http://i12d208.p.ssafy.io/:6050";
 
     public KeywordResponseDto extractKeywords(String text) {
         String url = fastApiUrl + "/content_keywords";
