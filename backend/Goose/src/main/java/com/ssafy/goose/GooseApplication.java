@@ -2,7 +2,7 @@ package com.ssafy.goose;
 
 import com.ssafy.goose.domain.news.scheduler.AutoCrawlingService;
 import com.ssafy.goose.domain.factcheck.scheduler.AutoFactCheckCrawlingService;
-import com.ssafy.goose.domain.news.service.titlecheck.TitleCheckService;
+import com.ssafy.goose.domain.news.service.bias.BiasAnalyseService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +22,7 @@ public class GooseApplication {
 	public CommandLineRunner run(
 			AutoCrawlingService autoCrawlingService,
 			AutoFactCheckCrawlingService autoFactCheckCrawlingService,
-			TitleCheckService titleCheckService
+			BiasAnalyseService biasAnalyseService
 	) {
 		return args -> {
 			// ✅ 자동 뉴스 크롤링 (비활성화 가능)
@@ -34,7 +34,7 @@ public class GooseApplication {
 			String testTitle = "1월 아파트 매매물량 46% 가격 낮췄다";  // 테스트할 기사 제목
 			System.out.println("📝 제목 검증 테스트 시작: " + testTitle);
 
-			double factCheckResult = titleCheckService.analyzeTitleAgainstReferences(testTitle);
+			double factCheckResult = biasAnalyseService.analyzeTitleAgainstReferences(testTitle);
 			System.out.println("🔍 제목 검증 결과: " + factCheckResult);
 		};
 	}

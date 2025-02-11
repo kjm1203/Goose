@@ -1,4 +1,4 @@
-package com.ssafy.goose.domain.news.service.titlecheck;
+package com.ssafy.goose.domain.news.service.bias;
 
 import com.ssafy.goose.domain.news.entity.ReferenceNewsArticle;
 import com.ssafy.goose.domain.news.repository.ReferenceNewsCustomRepository;
@@ -10,17 +10,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TitleCheckService {
+public class BiasAnalyseService {
     private final ReferenceNewsCustomRepository referenceNewsCustomRepository;
-    private final TitleCheckClient titleCheckClient;
+    private final AnalyseByTitle analyseByTitle;
     private final TitleKeywordExtractor keywordExtractorService;
 
-    public TitleCheckService(
+    public BiasAnalyseService(
             ReferenceNewsCustomRepository referenceNewsCustomRepository,
-            TitleCheckClient titleCheckClient,
+            AnalyseByTitle analyseByTitle,
             TitleKeywordExtractor keywordExtractorService) {
         this.referenceNewsCustomRepository = referenceNewsCustomRepository;
-        this.titleCheckClient = titleCheckClient;
+        this.analyseByTitle = analyseByTitle;
         this.keywordExtractorService = keywordExtractorService;
     }
 
@@ -44,7 +44,7 @@ public class TitleCheckService {
                 .collect(Collectors.toList());
 
         // ✅ 4. FastAPI 서버로 NLP 검증 요청
-        return titleCheckClient.checkTitleWithReference(title, referenceContents);
+        return analyseByTitle.checkTitleWithReference(title, referenceContents);
     }
 }
 
