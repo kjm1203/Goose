@@ -10,9 +10,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @Configuration
 @EnableMongoRepositories(basePackages = {
-        "com.ssafy.goose.domain.news.repository",
-        "com.ssafy.goose.domain.contentsearch.repository.mongo"
-}) // MongoDB 관련 Repository 패키지
+        "com.ssafy.goose.domain.news.repository",  // ✅ 기존 뉴스 관련 MongoDB Repository
+        "com.ssafy.goose.domain.factcheck.repository" // ✅ 팩트체크 관련 MongoDB Repository 추가
+})
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
 
     @Value("${spring.data.mongodb.uri}")
