@@ -13,18 +13,21 @@ import java.util.stream.Collectors;
 public class BiasAnalyseService {
     private final ReferenceNewsCustomRepository referenceNewsCustomRepository;
     private final AnalyseByTitle analyseByTitle;
+    private final AnalyseByContent analyseByContent;
     private final TitleKeywordExtractor keywordExtractorService;
 
     public BiasAnalyseService(
             ReferenceNewsCustomRepository referenceNewsCustomRepository,
             AnalyseByTitle analyseByTitle,
+            AnalyseByContent analyseByContent,
             TitleKeywordExtractor keywordExtractorService) {
         this.referenceNewsCustomRepository = referenceNewsCustomRepository;
         this.analyseByTitle = analyseByTitle;
+        this.analyseByContent = analyseByContent;
         this.keywordExtractorService = keywordExtractorService;
     }
 
-    public double analyzeTitleAgainstReferences(String title) {
+    public double analyzeBias(String title, String content) {
         // ✅ 1. 제목에서 주요 키워드 3개 추출
         List<String> keywords = keywordExtractorService.extractTopKeywords(title, 3);
         System.out.println("🔹 추출된 키워드: " + keywords);
@@ -43,8 +46,13 @@ public class BiasAnalyseService {
                 .map(ReferenceNewsArticle::getContent)
                 .collect(Collectors.toList());
 
-        // ✅ 4. FastAPI 서버로 NLP 검증 요청
-        return analyseByTitle.checkTitleWithReference(title, referenceContents);
+        // ✅ 4. 제목으로 분석 : FastAPI 서버로 NLP 검증 요청
+        double bias_title = analyseByTitle.checkTitleWithReference(title, referenceContents);
+
+        // ✅ 5. 내용으로 분석 : FastAPI 서버로 NLP 검증 요청
+        double bias_content = analyseByContent.checkContentWithReference(content, referenceContents);
+
+        return (bias_title + bias_content) / 2;
     }
 }
 

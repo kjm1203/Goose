@@ -51,7 +51,7 @@ public class AnalyseByTitle {
 
             // ✅ 평균 점수 계산 (0.0 ~ 1.0 범위)
             double averageScore = totalScore * 100 / totalArticles;
-            System.out.println("averageScore (0.0 ~ 100.0 범위) : " + averageScore);
+            System.out.println("Title 사용, 평균 Bias (0.0 ~ 100.0 범위) : " + averageScore);
 
             return averageScore; // 최종 평균 유사도 반환
 

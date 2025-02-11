@@ -18,7 +18,7 @@ public class AnalyseByContent {
     private final RestTemplate restTemplate = new RestTemplate();
     private static final String CONTENT_COMPARE_CONTENTS_API_URL = "http://localhost:5058/content-compare-contents";
 
-    public double checkTitleWithReference(String content, List<String> referenceContents) {
+    public double checkContentWithReference(String content, List<String> referenceContents) {
         try {
             int totalArticles = referenceContents.size();
             if (totalArticles == 0) return 0.0; // 데이터가 없으면 0 반환
@@ -51,7 +51,7 @@ public class AnalyseByContent {
 
             // ✅ 평균 점수 계산 (0.0 ~ 1.0 범위)
             double averageScore = totalScore * 100 / totalArticles;
-            System.out.println("averageScore (0.0 ~ 100.0 범위) : " + averageScore);
+            System.out.println("Content 사용, 평균 Bias  (0.0 ~ 100.0 범위) : " + averageScore);
 
             return averageScore; // 최종 평균 유사도 반환
 
