@@ -4,6 +4,19 @@ FROM python:3.9
 # ✅ 작업 디렉토리 설정
 WORKDIR /app
 
+# ✅ 시스템 패키지 업데이트 및 JDK 17 설치
+RUN apt update && apt install -y \
+    openjdk-17-jdk \
+    g++ \
+    gcc \
+    make \
+    curl \
+    && apt clean
+
+# ✅ JAVA_HOME 환경 변수 설정 (JDK 17)
+ENV JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
 # ✅ 필요한 파일 복사
 COPY requirements.txt ./
 COPY today_hot_keywords.py ./
