@@ -16,7 +16,7 @@ import java.util.Map;
 @Service
 public class TitleCheckClient {
     private final RestTemplate restTemplate= new RestTemplate();
-    private static final String FACT_CHECK_API_URL = "http://localhost:5057/factcheck";
+    private static final String FACT_CHECK_API_URL = "http://localhost:5057/title-compare-contents";
 
 
     public String checkTitleWithReference(String title, List<String> referenceContents) {
