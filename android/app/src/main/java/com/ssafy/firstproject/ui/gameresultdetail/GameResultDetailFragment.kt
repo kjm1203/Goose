@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -23,8 +22,6 @@ class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
     R.layout.fragment_game_result_detail
 ) {
 
-    private val args: GameResultDetailFragmentArgs by navArgs()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -32,18 +29,16 @@ class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
             findNavController().popBackStack()
         }
 
+        binding.btnNextGame.setOnClickListener {
+            findNavController().navigate(R.id.action_dest_game_result_detail_to_dest_game_start)
+        }
+
         setData()
         checkLogin()
     }
 
     private fun setData() {
-        binding.tvTime.text =
-            getString(R.string.total_time_spent, millisecondsToSeconds(args.totalTimeSpent))
         setPieChart()
-    }
-
-    private fun millisecondsToSeconds(milliseconds: Long): Double {
-        return milliseconds / 1000.0
     }
 
     private fun setPieChart() {

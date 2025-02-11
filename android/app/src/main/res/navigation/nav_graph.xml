@@ -61,7 +61,14 @@
         android:id="@+id/dest_game_result_detail"
         android:name="com.ssafy.firstproject.ui.gameresultdetail.GameResultDetailFragment"
         android:label="GameResultDetailFragment"
-        tools:layout="@layout/fragment_game_result_detail" />
+        tools:layout="@layout/fragment_game_result_detail">
+
+        <action
+            android:id="@+id/action_dest_game_result_detail_to_dest_game_start"
+            app:destination="@id/dest_game_start"
+            app:popUpTo="@id/dest_game_start"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <dialog
         android:id="@+id/dest_choice_dialog"
@@ -74,7 +81,8 @@
             app:argType="long" />
         <action
             android:id="@+id/action_dest_choice_dialog_to_dest_game_result"
-            app:destination="@id/dest_game_result" />
+            app:destination="@id/dest_game_result"
+            app:popUpTo="@id/dest_game_start" />
     </dialog>
 
     <fragment

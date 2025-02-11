@@ -2,6 +2,7 @@ package com.ssafy.firstproject.ui.gameresult
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
@@ -18,6 +19,14 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.btnResultDetail.setOnClickListener {
+            findNavController().navigate(R.id.dest_game_result_detail)
+        }
 
         setData()
     }
