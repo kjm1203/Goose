@@ -12,8 +12,8 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
-import com.ssafy.firstproject.databinding.FragmentNewsDetailBinding
 import com.ssafy.firstproject.ui.newsdetail.viewmodel.NewsDetailViewModel
+import com.ssafy.firstproject.databinding.FragmentNewsDetailBinding
 import com.ssafy.firstproject.util.CommonUtils
 
 class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
@@ -75,7 +75,7 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
             isRotationEnabled = false
             centerText = getString(R.string.trust_percentage, reliability.toInt())
             setEntryLabelColor(Color.BLACK)
-            setCenterTextSize(12f)
+            setCenterTextSize(10f)
             animateY(1400, Easing.EaseInOutQuad)
             animate()
             setTouchEnabled(false)

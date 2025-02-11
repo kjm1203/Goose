@@ -35,7 +35,7 @@
                 style="@style/Widget.TextView.Header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_16dp"
+                android:layout_marginTop="@dimen/spacing_8dp"
                 android:text="@string/news_detail_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,24 +62,33 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                style="@style/Widget.TextView.Title"
+                style="@style/Widget.TextView.Title.NEWS"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_24dp"
+                android:layout_marginTop="@dimen/spacing_12dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv"
                 tools:text="슈퍼스타 강인혁, 열애" />
 
+            <TextView
+                android:id="@+id/tv_truth_percent"
+                style="@style/Widget.TextView.Header.Percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trust_percent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pc_trust_percent"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginEnd="@dimen/spacing_24dp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_date"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_title" />
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_truth_percent" />
 
             <TextView
                 android:id="@+id/tv_date"
@@ -87,20 +96,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_24dp"
-                android:layout_marginTop="7dp"
+                app:layout_constraintBottom_toTopOf="@+id/view_line"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
                 tools:text="2025.01.27" />
+
+            <!-- tv_date와 pc_trust_percent 중 가장 아래 있는 요소를 기준으로 barrier 설정 -->
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tv_date,pc_trust_percent" />
 
             <View
                 android:id="@+id/view_line"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="@dimen/spacing_24dp"
+                android:layout_marginTop="@dimen/spacing_8dp"
                 android:background="@color/platinum"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_date" />
+                app:layout_constraintTop_toBottomOf="@id/barrier_top" />
 
             <TextView
                 android:id="@+id/tv_body"
@@ -110,7 +127,6 @@
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
                 android:layout_marginTop="19dp"
                 android:layout_marginBottom="@dimen/spacing_24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_line"
