@@ -1,11 +1,11 @@
 package com.ssafy.goose.domain.news.storage;
 
+import com.ssafy.goose.domain.news.service.bias.BiasAnalyseService;
 import com.ssafy.goose.domain.news.service.crawling.NewsContentScraping;
 import com.ssafy.goose.domain.news.service.paragraph.NewsParagraphSplitService;
 import com.ssafy.goose.domain.news.entity.NewsArticle;
 import com.ssafy.goose.domain.news.entity.ReferenceNewsArticle;
 import com.ssafy.goose.domain.news.repository.NewsRepository;
-import com.ssafy.goose.domain.news.service.analysis.NewsBiasAnalysisService;
 import com.ssafy.goose.domain.news.repository.ReferenceNewsRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +19,20 @@ public class NewsStorageService {
     private final NewsRepository newsRepository;
     private final ReferenceNewsRepository referenceNewsRepository;
 
-    private final NewsBiasAnalysisService newsBiasAnalysisService;
     private final NewsParagraphSplitService newsParagraphSplitService;
     private final NewsContentScraping newsContentScraping; // ✅ FastAPI 뉴스 크롤링 서비스 추가
+    private final BiasAnalyseService biasAnalyseService;
 
     public NewsStorageService(NewsRepository newsRepository,
                               ReferenceNewsRepository referenceNewsRepository,
-                              NewsBiasAnalysisService newsBiasAnalysisService,
                               NewsParagraphSplitService newsParagraphSplitService,
-                              NewsContentScraping newsContentScraping) {
+                              NewsContentScraping newsContentScraping,
+                              BiasAnalyseService biasAnalyseService) {
         this.newsRepository = newsRepository;
         this.referenceNewsRepository = referenceNewsRepository;
-        this.newsBiasAnalysisService = newsBiasAnalysisService;
         this.newsParagraphSplitService = newsParagraphSplitService;
         this.newsContentScraping = newsContentScraping;
+        this.biasAnalyseService =  biasAnalyseService;
     }
 
     // 주요 기능
@@ -67,14 +67,12 @@ public class NewsStorageService {
             // ✅ 4. 문단 분리 수행 (FastAPI)
             List<String> paragraphs = newsParagraphSplitService.getSplitParagraphs(content);
 
-            // ✅ 5.1. 기존 같은 키워드 뉴스 가져오기
-            List<ReferenceNewsArticle> relatedArticles = referenceNewsRepository.findByTitleContainingIgnoreCase(keyword);
-            List<String> existingContents = relatedArticles.stream()
-                    .map(ReferenceNewsArticle::getContent)
-                    .collect(Collectors.toList());
+            // ✅ 5. 편향성 분석
+            Double biasScore = biasAnalyseService.analyzeBias(cleanTitle, content);
 
-            // ✅ 5.2. 편향성 분석
-            Double biasScore = newsBiasAnalysisService.getBiasScore(existingContents, content, keyword);
+            // AI 가짜뉴스 여부 판별 (민성이 모델)
+
+            // 언론사 신뢰도 판정 (추후 추가)
 
             // ✅ 6. MongoDB에 저장
             NewsArticle article = NewsArticle.builder()

@@ -43,7 +43,7 @@ public class AnalyseByContent {
                 Map<String, Double> responseBody = new ObjectMapper().readValue(response.getBody(), new TypeReference<Map<String, Double>>() {});
                 double similarity_score = responseBody.get("similarity_score");
 
-                System.out.println("similarity_score : " + similarity_score);
+                System.out.println("[내용분석] similarity_score : " + similarity_score);
 
                 // ✅ 점수 합산
                 totalScore += similarity_score;

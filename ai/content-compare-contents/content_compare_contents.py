@@ -23,7 +23,7 @@ class FactCheckRequest(BaseModel):
     content: str
     referenceContent: str
 
-@app.post("/title-compare-contents")
+@app.post("/content-compare-contents")
 async def fact_check(request: FactCheckRequest):
     try:        
         content = request.content

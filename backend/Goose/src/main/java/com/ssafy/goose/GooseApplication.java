@@ -50,7 +50,7 @@ public class GooseApplication {
 			System.out.println("📝 Bias 검증 테스트 시작: ");
 
 			double biasScore = biasAnalyseService.analyzeBias(testTitle, testContent);
-			System.out.println("🔍 편향성로 검증 결과: " + biasScore);
+			System.out.println("🔍 편향성 검증 결과: " + biasScore);
 		};
 	}
 }
