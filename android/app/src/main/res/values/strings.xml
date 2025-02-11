@@ -26,6 +26,7 @@
     <string name="choice_exaggerated_news">과장 보도여서 가짜</string>
     <string name="choice_clickbait">클릭베이트여서 가짜</string>
 
+    <string name="total_time_spent">%.3f 초</string>
     <string name="real">진짜</string>
     <string name="fake_news">허위 정보</string>
     <string name="exaggerated_news">과장 보도</string>
