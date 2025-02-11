@@ -31,7 +31,7 @@ public class GooseApplication {
 //			 autoFactCheckCrawlingService.fetchAndStoreFactChecks();
 
 			// ✅ 제목 검증 테스트 실행
-			String testTitle = "트럼프 ‘관세전쟁’ 확전 우려에 코스피 약세";  // 테스트할 기사 제목
+			String testTitle = "[오늘 날씨] 아침 추위 '영하 13도'·낮부터 기온↑…겨울에도 선크림 발라야 하는 이유";  // 테스트할 기사 제목
 			System.out.println("📝 제목 검증 테스트 시작: " + testTitle);
 
 			String factCheckResult = titleCheckService.analyzeTitleAgainstReferences(testTitle);

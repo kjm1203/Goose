@@ -62,7 +62,7 @@ async def fact_check(request: FactCheckRequest):
         elif entailment_prob > 0.5:
             result = "True"
         else:
-            result = "Partially True"
+            result = "Partially True" 
 
         print(f"🔹 [검증 결과] : {result} (Entailment: {entailment_prob:.2f}, Contradiction: {contradiction_prob:.2f})")
 
