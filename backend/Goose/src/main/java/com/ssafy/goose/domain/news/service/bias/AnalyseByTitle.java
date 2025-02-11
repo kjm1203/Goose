@@ -16,7 +16,7 @@ import java.util.Map;
 @Service
 public class AnalyseByTitle {
     private final RestTemplate restTemplate = new RestTemplate();
-    private static final String TITLE_COMPARE_CONTENTS_API_URL = "http://localhost:5057/title-compare-contents";
+    private static final String TITLE_COMPARE_CONTENTS_API_URL = "http://i12d208.p.ssafy.io:5057/title-compare-contents";
 
     public double checkTitleWithReference(String title, List<String> referenceContents) {
         try {
