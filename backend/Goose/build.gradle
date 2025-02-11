@@ -48,9 +48,6 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
-	// ✅ Testing Dependencies
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 	// ✅ HTML 태그 제거 및 HTML 엔터티 변환 (Jsoup & Apache Commons Text)
 	implementation 'org.jsoup:jsoup:1.15.3'               // ✅ HTML 파싱 및 태그 제거
@@ -58,6 +55,17 @@ dependencies {
 
 	// ✅ REST API 요청 시 JSON 처리 (Jackson)
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+
+	// ✅ JUnit 5 (테스트 실행)
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'  // 버전 명확히 지정
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// ✅ Mockito (Mock 객체 사용)
+	testImplementation 'org.mockito:mockito-core:5.4.0'
+	testImplementation 'org.mockito:mockito-junit-jupiter:5.4.0' // JUnit5와 호환되는 Mockito 버전
+
+	// ✅ Spring Boot Test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {

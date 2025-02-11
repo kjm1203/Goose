@@ -10,18 +10,20 @@ import java.util.stream.Collectors;
 
 @Service
 public class TitleCheckService {
-    private final ReferenceNewsRepository newsRepository;
+    private final ReferenceNewsRepository referenceNewsRepositorynewsRepository;
     private final TitleCheckClient titleCheckClient;
 
-    public TitleCheckService(ReferenceNewsRepository newsRepository, TitleCheckClient titleCheckClient) {
-        this.newsRepository = newsRepository;
+    public TitleCheckService(ReferenceNewsRepository referenceNewsRepositorynewsRepository, TitleCheckClient titleCheckClient) {
+        this.referenceNewsRepositorynewsRepository = referenceNewsRepositorynewsRepository;
         this.titleCheckClient = titleCheckClient;
     }
 
     public String analyzeTitleAgainstReferences(String title) {
-        // 🔹 3일 이내 Reference News 검색
-        LocalDateTime threeDaysAgo = LocalDateTime.now().minusDays(3);
-        List<NewsArticle> recentArticles = newsRepository.findRecentNews(threeDaysAgo);
+        // 🔹 주요 키워드 3개 추출
+        
+
+        // 🔹 주요 키워드 3개로 레퍼런스 뉴스 검색
+        List<NewsArticle> recentArticles = referenceNewsRepositorynewsRepository.();
 
         // 🔹 Reference News의 본문만 추출
         List<String> referenceContents = recentArticles.stream()

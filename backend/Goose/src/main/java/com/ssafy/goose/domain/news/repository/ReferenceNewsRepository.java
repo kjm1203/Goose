@@ -15,6 +15,9 @@ public interface ReferenceNewsRepository extends MongoRepository<ReferenceNewsAr
     // ✅ 특정 키워드가 포함된 참고 뉴스 검색
     List<ReferenceNewsArticle> findByTitleContainingIgnoreCase(String keyword);
 
+    // 3일 내의 뉴스 검색
     @Query("{ 'publishedAt': { $gte: ?0 } }")
     List<NewsArticle> findRecentNews(LocalDateTime threeDaysAgo);
+
+
 }

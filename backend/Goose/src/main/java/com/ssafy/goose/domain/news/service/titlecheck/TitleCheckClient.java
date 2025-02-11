@@ -11,7 +11,7 @@ import java.util.Map;
 @Service
 public class TitleCheckClient {
     private final RestTemplate restTemplate = new RestTemplate();
-    private static final String FASTAPI_URL = "http://127.0.0.1:5056/titlecheck";
+    private static final String FASTAPI_URL = "http://localhost" + ":5056/titlecheck";
 
     public String checkTitleWithReference(String title, List<String> referenceContents) {
         Map<String, Object> request = new HashMap<>();
