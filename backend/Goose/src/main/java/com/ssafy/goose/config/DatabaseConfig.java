@@ -3,11 +3,16 @@ package com.ssafy.goose.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
 @Configuration
+@EnableJpaRepositories(basePackages = {
+        "com.ssafy.goose.domain.contentsearch.repository.jpa",
+        "com.ssafy.goose.domain.user.repository"
+})
 public class DatabaseConfig {
 
     @Value("${spring.datasource.url}")
