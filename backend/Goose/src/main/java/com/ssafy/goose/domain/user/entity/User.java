@@ -13,11 +13,14 @@ import jakarta.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT 적용
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "nickname", nullable = false, length = 255)
+    @Column(name = "username", nullable = false, unique = true, length = 50)
+    private String username; // 로그인 ID
+
+    @Column(name = "nickname", nullable = false, unique = true, length = 50)
     private String nickname;
 
     @Column(name = "password", nullable = false, length = 255)

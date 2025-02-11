@@ -1,25 +1,29 @@
 package com.ssafy.goose.domain.user.dto;
 
-import com.ssafy.goose.domain.user.entity.User;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-
 @Getter
+@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL) // ✅ null 값은 JSON 응답에서 제외
 public class UserResponseDto {
-    private Long id;
-    private String nickname;
-    private LocalDateTime createdAt; // 변환된 날짜 반환
+    private boolean success;
+    private String accessToken;
+    private String error;
 
-    public UserResponseDto(User user) {
-        this.id = user.getId();
-        this.nickname = user.getNickname();
-        this.createdAt = convertToLocalDateTime(user.getCreatedAt()); // UNIX timestamp -> LocalDateTime 변환
+    // 로그인 성공 응답 (accessToken 포함)
+    public static UserResponseDto success(String accessToken) {
+        return new UserResponseDto(true, accessToken, null);
     }
 
-    private LocalDateTime convertToLocalDateTime(int timestamp) {
-        return LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of("Asia/Seoul"));
+    // 회원가입, 로그아웃 성공 응답 (토큰 필요 없음)
+    public static UserResponseDto success() {
+        return new UserResponseDto(true, null, null);
+    }
+
+    // 실패 응답 (에러 메시지 포함)
+    public static UserResponseDto error(String errorMessage) {
+        return new UserResponseDto(false, null, errorMessage);
     }
 }

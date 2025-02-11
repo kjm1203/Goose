@@ -1,34 +1,43 @@
 package com.ssafy.goose.domain.user.controller;
 
+import com.ssafy.goose.domain.user.dto.LoginRequestDto;
+import com.ssafy.goose.domain.user.dto.SignupRequestDto;
 import com.ssafy.goose.domain.user.dto.UserResponseDto;
 import com.ssafy.goose.domain.user.service.UserService;
-import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@Tag(name = "User API", description = "회원가입, 로그인, 로그아웃 기능을 제공하는 API")
 @RestController
-@RequestMapping("/users")
-@RequiredArgsConstructor
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
 
-    // 모든 유저 조회
-    @GetMapping
-    public List<UserResponseDto> getAllUsers() {
-        return userService.getAllUsers();
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    // 특정 유저 조회
-    @GetMapping("/{id}")
-    public UserResponseDto getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    @PostMapping("/signup")
+    @Operation(summary = "회원가입", description = "새로운 사용자를 등록합니다.")
+    public ResponseEntity<UserResponseDto> signup(@RequestBody SignupRequestDto signupRequest) {
+        return ResponseEntity.ok(userService.signup(signupRequest));
     }
 
-    // 새로운 유저 생성
-    @PostMapping
-    public UserResponseDto createUser(@RequestParam String nickname, @RequestParam String password) {
-        return userService.createUser(nickname, password);
+    @PostMapping("/login")
+    @Operation(summary = "로그인", description = "사용자 인증 후 JWT 토큰을 발급합니다.")
+    public ResponseEntity<UserResponseDto> login(@RequestBody LoginRequestDto loginRequest) {
+        return ResponseEntity.ok(userService.login(loginRequest));
+    }
+
+    @PostMapping("/logout")
+    @Operation(summary = "로그아웃", description = "사용자 로그아웃을 처리합니다.")
+    public ResponseEntity<UserResponseDto> logout(@RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+        return ResponseEntity.ok(userService.logout(token));
     }
 }
