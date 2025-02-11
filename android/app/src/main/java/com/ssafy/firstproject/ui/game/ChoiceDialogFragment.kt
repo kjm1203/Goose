@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.ssafy.firstproject.R
 import com.ssafy.firstproject.databinding.DialogChoiceBinding
 
 class ChoiceDialogFragment : BottomSheetDialogFragment() {
 
     private var _binding: DialogChoiceBinding? = null
     private val binding get() = _binding!!
+    private val args: ChoiceDialogFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +28,9 @@ class ChoiceDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnReal.setOnClickListener {
-            findNavController().navigate(R.id.action_dest_choice_dialog_to_dest_game_result)
+            val action =
+                ChoiceDialogFragmentDirections.actionDestChoiceDialogToDestGameResult(args.totalTimeSpent)
+            findNavController().navigate(action)
         }
     }
 

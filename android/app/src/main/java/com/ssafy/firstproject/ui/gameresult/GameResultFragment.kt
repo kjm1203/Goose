@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -15,13 +16,14 @@ import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentGameResultBinding
 import eightbitlab.com.blurview.RenderScriptBlur
 
-
 private const val TAG = "GameResultFragment"
 
 class GameResultFragment : BaseFragment<FragmentGameResultBinding>(
     FragmentGameResultBinding::bind,
     R.layout.fragment_game_result
 ) {
+
+    private val args: GameResultFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,8 +32,18 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(
             findNavController().popBackStack()
         }
 
-        setPieChart()
+        setData()
         checkLogin()
+    }
+
+    private fun setData() {
+        binding.tvTime.text =
+            getString(R.string.total_time_spent, millisecondsToSeconds(args.totalTimeSpent))
+        setPieChart()
+    }
+
+    private fun millisecondsToSeconds(milliseconds: Long): Double {
+        return milliseconds / 1000.0
     }
 
     private fun setPieChart() {
