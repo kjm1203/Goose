@@ -3,14 +3,16 @@
 
     <!-- BottomNavigationView -->
     <string name="home">홈</string>
+    <string name="search">검색</string>
+    <string name="fact_check">분석</string>
     <string name="game">게임</string>
-    <string name="fact_check">판별</string>
-    <string name="image">이미지</string>
     <string name="my">마이</string>
+
+    <string name="image">이미지</string>
 
     <!-- 게임 -->
     <string name="game_start">게임하기</string>
-    <string name="game_start_caption">당신은 얼마나 판별력이 있으신가요?\n확인하러 가볼까요?</string>
+    <string name="game_start_caption">당신은 얼마나 분석력이 있으신가요?\n확인하러 가볼까요?</string>
     <string name="play">play</string>
     <string name="answer_selection_button">정답 선택 버튼</string>
     <string name="news_img">뉴스 이미지</string>
@@ -33,23 +35,23 @@
     <string name="game_result_login">답안 분포를 확인하기 위해\n로그인이 필요합니다.</string>
     <string name="go_login">로그인 하기</string>
 
-    <!-- 뉴스 판별 -->
+    <!-- 뉴스 분석 -->
     <string name="type_img">이미지</string>
     <string name="type_url">URL</string>
     <string name="type_content">내용</string>
 
-    <string name="check_news_title">뉴스 판별하기</string>
-    <string name="check_news_subtitle">내가 본 기사는 어느정도 사실일까?\n뉴스를 판별해보세요</string>
-    <string name="check_title_type">판별 타입</string>
-    <string name="check_subtitle_type">어떤 타입을 판별할까요?</string>
+    <string name="check_news_title">뉴스 분석하기</string>
+    <string name="check_news_subtitle">내가 본 기사는 어느정도 사실일까?\n뉴스를 분석해보세요</string>
+    <string name="check_title_type">분석 타입</string>
+    <string name="check_subtitle_type">어떤 타입을 분석할까요?</string>
     <string name="content_input_title">컨텐츠 입력</string>
     <string name="content_input_subtitle">컨텐츠를 선택해주세요.</string>
     <string name="content_input_hint">컨텐츠 입력</string>
     <string name="url_input_hint">URL 입력</string>
-    <string name="check">판별하기</string>
+    <string name="check">분석하기</string>
 
     <string name="check_result_detail_title">결과 자세히보기</string>
-    <string name="check_other_news">다른 것도 판별하러 가기</string>
+    <string name="check_other_news">다른 것도 분석하러 가기</string>
 
     <!-- 로그인과 회원가입 -->
     <string name="user_login">로그인</string>
@@ -112,14 +114,14 @@
     <string name="my_growth_text">총 500문제를 풀어서 \n
 5문제를 맞혔어요!</string>
     <string name="profile_edit">프로필 수정</string>
-    <string name="my_news_list">판별한 뉴스</string>
+    <string name="my_news_list">분석한 뉴스</string>
     <string name="logout">로그아웃</string>
     <string name="login_required_message">로그인이 필요합니다.</string>
     <string name="mypage_go_login">로그인 하기</string>
     <string name="mypage_go_signup">회원가입 하기</string>
 
-    <!-- 판별한 뉴스 보기 -->
-    <string name="record_list">판별한 뉴스 보기</string>
+    <!-- 분석한 뉴스 보기 -->
+    <string name="record_list">분석한 뉴스 보기</string>
 
     <!-- 프로필 수정 -->
     <string name="user_profile_edit">프로필 수정</string>
