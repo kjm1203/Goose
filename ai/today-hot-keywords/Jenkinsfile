@@ -43,10 +43,7 @@ pipeline {
                         configName: 'EC2-Server',
                         transfers: [
                             sshTransfer(
-                                sourceFiles: 'today_hot_keywords.tar.gz',
-                                removePrefix: '',
-                                remoteDirectory: '${DOCKER_PATH}',  // ✅ EC2 내 배포 경로
-                                execCommand: ''
+                                sourceFiles: 'today_hot_keywords.tar.gz'
                             )
                         ]
                     )
