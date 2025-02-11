@@ -6,7 +6,7 @@ WORKDIR /app
 
 # ✅ 필요한 파일 복사
 COPY requirements.txt ./
-COPY news_keyword_extraction.py ./
+COPY today_hot_keywords.py ./
 
 # ✅ 패키지 설치 (spaCy 모델 제외)
 RUN pip install --upgrade pip && pip install -r requirements.txt
@@ -17,4 +17,4 @@ RUN curl -L -o ko_core_news_sm-3.5.0.tar.gz https://github.com/explosion/spacy-m
     && rm ko_core_news_sm-3.5.0.tar.gz
 
 # ✅ FastAPI 실행 (운영환경에서는 --reload 제거)
-CMD ["uvicorn", "news_keyword_extraction:app", "--host", "0.0.0.0", "--port", "5053"]
+CMD ["uvicorn", "today_hot_keywords:app", "--host", "0.0.0.0", "--port", "5053"]

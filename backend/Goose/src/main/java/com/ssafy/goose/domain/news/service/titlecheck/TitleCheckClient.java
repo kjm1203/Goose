@@ -16,7 +16,7 @@ import java.util.Map;
 @Service
 public class TitleCheckClient {
     private final RestTemplate restTemplate = new RestTemplate();
-    private static final String FACT_CHECK_API_URL = "http://localhost:5057/title-compare-contents";
+    private static final String TITLE_COMPARE_CONTENTS_API_URL = "http://localhost:5057/title-compare-contents";
 
     public double checkTitleWithReference(String title, List<String> referenceContents) {
         try {
@@ -37,7 +37,7 @@ public class TitleCheckClient {
                 HttpEntity<String> requestEntity = new HttpEntity<>(new ObjectMapper().writeValueAsString(requestBody), headers);
 
                 // ✅ FastAPI 서버 호출
-                ResponseEntity<String> response = restTemplate.postForEntity(FACT_CHECK_API_URL, requestEntity, String.class);
+                ResponseEntity<String> response = restTemplate.postForEntity(TITLE_COMPARE_CONTENTS_API_URL, requestEntity, String.class);
 
                 // ✅ JSON 응답 파싱
                 Map<String, Double> responseBody = new ObjectMapper().readValue(response.getBody(), new TypeReference<Map<String, Double>>() {});

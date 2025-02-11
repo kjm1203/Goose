@@ -25,7 +25,7 @@ public class NewsCrawlerService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     // ✅ AI 키워드 추출 API 주소
-    private final String aiKeywordExtractionUrl = "http://localhost:5053/extract-keywords";
+    private final String aiKeywordExtractionUrl = "http://i12d208.p.ssafy.io:5053/today-hot-keywords";
 
     /**
      * 🔹 1. 네이버 뉴스 API에서 최신 뉴스 제목 가져오기
@@ -50,7 +50,7 @@ public class NewsCrawlerService {
     }
 
     /**
-     * 🔹 2. AI를 활용한 주요 키워드 추출
+     * 🔹 2. AI를 활용한 현재 HOT 키워드 추출
      */
     private List<String> extractKeywordsUsingAI(List<String> titles) {
         HttpHeaders headers = new HttpHeaders();

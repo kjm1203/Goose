@@ -42,7 +42,7 @@ def clean_text(text: str) -> str:
     text = re.sub(r"[^가-힣a-zA-Z0-9\s]", "", text)  # 특수문자 제거
     return text.strip()
 
-@app.post("/extract-keywords")
+@app.post("/today-hot-keywords")
 async def extract_keywords_nltk(request: KeywordRequest):
     try:
         # ✅ 뉴스 제목을 하나의 문장으로 합침
