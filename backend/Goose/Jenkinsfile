@@ -118,7 +118,7 @@ pipeline {
                                       -e MONGO_DATABASE=${MONGO_DATABASE} \
                                       -e NAVER_CLIENT_ID=${NAVER_CLIENT_ID} \
                                       -e NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET} \
-                                      -e JWT_SECRET=${JWT_SECRET} \
+                                      -e JWT_SECRET="${JWT_SECRET}" \
                                       ${DOCKER_IMAGE}:latest
                                 """.stripIndent()
                             )
