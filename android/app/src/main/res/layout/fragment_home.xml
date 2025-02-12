@@ -88,11 +88,12 @@
             android:id="@+id/lav_loading_animation"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_16dp"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="1:0.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/rv_news"
+            app:layout_constraintTop_toBottomOf="@id/tv_top10_caption"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading" />
