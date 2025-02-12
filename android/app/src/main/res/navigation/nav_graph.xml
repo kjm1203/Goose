@@ -107,7 +107,14 @@
         android:id="@+id/dest_signup"
         android:name="com.ssafy.firstproject.ui.signup.SignupFragment"
         android:label="SignupFragment"
-        tools:layout="@layout/fragment_signup" />
+        tools:layout="@layout/fragment_signup">
+
+        <action
+            android:id="@+id/action_dest_signup_to_dest_login"
+            app:destination="@id/dest_login"
+            app:popUpTo="@id/dest_signup"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/dest_search"
