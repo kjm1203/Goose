@@ -154,7 +154,7 @@
 
     <fragment
         android:id="@+id/dest_news_result"
-        android:name="com.ssafy.firstproject.ui.newsresult.NewsListResultFragment"
+        android:name="com.ssafy.firstproject.ui.newslistresult.NewsListResultFragment"
         android:label="NewsResultFragment"
         tools:layout="@layout/fragment_news_list_result" />
 </navigation>

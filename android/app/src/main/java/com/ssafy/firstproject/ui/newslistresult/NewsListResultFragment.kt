@@ -1,4 +1,4 @@
-package com.ssafy.firstproject.ui.newsresult
+package com.ssafy.firstproject.ui.newslistresult
 
 import android.os.Bundle
 import android.view.View
