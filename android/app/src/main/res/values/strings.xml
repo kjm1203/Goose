@@ -23,12 +23,20 @@
     <string name="answer_reason">정답이유</string>
     <string name="answer_time">체류시간</string>
 
+    <string name="result_answer">정답은 %s</string>
+    <string name="result_correct_answer">정답을 고르셨네요!</string>
+    <string name="result_wrong_answer">아쉽게도 오답이네요!</string>
+    <string name="my_answer">내 선택 : %s</string>
+    <string name="time_spent_ranking">체류시간 랭킹</string>
+    <string name="total_time_spent">%.3f초</string>
+    <string name="go_answer_reason">정답 이유 자세히 보기</string>
+    <string name="go_next_game">다른 게임 풀기</string>
+
     <string name="choice_real">이건 진짜임ㅇㅇ</string>
     <string name="choice_fake_news">허위 정보여서 가짜</string>
     <string name="choice_exaggerated_news">과장 보도여서 가짜</string>
     <string name="choice_clickbait">클릭베이트여서 가짜</string>
 
-    <string name="total_time_spent">%.3f 초</string>
     <string name="real">진짜</string>
     <string name="fake_news">허위 정보</string>
     <string name="exaggerated_news">과장 보도</string>
