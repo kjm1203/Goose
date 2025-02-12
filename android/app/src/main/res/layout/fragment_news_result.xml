@@ -45,6 +45,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_news_result_goose"
         app:layout_constraintStart_toStartOf="@+id/iv_news_result_goose" />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="해당 기사의\n신뢰도는\n30%입니다."
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_speech_bubble"
+        app:layout_constraintEnd_toEndOf="@+id/iv_speech_bubble"
+        app:layout_constraintStart_toStartOf="@+id/iv_speech_bubble"
+        app:layout_constraintTop_toTopOf="@+id/iv_speech_bubble" />
+
     <ImageView
         android:id="@+id/iv_road"
         android:layout_width="wrap_content"
