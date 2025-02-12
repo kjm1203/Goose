@@ -59,7 +59,10 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         }
 
         binding.btnCheck.setOnClickListener {
-            findNavController().navigate(R.id.dest_news_result)
+            val newsText = binding.tieExtractTextInput.text.toString()
+            val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(newsText)
+
+            findNavController().navigate(action)
         }
 
         // 이미지 추가 버튼 클릭 시 갤러리 실행

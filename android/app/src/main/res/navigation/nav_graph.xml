@@ -32,6 +32,9 @@
             android:name="recognizedText"
             android:defaultValue=""
             app:argType="string" />
+        <action
+            android:id="@+id/action_dest_check_to_dest_news_list_result"
+            app:destination="@id/dest_news_list_result" />
     </fragment>
 
     <fragment
@@ -156,7 +159,12 @@
         android:id="@+id/dest_news_list_result"
         android:name="com.ssafy.firstproject.ui.newslistresult.NewsListResultFragment"
         android:label="NewsListResultFragment"
-        tools:layout="@layout/fragment_news_list_result" />
+        tools:layout="@layout/fragment_news_list_result">
+        <argument
+            android:name="newsText"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
 
     <fragment
         android:id="@+id/dest_news_result"
