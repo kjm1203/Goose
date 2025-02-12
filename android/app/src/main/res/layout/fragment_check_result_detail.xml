@@ -98,20 +98,6 @@
                 app:layout_constraintVertical_bias="0.0"
                 tools:text="SSAFY" />
 
-            <TextView
-                android:id="@+id/tv_truth_percent"
-                style="@style/Widget.TextView.Caption.Silver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_8dp"
-                android:background="@drawable/bg_lavender_blue_8dp"
-                android:padding="@dimen/spacing_8dp"
-                android:textColor="@color/plumpPurple"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_news_date"
-                app:layout_constraintStart_toEndOf="@+id/tv_news_reporter1"
-                app:layout_constraintTop_toTopOf="@+id/tv_news_date"
-                tools:text="진실 80%" />
-
             <View
                 android:id="@+id/view_line"
                 android:layout_width="0dp"
