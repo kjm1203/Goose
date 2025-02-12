@@ -19,7 +19,7 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbarNewsResult.setNavigationOnClickListener {
+        binding.toolbarNewsListResult.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
