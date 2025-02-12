@@ -63,16 +63,17 @@ public class BiasAnalyseService {
         }
 
         // ✅ 4. 제목으로 분석 : FastAPI 서버로 NLP 검증 요청
-        double bias_title = analyseByTitle.checkTitleWithReference(title, referenceContents);
+//        double bias_title = analyseByTitle.checkTitleWithReference(title, referenceContents);
 
         // ✅ 5. 내용으로 분석 : FastAPI 서버로 NLP 검증 요청
-        double bias_content = analyseByContent.checkContentWithReference(content, referenceContents);
+//        double bias_content = analyseByContent.checkContentWithReference(content, referenceContents);
 
         // ✅ 6. 문단 신뢰성 분석 요청 (FastAPI 호출) - 첫 번째 문단과 나머지 문단 전달
         double paragraph_reliability = analyzeParagraphReliability(recentArticles.get(0), recentArticles.subList(1, recentArticles.size()));
 
         // ✅ 최종 신뢰성 점수 계산
-        return (bias_title + bias_content + paragraph_reliability) / 3;
+//        return (bias_title + bias_content + paragraph_reliability) / 3;
+        return paragraph_reliability;
     }
 
     private double analyzeParagraphReliability(ReferenceNewsArticle firstArticle, List<ReferenceNewsArticle> remainingArticles) {
@@ -103,8 +104,12 @@ public class BiasAnalyseService {
                 System.out.println("✅ FastAPI 신뢰성 분석 결과:");
                 for (int i = 0; i < bestMatches.size(); i++) {
                     System.out.println("🔹 문단 " + (i + 1) + " 신뢰성 점수: " + reliabilityScores.get(i));
+                    System.out.println();
                     System.out.println(firstArticle.getParagraphs().get(i));
+                    System.out.println();
                     System.out.println("   ➜ 가장 유사한 문단: " + bestMatches.get(i));
+                    System.out.println();
+                    System.out.println();
                 }
 
                 return reliabilityScores.stream().mapToDouble(Double::doubleValue).average().orElse(50.0);
