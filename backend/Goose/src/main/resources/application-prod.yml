@@ -24,6 +24,6 @@ naver:
 server:
   port: ${SERVER_PORT:8080}
 
-#jwt:
-#  secret: ${JWT_SECRET}
-#  expiration: 3600000
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 3600000
