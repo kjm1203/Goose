@@ -12,6 +12,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+
   data:
     mongodb:
       uri: ${MONGO_URI}
@@ -21,9 +22,9 @@ naver:
   client-id: ${NAVER_CLIENT_ID}
   client-secret: ${NAVER_CLIENT_SECRET}
 
-server:
-  port: ${SERVER_PORT:8080}
-
 jwt:
   secret: ${JWT_SECRET}
   expiration: 3600000
+
+server:
+  port: ${SERVER_PORT:8080}
