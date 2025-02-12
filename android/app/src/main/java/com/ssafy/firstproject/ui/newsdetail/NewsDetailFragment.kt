@@ -12,8 +12,9 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
-import com.ssafy.firstproject.ui.newsdetail.viewmodel.NewsDetailViewModel
 import com.ssafy.firstproject.databinding.FragmentNewsDetailBinding
+import com.ssafy.firstproject.ui.newsdetail.adapter.NewsContentAdapter
+import com.ssafy.firstproject.ui.newsdetail.viewmodel.NewsDetailViewModel
 import com.ssafy.firstproject.util.CommonUtils
 
 class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
@@ -23,13 +24,19 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
 
     private val args by navArgs<NewsDetailFragmentArgs>()
     private val viewModel by viewModels<NewsDetailViewModel>()
+    private lateinit var adapter: NewsContentAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        initAdapter()
         observeNewsArticle()
         viewModel.getNewsArticle(args.newsId)
+    }
+
+    private fun initAdapter() {
+        adapter = NewsContentAdapter()
+        binding.rvNewsContent.adapter = adapter
     }
 
     private fun observeNewsArticle() {
@@ -40,8 +47,9 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
                     .into(iv)
                 tvTitle.text = it.title
                 tvDate.text = CommonUtils.formatDateYYMMDD(it.pubDateTimestamp)
-                tvBody.text = it.content
             }
+            val paragraphList = it.paragraphs.map { p -> p.replace(" ", "\u00A0") }
+            adapter.submitList(paragraphList)
             setPieChart(it.reliability.toFloat())
         }
     }
