@@ -46,6 +46,15 @@ pipeline {
                     credentialsId: 'GitLab-PAT'
             }
         }
+
+        // ✅ 환경 변수 값 확인을 위한 스테이지 추가
+        stage('Check Environment Variables') {
+            steps {
+                echo 'Checking environment variables in Jenkins...'
+                sh 'echo "JWT_SECRET: $JWT_SECRET"'
+            }
+        }
+
         stage('Build Application') {
             steps {
                 echo 'Building the application with Gradle Wrapper...'
