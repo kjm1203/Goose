@@ -13,7 +13,7 @@ accelerate==0.28.0  # 모델 최적화
 # ✅ NLP 관련 추가 패키지
 sentencepiece==0.1.99  # KoBART 모델 지원
 summa==1.2.0  # TextRank 기반 요약 지원
-spacy==3.4.4  # NLP 파이프라인 지원
+spacy==3.5.3  # NLP 파이프라인 지원
 thinc>=8.1.8,<8.2.0  # spaCy 관련 의존성
 numpy==1.23.5  # 호환성 문제 해결
 

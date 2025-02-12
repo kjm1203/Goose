@@ -21,7 +21,7 @@ async def title_check(request: TitleCheckRequest):
         reference_contents = request.reference_contents
 
         if not reference_contents:
-            return {"title": title, "factcheck_result": "No References Available"}
+            return {"title": title, "reference_contents": "No References Available"}
 
         contradiction_count = 0
         entailment_count = 0
@@ -50,7 +50,7 @@ async def title_check(request: TitleCheckRequest):
         else:
             result = "Partially True"
 
-        return {"title": title, "factcheck_result": result}
+        return {"title": title, "reference_contents": result}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
