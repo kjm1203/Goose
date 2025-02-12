@@ -1,5 +1,7 @@
 package com.ssafy.firstproject.data.model
 
 data class User(
-    val id: Int,
+    val username: String,
+    val password: String,
+    val nickname: String,
 )
