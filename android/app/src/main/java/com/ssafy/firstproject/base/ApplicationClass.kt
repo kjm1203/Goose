@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.ssafy.firstproject.data.source.local.SharedPreferencesUtil
 import com.ssafy.firstproject.data.repository.NewsRepository
+import com.ssafy.firstproject.data.repository.UserRepository
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Converter
@@ -48,6 +49,7 @@ class ApplicationClass : Application() {
 
         // repository 객체
         lateinit var newsRepository: NewsRepository
+        lateinit var userRepository: UserRepository
     }
 
 
@@ -77,6 +79,7 @@ class ApplicationClass : Application() {
 
         // repository 초기화
         newsRepository = NewsRepository()
+        userRepository = UserRepository()
     }
 
     //GSon은 엄격한 json type을 요구하는데, 느슨하게 하기 위한 설정. success, fail이 json이 아니라 단순 문자열로 리턴될 경우 처리..
