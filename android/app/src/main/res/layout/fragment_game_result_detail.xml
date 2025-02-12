@@ -29,7 +29,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/spacing_48dp">
+            android:paddingBottom="@dimen/spacing_16dp">
 
             <TextView
                 android:id="@+id/tv_answer_tag"
@@ -37,7 +37,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_24dp"
                 android:text="@string/answer"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_12dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/bg_white_15dp"
                 android:gravity="center"
                 android:padding="@dimen/spacing_12dp"
@@ -63,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_21dp"
+                android:layout_marginTop="@dimen/spacing_16dp"
                 android:text="@string/answer_reason"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_answer" />
@@ -74,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_12dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/bg_white_15dp"
                 android:padding="@dimen/spacing_16dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_21dp"
+                android:layout_marginTop="@dimen/spacing_16dp"
                 android:text="@string/answer_chart"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_reason" />
@@ -98,7 +97,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_12dp"
+                android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_chart_tag">
@@ -172,7 +171,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_24dp"
-                android:layout_marginTop="@dimen/spacing_48dp"
+                android:layout_marginTop="@dimen/spacing_16dp"
                 android:text="@string/go_next_game"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

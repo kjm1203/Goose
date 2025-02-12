@@ -19,7 +19,6 @@
         android:id="@+id/iv_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
@@ -30,7 +29,6 @@
         style="@style/Widget.TextView.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_answer"
@@ -52,7 +50,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_48dp"
-        android:layout_marginTop="@dimen/spacing_12dp"
+        android:layout_marginTop="@dimen/spacing_8dp"
         android:background="@drawable/bg_cornflowerblue17_8dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_24dp"
-        android:layout_marginTop="@dimen/spacing_36dp"
+        android:layout_marginTop="@dimen/spacing_24dp"
         android:text="@string/time_spent_ranking"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_my_answer" />
@@ -76,9 +74,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_24dp"
-        android:layout_marginTop="@dimen/spacing_16dp"
+        android:layout_marginTop="@dimen/spacing_8dp"
         android:background="@drawable/bg_white_15dp"
-        android:padding="@dimen/spacing_24dp"
+        android:padding="@dimen/spacing_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_time_ranking">
@@ -220,10 +218,10 @@
             android:id="@+id/iv_answer_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_check"
             app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_nickname"
-            tools:src="@drawable/ic_check" />
+            app:layout_constraintTop_toTopOf="@+id/tv_nickname" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -257,7 +255,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_24dp"
-        android:layout_marginBottom="46dp"
+        android:layout_marginBottom="@dimen/spacing_16dp"
         android:text="@string/go_answer_reason"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
