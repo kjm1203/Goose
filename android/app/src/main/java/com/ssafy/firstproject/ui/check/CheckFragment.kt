@@ -38,7 +38,6 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 if (result.resultCode == Activity.RESULT_OK) {
                     val imageUri: Uri? = result.data?.data
                     imageUri?.let {
-                        binding.ivAddImagePlus.visibility = View.GONE
                         binding.ivAddImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
                         binding.ivAddImage.setImageURI(it) // 이미지 설정
 
@@ -60,7 +59,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         }
 
         binding.btnCheck.setOnClickListener {
-            findNavController().navigate(R.id.dest_check_detail)
+            findNavController().navigate(R.id.dest_news_result)
         }
 
         // 이미지 추가 버튼 클릭 시 갤러리 실행
@@ -83,8 +82,6 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             }
             false
         }
-
-        binding.btnCheck.setOnClickListener { findNavController().navigate(R.id.dest_news_result) }
 
         if (args.recognizedText.isNotEmpty()) {
             binding.actvCheckType.setText(getString(R.string.type_content))
