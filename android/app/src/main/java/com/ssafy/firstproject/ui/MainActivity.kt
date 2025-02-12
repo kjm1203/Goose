@@ -21,6 +21,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.bnv.setupWithNavController(navController)
 
         hideBottomNavigationView(navController)
+
+        binding.bnv.setOnItemSelectedListener { item ->
+            if (item.itemId != binding.bnv.selectedItemId) {
+                navController.navigate(item.itemId)
+            }
+            true
+        }
     }
 
     private fun hideBottomNavigationView(navController: NavController) {
