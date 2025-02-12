@@ -7,6 +7,7 @@ import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.data.model.NewsContent
 import com.ssafy.firstproject.databinding.FragmentCheckResultDetailBinding
+import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 
 class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>(
     FragmentCheckResultDetailBinding::bind,
@@ -38,5 +39,9 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
         )
 
         checkResultDetailAdapter.submitList(newsList)
+
+        animateProgress(binding.pbDetailTruth, 30)
+        animateProgress(binding.pbDetailAi, 60)
+        animateProgress(binding.pbDetailBias, 90)
     }
 }
