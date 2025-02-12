@@ -52,6 +52,8 @@ pipeline {
             steps {
                 echo 'Checking environment variables in Jenkins...'
                 sh 'echo "JWT_SECRET: $JWT_SECRET"'
+                sh 'docker info'
+                sh 'docker ps'
             }
         }
 
