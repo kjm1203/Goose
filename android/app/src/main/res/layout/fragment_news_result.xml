@@ -29,7 +29,7 @@
         style="@style/Widget.TextView.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/news_check_result"
+        android:text="@string/news_check_result_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
@@ -103,7 +103,7 @@
             android:id="@+id/tv_truth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="신뢰성"
+            android:text="@string/truth"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -137,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_8dp"
-            android:text="Ai 여부"
+            android:text="@string/ai_whether"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_truth" />
@@ -168,7 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_8dp"
-            android:text="편향성"
+            android:text="@string/bias"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_ai_whether" />
@@ -210,7 +210,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="다른 것도 분석하기" />
+            android:text="@string/other_check" />
 
         <View
             android:layout_width="@dimen/spacing_8dp"
@@ -222,7 +222,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="자세히 보기" />
+            android:text="@string/detail" />
     </LinearLayout>
 
 
