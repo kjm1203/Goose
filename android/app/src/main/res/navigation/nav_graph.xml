@@ -1,4 +1,4 @@
- <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -157,4 +157,10 @@
         android:name="com.ssafy.firstproject.ui.newslistresult.NewsListResultFragment"
         android:label="NewsListResultFragment"
         tools:layout="@layout/fragment_news_list_result" />
+
+    <fragment
+        android:id="@+id/dest_news_result"
+        android:name="com.ssafy.firstproject.ui.newsresult.NewsResultFragment"
+        android:label="NewsResultFragment"
+        tools:layout="@layout/fragment_news_result" />
 </navigation>
