@@ -21,6 +21,12 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
             findNavController().popBackStack()
         }
 
+        binding.btnOtherCheck.setOnClickListener { findNavController().popBackStack() }
+
+        binding.btnCheckDetail.setOnClickListener {
+            findNavController().navigate(R.id.dest_check_detail)
+        }
+
         animateProgress(binding.pbTruth, 30)
         animateProgress(binding.pbAi, 60)
         animateProgress(binding.pbBias, 90)
