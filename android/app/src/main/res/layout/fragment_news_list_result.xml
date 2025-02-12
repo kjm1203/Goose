@@ -29,7 +29,7 @@
         style="@style/Widget.TextView.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="뉴스 분석 결과"
+        android:text="@string/news_check_result"
         android:layout_marginTop="@dimen/spacing_8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
