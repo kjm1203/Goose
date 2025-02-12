@@ -1,7 +1,8 @@
 package com.ssafy.goose.domain.news.scheduler;
 
+import com.ssafy.goose.domain.news.service.NewsAutoProcessingService;
 import com.ssafy.goose.domain.news.service.crawling.NewsCrawlerService;
-import com.ssafy.goose.domain.news.storage.NewsStorageService;
+import com.ssafy.goose.domain.news.service.NewsStorageService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,12 @@ import java.util.Map;
 public class AutoCrawlingService {
     private final NewsCrawlerService newsCrawlerService;
     private final NewsStorageService newsStorageService;
+    private final NewsAutoProcessingService newsAutoProcessingService;
 
-    public AutoCrawlingService(NewsCrawlerService newsCrawlerService, NewsStorageService newsStorageService) {
+    public AutoCrawlingService(NewsCrawlerService newsCrawlerService, NewsStorageService newsStorageService, NewsAutoProcessingService newsAutoProcessingService) {
         this.newsCrawlerService = newsCrawlerService;
         this.newsStorageService = newsStorageService;
+        this.newsAutoProcessingService = newsAutoProcessingService;
     }
 
     @Scheduled(cron = "0 0 0,6,9,12,15,18,21 * * *", zone = "Asia/Seoul")
@@ -30,16 +33,16 @@ public class AutoCrawlingService {
             System.out.println("🔍 검색어: " + keyword);
 
             // 2.1. 참고용 뉴스 데이터 먼저 찾아보기
-            Map<String, Object> referenceNewsData = newsCrawlerService.getNews(keyword, 50);
+            Map<String, Object> referenceNewsData = newsCrawlerService.getNews(keyword, 20);
 
             // ✅ 2.2. 참고용 뉴스 저장
-            newsStorageService.saveReferenceNewsToMongoDB(referenceNewsData, keyword);
+            newsAutoProcessingService.processAndStoreReferenceNewsArticles(referenceNewsData);
 
             // 3.1. 키워드로 뉴스 검색해서 가져오기
             Map<String, Object> newsData = newsCrawlerService.getNews(keyword, 7);
 
             // ✅ 3.2. 뉴스 데이터를 갖고 메인 로직 수행 + 몽고DB 저장
-            newsStorageService.saveNewsToMongoDB(newsData, keyword);
+            newsAutoProcessingService.processAndStoreNewsArticles(newsData);
         }
 
         System.out.println("✅ 뉴스 저장 완료!");
