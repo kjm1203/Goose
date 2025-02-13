@@ -23,6 +23,8 @@ public class NewsArticle {
     private String description;         // 뉴스 설명
     private String pubDate;             // 뉴스 게시 날짜 (String 타입 유지)
     private List<String> paragraphs;    // 뉴스 문단 (전문으로부터 분리된 문단들)
+    private List<Double> paragraphReliabilities; // 문단별 신뢰도 점수
+    private List<String> paragraphReasons;       // 문단별 신뢰도 분석 결과(사유)
     private String content;             // 뉴스 본문 내용
     private String topImage;            // 뉴스 대표 이미지 URL
     private LocalDateTime extractedAt;  // 뉴스 크롤링 시점

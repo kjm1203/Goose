@@ -24,10 +24,13 @@ public class NewsArticleDto {
     private String pubDate;
     private String content;
     private List<String> paragraphs; // ✅ 뉴스 문단 정보 추가
+    private List<Double> paragraphReliabilities; // 문단별 신뢰도 점수
+    private List<String> paragraphReasons;       // 문단별 신뢰도 분석 결과(사유)
     private String topImage;
     private LocalDateTime extractedAt;
-    private Double biasScore; // ✅ 편향성 점수 필드
-    private Double reliability; // ✅ 기사 신뢰도 점수 필드 추가
+    private Double biasScore;      // ✅ 편향성 점수 필드
+    private Double reliability;    // ✅ 기사 신뢰도 점수 필드 추가
+
 
     /**
      * 🔹 엔티티 → DTO 변환
@@ -46,6 +49,8 @@ public class NewsArticleDto {
                 .extractedAt(article.getExtractedAt())
                 .biasScore(article.getBiasScore() != null ? article.getBiasScore() : 0.0)
                 .reliability(article.getReliability() != null ? article.getReliability() : 50.0) // ✅ 기본값 50.0 설정
+                .paragraphReliabilities(article.getParagraphReliabilities())
+                .paragraphReasons(article.getParagraphReasons())
                 .build();
     }
 
@@ -66,6 +71,8 @@ public class NewsArticleDto {
                 .extractedAt(this.extractedAt)
                 .biasScore(this.biasScore != null ? this.biasScore : 0.0)
                 .reliability(this.reliability != null ? this.reliability : 50.0) // ✅ 기본값 50.0 설정
+                .paragraphReliabilities(this.paragraphReliabilities)
+                .paragraphReasons(this.paragraphReasons)
                 .build();
     }
 
