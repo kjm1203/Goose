@@ -11,8 +11,10 @@ import com.ssafy.firstproject.data.model.request.KeywordSearch
 import kotlinx.coroutines.launch
 
 private const val TAG = "NewsListResultViewModel_ssafy"
+
 class NewsListResultViewModel : ViewModel() {
-    private val _newsAnalysisArticles: MutableLiveData<List<NewsAnalysisArticle>> = MutableLiveData()
+    private val _newsAnalysisArticles: MutableLiveData<List<NewsAnalysisArticle>> =
+        MutableLiveData()
     val newsAnalysisArticles: LiveData<List<NewsAnalysisArticle>> get() = _newsAnalysisArticles
 
     fun getNewsArticle(keywordSearch: KeywordSearch) {
@@ -25,8 +27,7 @@ class NewsListResultViewModel : ViewModel() {
                         _newsAnalysisArticles.value = it
                     }
                     Log.d(TAG, "getNewsArticle: ${response.body()}")
-                }
-                else {
+                } else {
                     Log.d(TAG, "getNewsArticle fail: ${response.code()}")
                 }
 
