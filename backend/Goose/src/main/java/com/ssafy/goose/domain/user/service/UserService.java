@@ -1,9 +1,13 @@
 package com.ssafy.goose.domain.user.service;
 
+import com.ssafy.goose.domain.news.entity.NewsArticle;
+import com.ssafy.goose.domain.news.repository.NewsRepository;
 import com.ssafy.goose.domain.user.dto.LoginRequestDto;
-import com.ssafy.goose.domain.user.dto.UserResponseDto;
+import com.ssafy.goose.domain.user.dto.NewsDeterminationResponseDto;
 import com.ssafy.goose.domain.user.dto.SignupRequestDto;
+import com.ssafy.goose.domain.user.dto.UserResponseDto;
 import com.ssafy.goose.domain.user.entity.User;
+import com.ssafy.goose.domain.user.repository.UserNewsDeterminationRepository;
 import com.ssafy.goose.domain.user.repository.UserRepository;
 import com.ssafy.goose.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -18,14 +23,20 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserNewsDeterminationRepository determinationRepository;
+    private final NewsRepository newsRepository;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
-                       JwtTokenProvider jwtTokenProvider) {
+                       JwtTokenProvider jwtTokenProvider,
+                       UserNewsDeterminationRepository determinationRepository,
+                       NewsRepository newsRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.determinationRepository = determinationRepository;
+        this.newsRepository = newsRepository;
     }
 
     // 회원가입
@@ -72,5 +83,29 @@ public class UserService {
             return UserResponseDto.error("유효하지 않은 토큰입니다.");
         }
         return UserResponseDto.success();
+    }
+
+    //읽은 뉴스 조회
+    public List<NewsDeterminationResponseDto> getNewsDeterminations(Long userId, String token) {
+        if (!jwtTokenProvider.validateToken(token)) {
+            throw new IllegalArgumentException("유효하지 않은 토큰입니다.");
+        }
+
+        return determinationRepository.findTop10ByUserIdOrderByDeterminedAtDesc(userId)
+                .stream()
+                .map(determination -> {
+                    NewsArticle newsArticle = newsRepository.findById(determination.getNewsId())
+                            .orElseThrow(() -> new IllegalStateException("뉴스를 찾을 수 없습니다."));
+
+                    return NewsDeterminationResponseDto.builder()
+                            .newsId(determination.getNewsId())
+                            .newsTitle(newsArticle.getTitle())
+                            .newsContent(newsArticle.getContent())
+                            .searchType(determination.getSearchType())
+                            .determinedAt(determination.getDeterminedAt())
+                            .reliability(newsArticle.getReliability())
+                            .build();
+                })
+                .toList();
     }
 }
