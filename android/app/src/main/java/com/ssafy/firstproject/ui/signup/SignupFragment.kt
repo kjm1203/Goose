@@ -1,12 +1,12 @@
 package com.ssafy.firstproject.ui.signup
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputEditText
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.data.model.User
@@ -17,11 +17,6 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
     FragmentSignupBinding::bind,
     R.layout.fragment_signup
 ) {
-
-    private var isIdVerified = false
-    private var isPasswordVerified = false
-    private var isPasswordSame = false
-    private var isNicknameVerified = false
 
     private val viewModel by viewModels<SignupViewModel>()
 
@@ -36,33 +31,6 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
 
         binding.ivSignupClose.setOnClickListener { findNavController().popBackStack() }
 
-        checkAllVerified()
-
-        binding.tieSignupIdInput.addTextChangedListener {
-            isIdVerified = validateInput(binding.tieSignupIdInput, binding.tvIdInputMetaInfo)
-            checkAllVerified()
-        }
-
-        binding.tieSignupPwInput.addTextChangedListener {
-            isPasswordVerified = validateInput(binding.tieSignupPwInput, binding.tvPwMetaInfo)
-            checkAllVerified()
-        }
-
-        binding.tieSignupNicknameInput.addTextChangedListener {
-            isNicknameVerified =
-                validateInput(binding.tieSignupNicknameInput, binding.tvNicknameMetaInfo)
-            checkAllVerified()
-        }
-
-        binding.tieSignupPwCheckInput.addTextChangedListener {
-            isPasswordSame = validatePassword(
-                passwordEditText = binding.tieSignupPwInput,
-                confirmPasswordEditText = binding.tieSignupPwCheckInput,
-                metaTextView = binding.tvPwMetaInfo
-            )
-            checkAllVerified()
-        }
-
         binding.btnSignup.setOnClickListener {
             viewModel.signUp(
                 User(
@@ -72,70 +40,87 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
                 )
             )
         }
-    }
 
-    private fun checkAllVerified() {
-        binding.btnSignup.isEnabled =
-            isIdVerified && isPasswordVerified && isPasswordSame && isNicknameVerified
-    }
+        observeValidation()
 
-    private fun validateInput(editText: TextInputEditText, textView: TextView): Boolean {
-        val text = editText.text.toString().trim()
-        val pattern = "^[a-z0-9]{4,12}$".toRegex()
+        binding.tieSignupIdInput.addTextChangedListener {
+            viewModel.checkIdValidation(it.toString())
+            viewModel.checkAllValidation()
+        }
 
-        when {
-            text.isEmpty() -> {
-                textView.visibility = View.GONE
-                return false
-            }
+        binding.tieSignupPwInput.addTextChangedListener {
+            viewModel.checkPasswordValidation(it.toString())
+            viewModel.checkAllValidation()
+        }
 
-            !pattern.matches(text) -> {
-                textView.visibility = View.VISIBLE
-                textView.text = getString(R.string.user_limit_message)
-                return false
-            }
+        binding.tieSignupPwCheckInput.addTextChangedListener {
+            viewModel.checkPasswordMatch(
+                binding.tieSignupPwInput.text.toString(),
+                it.toString()
+            )
+            viewModel.checkAllValidation()
+        }
 
-            else -> {
-                textView.visibility = View.GONE
-                return true
-            }
+        binding.tieSignupNicknameInput.addTextChangedListener {
+            viewModel.checkNickNameValidation(it.toString())
+            viewModel.checkAllValidation()
         }
     }
 
-    private fun validatePassword(
-        passwordEditText: TextInputEditText,
-        confirmPasswordEditText: TextInputEditText,
-        metaTextView: TextView
-    ): Boolean {
-        val password = passwordEditText.text.toString().trim()
-        val confirmPassword = confirmPasswordEditText.text.toString().trim()
+    private fun observeValidation() {
 
-        when {
-            password.isEmpty() || confirmPassword.isEmpty() -> {
-                metaTextView.visibility = View.GONE
-                return false
+        viewModel.isIdValid.observe(viewLifecycleOwner) {
+            if (!it) {
+                binding.tvIdInputMetaInfo.visibility = View.VISIBLE
+                binding.tvIdInputMetaInfo.text = getString(R.string.user_limit_message)
+            } else {
+                binding.tvIdInputMetaInfo.visibility = View.GONE
             }
+        }
 
-            password != confirmPassword -> {
-                metaTextView.visibility = View.VISIBLE
-                metaTextView.text = getString(R.string.user_not_correct_message)
-                return false
+        viewModel.isPasswordValid.observe(viewLifecycleOwner) {
+            if (!it) {
+                binding.tvPwMetaInfo.visibility = View.VISIBLE
+                binding.tvPwMetaInfo.text = getString(R.string.user_limit_message)
+            } else {
+                binding.tvPwMetaInfo.visibility = View.GONE
             }
+        }
 
-            else -> {
-                metaTextView.visibility = View.GONE
-                return true
+        viewModel.isPasswordMatch.observe(viewLifecycleOwner) {
+            if (!it) {
+                binding.tvPwMetaInfo.visibility = View.VISIBLE
+                binding.tvPwMetaInfo.text = getString(R.string.user_not_correct_message)
+                binding.tvPwMetaInfo.setTextColor(getColor(requireContext(), R.color.maximumRed))
+            } else {
+                if (viewModel.isPasswordValid.value == true) {
+                    binding.tvPwMetaInfo.text = getString(R.string.user_password_message)
+                    binding.tvPwMetaInfo.setTextColor(Color.BLUE)
+                }
             }
+        }
+
+        viewModel.isNicknameValid.observe(viewLifecycleOwner) {
+            if (!it) {
+                binding.tvNicknameMetaInfo.visibility = View.VISIBLE
+                binding.tvNicknameMetaInfo.text = getString(R.string.nickname_limit_message)
+            } else {
+                binding.tvNicknameMetaInfo.visibility = View.GONE
+            }
+        }
+
+        viewModel.isAllValid.observe(viewLifecycleOwner) {
+            binding.btnSignup.isEnabled = it
         }
     }
 
     private fun observeSignUpSuccess() {
         viewModel.isSignupSuccess.observe(viewLifecycleOwner) {
             if (it) {
-                showToast("회원 가입에 성공하였습니다")
+                showToast("회원 가입에 성공하였습니다.😊")
                 findNavController().navigate(R.id.action_dest_signup_to_dest_login)
             } else {
-                showToast("회원 가입에 실패하였습니다. 다시 시도해주세요.")
+                showToast("회원 가입에 실패하였습니다. 다시 시도해주세요.😅")
             }
         }
     }
