@@ -1,4 +1,4 @@
-package com.ssafy.firstproject.ui.checkresultdetail
+package com.ssafy.firstproject.ui.checkresultdetail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.firstproject.data.model.NewsContent
 import com.ssafy.firstproject.databinding.ItemCheckResultDetailBinding
+import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 
 class CheckResultDetailAdapter :
     ListAdapter<NewsContent, CheckResultDetailAdapter.CheckResultDetailViewHolder>(
@@ -17,6 +18,10 @@ class CheckResultDetailAdapter :
         fun bind(newsContent: NewsContent) {
             binding.tvNewsItemContent.text = newsContent.content
             binding.tvResult.text = newsContent.result
+
+            val randomProgress = (1..100).random()
+
+            animateProgress(binding.pbNewsParagraphTruth, randomProgress)
         }
     }
 
@@ -31,7 +36,7 @@ class CheckResultDetailAdapter :
     }
 
     override fun onBindViewHolder(
-        holder: CheckResultDetailAdapter.CheckResultDetailViewHolder,
+        holder: CheckResultDetailViewHolder,
         position: Int
     ) {
         holder.bind(getItem(position))

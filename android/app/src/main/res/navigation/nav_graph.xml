@@ -32,6 +32,9 @@
             android:name="recognizedText"
             android:defaultValue=""
             app:argType="string" />
+        <action
+            android:id="@+id/action_dest_check_to_dest_news_list_result"
+            app:destination="@id/dest_news_list_result" />
     </fragment>
 
     <fragment
@@ -86,10 +89,16 @@
     </dialog>
 
     <fragment
-        android:id="@+id/dest_check_detail"
+        android:id="@+id/dest_check_result_detail"
         android:name="com.ssafy.firstproject.ui.checkresultdetail.CheckResultDetailFragment"
         android:label="CheckResultDetailFragment"
-        tools:layout="@layout/fragment_check_result_detail" />
+        tools:layout="@layout/fragment_check_result_detail">
+
+        <action
+            android:id="@+id/action_dest_check_result_detail_to_dest_check"
+            app:destination="@id/dest_check"
+            app:popUpTo="@id/dest_check" />
+    </fragment>
 
     <fragment
         android:id="@+id/dest_image_result"
@@ -164,5 +173,23 @@
             android:name="totalTimeSpent"
             app:argType="long" />
     </fragment>
+
+    <fragment
+        android:id="@+id/dest_news_list_result"
+        android:name="com.ssafy.firstproject.ui.newslistresult.NewsListResultFragment"
+        android:label="NewsListResultFragment"
+        tools:layout="@layout/fragment_news_list_result">
+
+        <argument
+            android:name="newsText"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dest_news_result"
+        android:name="com.ssafy.firstproject.ui.newsresult.NewsResultFragment"
+        android:label="NewsResultFragment"
+        tools:layout="@layout/fragment_news_result" />
 
 </navigation>

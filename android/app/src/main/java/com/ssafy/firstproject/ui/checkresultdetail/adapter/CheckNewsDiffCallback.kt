@@ -1,4 +1,4 @@
-package com.ssafy.firstproject.ui.checkresultdetail
+package com.ssafy.firstproject.ui.checkresultdetail.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.ssafy.firstproject.data.model.NewsContent

@@ -2,11 +2,14 @@ package com.ssafy.firstproject.ui.checkresultdetail
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.data.model.NewsContent
 import com.ssafy.firstproject.databinding.FragmentCheckResultDetailBinding
+import com.ssafy.firstproject.ui.checkresultdetail.adapter.CheckResultDetailAdapter
+import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 
 class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>(
     FragmentCheckResultDetailBinding::bind,
@@ -16,6 +19,16 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.btnCheckOtherNews.setOnClickListener {
+            val action =
+                CheckResultDetailFragmentDirections.actionDestCheckResultDetailToDestCheck()
+            findNavController().navigate(action)
+        }
 
         checkResultDetailAdapter = CheckResultDetailAdapter()
 
@@ -38,5 +51,9 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
         )
 
         checkResultDetailAdapter.submitList(newsList)
+
+        animateProgress(binding.pbDetailTruth, 30)
+        animateProgress(binding.pbDetailAi, 60)
+        animateProgress(binding.pbDetailBias, 90)
     }
 }

@@ -59,6 +59,16 @@
     <string name="url_input_hint">URL 입력</string>
     <string name="check">분석하기</string>
 
+    <!-- 뉴스 분석 결과-->
+    <string name="news_check_result_title">뉴스 분석 결과</string>
+    <string name="news_check_result_subtitle">내가 입력한 컨텐츠를 분석했습니다.</string>
+    <string name="similar_news">유사한 뉴스</string>
+    <string name="truth">신뢰성</string>
+    <string name="ai_whether">AI 여부</string>
+    <string name="bias">편향성</string>
+    <string name="other_check">다른 것도 분석하기</string>
+    <string name="detail">자세히 보기</string>
+
     <string name="check_result_detail_title">결과 자세히보기</string>
     <string name="check_other_news">다른 것도 분석하러 가기</string>
 
