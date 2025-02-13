@@ -118,10 +118,10 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
     private fun observeSignUpSuccess() {
         viewModel.isSignupSuccess.observe(viewLifecycleOwner) {
             if (it) {
-                showToast("회원 가입에 성공하였습니다.😊")
+                showToast(getString(R.string.signup_success_message))
                 findNavController().navigate(R.id.action_dest_signup_to_dest_login)
             } else {
-                showToast("회원 가입에 실패하였습니다. 다시 시도해주세요.😅")
+                showToast(getString(R.string.signup_fail_message))
             }
         }
     }

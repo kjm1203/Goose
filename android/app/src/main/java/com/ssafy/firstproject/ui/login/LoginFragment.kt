@@ -31,7 +31,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                 binding.tieLoginIdInput.text.toString().isEmpty()
                 || binding.tieLoginPwInput.text.toString().isEmpty()
             ) {
-                showToast("아이디와 비밀번호를 입력해주세요.😊")
+                showToast(getString(R.string.login_limit_message))
                 return@setOnSingleClickListener
             }
             viewModel.login(
@@ -48,7 +48,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
     private fun observeLogin() {
         viewModel.isLoginSuccess.observe(viewLifecycleOwner) {
             if (it) {
-                showToast("로그인에 성공하였습니다.😊")
+                showToast(getString(R.string.login_success_message))
                 findNavController().navigate(
                     R.id.dest_home,  // 이동할 목적지
                     null,
@@ -57,7 +57,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                         .build()
                 )
             } else {
-                showToast("로그인에 실패하였습니다. 다시 시도해주세요.😅")
+                showToast(getString(R.string.login_fail_message))
             }
         }
     }
