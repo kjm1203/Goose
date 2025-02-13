@@ -78,7 +78,7 @@ public class BiasAnalyseService {
         double bias_content = analyseByContent.checkContentWithReference(content, referenceContents);
 
         // 6. 문단 신뢰성 분석 요청 (FastAPI 호출)
-        ParagraphAnalysisResult analysisResult = analyzeParagraph.analyze(keywords, content, paragraphs, recentArticles);
+        ParagraphAnalysisResult analysisResult = analyzeParagraph.analyze(keywords, paragraphs, recentArticles);
         double paragraph_reliability = analysisResult.getAverageReliability();
 
         double finalScore = (bias_title + bias_content + paragraph_reliability) / 3;

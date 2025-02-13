@@ -22,7 +22,7 @@ public class AutoCrawlingService {
         this.newsAutoProcessingService = newsAutoProcessingService;
     }
 
-    @Scheduled(cron = "0 0 0,6,9,12,15,18,21 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 0,6,12,18 * * *", zone = "Asia/Seoul")
     public void fetchAndSaveTrendingNews() {
         System.out.println("🕒 뉴스 크롤링 실행: " + LocalDateTime.now());
 
@@ -43,8 +43,6 @@ public class AutoCrawlingService {
 
             // ✅ 3.2. 뉴스 데이터를 갖고 메인 로직 수행 + 몽고DB 저장
             newsAutoProcessingService.processAndStoreNewsArticles(newsData);
-
-            break;
         }
 
         System.out.println("✅ 뉴스 저장 완료!");
