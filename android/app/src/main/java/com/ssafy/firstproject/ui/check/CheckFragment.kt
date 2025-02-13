@@ -148,7 +148,8 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             // 이미지 처리 시작
             recognizer.process(image)
                 .addOnSuccessListener { visionText ->
-                    binding.tieExtractTextInput.setText(visionText.text)
+                    val cleanedText = visionText.text.replace("[\"',\n]".toRegex(), "")
+                    binding.tieExtractTextInput.setText(cleanedText)
                 }
                 .addOnFailureListener { exception ->
                     binding.tieExtractTextInput.setText(exception.message)
