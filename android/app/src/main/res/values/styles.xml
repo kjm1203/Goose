@@ -38,6 +38,11 @@
         <item name="android:fontFamily">@font/spoqahansansneo_medium</item>
     </style>
 
+    <style name="Widget.TextView.Header.Regular">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
+    </style>
+
     <style name="Widget.TextView.Header.Secondary">
         <item name="android:textSize">18sp</item>
         <item name="android:letterSpacing">-0.025</item>
@@ -111,6 +116,19 @@
         <item name="android:textSize">20sp</item>
         <item name="android:paddingStart">@dimen/spacing_24dp</item>
         <item name="android:gravity">start</item>
+    </style>
+
+    <style name="Widget.TextView.Rate">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Widget.TextView.Rate.Title">
+        <item name="android:fontFamily">@font/spoqahansansneo_medium</item>
+    </style>
+
+    <style name="Widget.TextView.Rate.Percent">
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
     </style>
 
     <!-- Button Style -->
