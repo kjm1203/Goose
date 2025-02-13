@@ -5,6 +5,9 @@ import java.util.List;
 
 public interface InternetSearchService {
 
-    // 추출된 키워드 기반 뉴스 검색
+    // 키워드 기반 뉴스 검색
     List<NewsResponseDto> search(String keyword);
+
+    // 언론사 정보 가져오기 (크롤링)
+    String extractNewsAgency(String newsUrl);
 }
