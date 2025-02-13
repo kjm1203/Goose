@@ -12,6 +12,7 @@ import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.data.model.User
 import com.ssafy.firstproject.databinding.FragmentSignupBinding
 import com.ssafy.firstproject.ui.signup.viewmodel.SignupViewModel
+import com.ssafy.firstproject.util.setOnSingleClickListener
 
 class SignupFragment : BaseFragment<FragmentSignupBinding>(
     FragmentSignupBinding::bind,
@@ -31,7 +32,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
 
         binding.ivSignupClose.setOnClickListener { findNavController().popBackStack() }
 
-        binding.btnSignup.setOnClickListener {
+        binding.btnSignup.setOnSingleClickListener {
             viewModel.signUp(
                 User(
                     username = binding.tieSignupIdInput.text.toString(),
