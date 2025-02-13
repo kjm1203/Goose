@@ -2,6 +2,7 @@ package com.ssafy.firstproject.util
 
 import android.animation.ObjectAnimator
 import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
 import android.widget.ProgressBar
 
 object ViewAnimationUtil {
@@ -17,5 +18,12 @@ object ViewAnimationUtil {
         }
 
         animator.start()
+    }
+
+    fun rotateImage(imageView: ImageView, rotationAngle: Float) {
+        ObjectAnimator.ofFloat(imageView, "rotation", rotationAngle).apply {
+            duration = 200 // 애니메이션 지속 시간 (300ms)
+            start()
+        }
     }
 }
