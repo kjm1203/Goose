@@ -172,4 +172,10 @@
             app:argType="long" />
     </fragment>
 
+    <dialog
+        android:id="@+id/dest_logout_dialog"
+        android:name="com.ssafy.firstproject.ui.mypage.LogoutDialogFragment"
+        android:label="LogoutDialogFragment"
+        tools:layout="@layout/dialog_logout" />
+
 </navigation>
