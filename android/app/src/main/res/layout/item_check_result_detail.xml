@@ -16,12 +16,11 @@
 
     <TextView
         android:id="@+id/tv_item_truth"
-        style="@style/Widget.TextView.Rate.Title"
+        style="@style/Widget.TextView.Rate.Item.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_16dp"
         android:text="@string/truth"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_news_item_content" />
 
