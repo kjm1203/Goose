@@ -3,6 +3,7 @@ package com.ssafy.goose.domain.news.service;
 import com.ssafy.goose.domain.news.entity.NewsArticle;
 import com.ssafy.goose.domain.news.entity.ReferenceNewsArticle;
 import com.ssafy.goose.domain.news.service.bias.BiasAnalyseService;
+import com.ssafy.goose.domain.news.service.bias.BiasAnalysisResult;
 import com.ssafy.goose.domain.news.service.crawling.NewsContentScraping;
 import com.ssafy.goose.domain.news.service.paragraph.NewsParagraphSplitService;
 import org.springframework.stereotype.Service;
@@ -53,14 +54,10 @@ public class NewsAutoProcessingService {
             // 4. 문단 분리 수행 (FastAPI 이용)
             List<String> paragraphs = newsParagraphSplitService.getSplitParagraphs(content);
 
-            // 5. 편향성 분석 수행
-            Double biasScore = biasAnalyseService.analyzeBias(cleanTitle, content);
+            // 5. 편향성 분석 수행 (문단별 신뢰도/분석 사유 포함)
+            BiasAnalysisResult analysisResult = biasAnalyseService.analyzeBias(cleanTitle, content, paragraphs);
 
-            // AI 가짜뉴스 여부 판별 (민성이 모델)
-
-            // 언론사 신뢰도 판정 (추후 추가)
-
-            // 6. MongoDB 저장 객체 생성
+            // 6. MongoDB 저장 객체 생성 (분석 결과 반영)
             NewsArticle article = NewsArticle.builder()
                     .title(cleanTitle)
                     .originalLink((String) item.get("originallink"))
@@ -71,8 +68,10 @@ public class NewsAutoProcessingService {
                     .paragraphs(paragraphs)
                     .topImage(topImage)
                     .extractedAt(LocalDateTime.now())
-                    .biasScore(biasScore)
-                    .reliability(100.0) // 신뢰도 기본값
+                    .biasScore(analysisResult.getBiasScore())
+                    .reliability(analysisResult.getReliability())
+                    .paragraphReliabilities(analysisResult.getParagraphReliabilities())
+                    .paragraphReasons(analysisResult.getParagraphReasons())
                     .build();
 
             // 7. MongoDB에 저장

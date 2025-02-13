@@ -1,9 +1,8 @@
 package com.ssafy.goose.domain.factcheck.scheduler;
 
 import com.ssafy.goose.domain.factcheck.crawling.FactCheckCrawlerService;
-import com.ssafy.goose.domain.factcheck.storage.FactCheckStorageService;
 import com.ssafy.goose.domain.factcheck.model.FactCheck;
-import org.springframework.scheduling.annotation.Scheduled;
+import com.ssafy.goose.domain.factcheck.storage.FactCheckStorageService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class AutoFactCheckCrawlingService {
         this.factCheckStorageService = factCheckStorageService;
     }
 
-    @Scheduled(cron = "0 0 6,18 * * *", zone = "Asia/Seoul")  // ✅ 하루 2회 (06:00, 18:00)
+//    @Scheduled(cron = "0 0 6,18 * * *", zone = "Asia/Seoul")  // ✅ 하루 2회 (06:00, 18:00)
     public void fetchAndStoreFactChecks() {
         System.out.println("🕒 FastAPI 팩트체크 크롤링 요청");
 
