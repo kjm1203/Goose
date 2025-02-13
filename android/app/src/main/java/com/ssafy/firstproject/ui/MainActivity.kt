@@ -39,6 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 R.id.dest_search -> View.VISIBLE
                 R.id.dest_my_page -> View.VISIBLE
                 R.id.dest_image_result -> View.VISIBLE
+                R.id.dest_logout_dialog -> View.VISIBLE
                 else -> View.GONE
             }
         }
