@@ -7,6 +7,7 @@ import com.ssafy.goose.domain.contentsearch.repository.jpa.ContentNewsRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,17 +24,27 @@ public class SearchService {
     }
 
     public List<NewsResponseDto> searchNewsByKeyword(String[] keywords) {
+
         List<NewsResponseDto> allResults = new ArrayList<>();
 
         for (String keyword : keywords) {
-            // MongoDB에 해당 키워드로 뉴스 검색
             List<News> newsList = contentNewsRepository.searchByTitleOrDescriptionOrContent(keyword);
+
             if (!newsList.isEmpty()) {
                 // ✅ newsAgency 보완 후 추가
                 allResults.addAll(convertNewsToNewsResponse(newsList));
             } else {
-                // MongoDB에 검색 결과가 없으면 네이버 API 검색
-                allResults.addAll(internetSearchService.search(keyword));
+                List<NewsResponseDto> naverResults = internetSearchService.search(keyword);
+
+                // ✅ 네이버 API에서 가져온 뉴스에도 newsAgency 크롤링 실행
+                for (NewsResponseDto news : naverResults) {
+                    if (news.getNewsAgency() == null || news.getNewsAgency().equals("Unknown")) {
+                        String extractedAgency = internetSearchService.extractNewsAgency(news.getOriginalLink());
+                        news.setNewsAgency(extractedAgency);
+                    }
+                }
+
+                allResults.addAll(naverResults);
             }
         }
 
@@ -50,7 +61,7 @@ public class SearchService {
                 newsAgency = internetSearchService.extractNewsAgency(news.getOriginalLink());
             }
 
-            newsResponseDtos.add(new NewsResponseDto(
+            NewsResponseDto newsDto = new NewsResponseDto(
                     news.getTitle(),
                     news.getOriginalLink(),
                     news.getNaverLink(),
@@ -60,8 +71,12 @@ public class SearchService {
                     news.getContent(),
                     news.getTopImage(),
                     newsAgency,
-                    news.getExtractedAt()
-            ));
+                    news.getExtractedAt() != null ? news.getExtractedAt() : LocalDateTime.now()
+            );
+
+            // ✅ pubDateTimestamp
+            long pubDateTimestamp = newsDto.getPubDateTimestamp();
+            newsResponseDtos.add(newsDto);
         }
         return newsResponseDtos;
     }

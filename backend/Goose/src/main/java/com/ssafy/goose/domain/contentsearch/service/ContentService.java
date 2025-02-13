@@ -21,11 +21,15 @@ public class ContentService {
 
     // 텍스트에서 키워드 추출 후 키워드 기반 뉴스 검색
     public List<NewsResponseDto> processKeywordAndSearch(String text) {
+
         // 키워드 추출
         KeywordResponseDto keywordResponse = keywordService.extractKeywords(text);
         String[] keywords = keywordResponse.getKeywords();
 
         // 키워드 기반 뉴스 검색
-        return searchService.searchNewsByKeyword(keywords);
+        List<NewsResponseDto> results = searchService.searchNewsByKeyword(keywords);
+
+        // 결과 5개로 제한
+        return results.size() > 5 ? results.subList(0, 5) : results;
     }
 }
