@@ -25,7 +25,7 @@
         android:title="@string/game" />
 
     <item
-        android:id="@+id/dest_news_result"
+        android:id="@+id/dest_my_page"
         android:enabled="true"
         android:icon="@drawable/ic_my_page"
         android:title="@string/my" />
