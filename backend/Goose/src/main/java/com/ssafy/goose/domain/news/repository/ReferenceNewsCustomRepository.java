@@ -36,7 +36,7 @@ public class ReferenceNewsCustomRepository {
         }
 
         if (!keywordCriteriaList.isEmpty()) {
-            query.addCriteria(new Criteria().andOperator(keywordCriteriaList.toArray(new Criteria[0])));
+            query.addCriteria(new Criteria().orOperator(keywordCriteriaList.toArray(new Criteria[0])));
         }
 
         // ✅ 검색 결과 최대 5개 제한

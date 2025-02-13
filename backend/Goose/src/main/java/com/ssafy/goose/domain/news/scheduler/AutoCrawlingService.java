@@ -43,6 +43,8 @@ public class AutoCrawlingService {
 
             // ✅ 3.2. 뉴스 데이터를 갖고 메인 로직 수행 + 몽고DB 저장
             newsAutoProcessingService.processAndStoreNewsArticles(newsData);
+
+            break;
         }
 
         System.out.println("✅ 뉴스 저장 완료!");
