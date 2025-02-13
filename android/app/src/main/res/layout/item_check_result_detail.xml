@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/tv_item_truth"
-        style="@style/Widget.TextView.Header"
+        style="@style/Widget.TextView.Rate.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_16dp"
@@ -40,6 +40,7 @@
 
     <TextView
         android:id="@+id/tv_item_percent"
+        style="@style/Widget.TextView.Rate.Percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="100%"
