@@ -42,14 +42,14 @@
         android:id="@+id/tv_item_percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="100%"
+        tools:text="100%"
         app:layout_constraintBottom_toBottomOf="@+id/tv_item_truth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_item_truth" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_background"
+        android:id="@+id/cl_paragraph_area"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/spacing_16dp"
@@ -79,12 +79,10 @@
             android:layout_marginStart="@dimen/spacing_8dp"
             android:textColor="@color/black"
             android:textSize="18sp"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_item"
             app:layout_constraintTop_toTopOf="@+id/iv_item"
-            android:text="타 뉴스기사 5건과 비교한 결과 위 문단은 100.00% 확률로 올바른 내용입니다."
-            />
+            tools:text="타 뉴스기사 5건과 비교한 결과 위 문단은 100.00% 확률로 올바른 내용입니다." />
 
         <TextView
             android:id="@+id/tv_item_result_detail"
@@ -98,7 +96,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_result"
-            android:text="신윤정 이코노미스트는 트럼프 행정부는 관세 도입의 정당성을 자국 산업 보호로 전달하려 하지만 비용 상승 및 생산 효율 저하 등의 모습이 나타날 가능성이 높다며 트럼프 행정부는 관세 도입의 정당성을 자국 산업 보호로 전달하려 하지만 비용 상승 및 생산 효율." />
+            tools:text="신윤정 이코노미스트는 트럼프 행정부는 관세 도입의 정당성을 자국 산업 보호로 전달하려 하지만 비용 상승 및 생산 효율 저하 등의 모습이 나타날 가능성이 높다며 트럼프 행정부는 관세 도입의 정당성을 자국 산업 보호로 전달하려 하지만 비용 상승 및 생산 효율." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
