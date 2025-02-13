@@ -22,4 +22,10 @@ class SharedPreferencesUtil(context: Context) {
     fun getAccessToken(): String? {
         return preferences.getString(ACCESS_TOKEN_KEY_NAME, "")
     }
+
+    fun removeAccessToken() {
+        val editor = preferences.edit()
+        editor.remove(ACCESS_TOKEN_KEY_NAME)
+        editor.apply()
+    }
 }
