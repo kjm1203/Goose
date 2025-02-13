@@ -38,11 +38,12 @@
         app:layout_constraintStart_toStartOf="@+id/iv_news_result_goose" />
 
     <TextView
+        android:id="@+id/tv_bubble_truth"
+        style="@style/Widget.TextView.Header.Regular"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="20dp"
         android:padding="12dp"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_speech_bubble"
         app:layout_constraintEnd_toEndOf="@+id/iv_speech_bubble"
         app:layout_constraintStart_toStartOf="@+id/iv_speech_bubble"
@@ -72,13 +73,13 @@
 
     <TextView
         android:id="@+id/tv_check_content"
+        style="@style/Widget.TextView.Header.Regular"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_24dp"
         android:background="@drawable/bg_white_15dp"
         android:paddingHorizontal="@dimen/spacing_16dp"
         android:paddingVertical="@dimen/spacing_36dp"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_road"
@@ -100,6 +101,7 @@
 
         <TextView
             android:id="@+id/tv_truth"
+            style="@style/Widget.TextView.Rate.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/truth"
@@ -124,6 +126,7 @@
 
         <TextView
             android:id="@+id/tv_percent_truth"
+            style="@style/Widget.TextView.Rate.Percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tv_truth"
@@ -133,6 +136,7 @@
 
         <TextView
             android:id="@+id/tv_ai_whether"
+            style="@style/Widget.TextView.Rate.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_8dp"
@@ -155,6 +159,7 @@
 
         <TextView
             android:id="@+id/tv_ai_whether_percent"
+            style="@style/Widget.TextView.Rate.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tv_ai_whether"
@@ -164,6 +169,7 @@
 
         <TextView
             android:id="@+id/tv_bias"
+            style="@style/Widget.TextView.Rate.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_8dp"
@@ -186,6 +192,7 @@
 
         <TextView
             android:id="@+id/tv_bias_percent"
+            style="@style/Widget.TextView.Rate.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tv_bias"
