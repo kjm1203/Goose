@@ -66,6 +66,9 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+	// ✅ Jsoup 추가 (HTML 파싱 및 크롤링)
+	implementation 'org.jsoup:jsoup:1.15.3'
+
 	// ✅ JUnit 5 (테스트 실행)
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'  // 버전 명확히 지정
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

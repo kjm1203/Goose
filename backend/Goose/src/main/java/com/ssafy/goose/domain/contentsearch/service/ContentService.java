@@ -26,8 +26,6 @@ public class ContentService {
         String[] keywords = keywordResponse.getKeywords();
 
         // 키워드 기반 뉴스 검색
-        List<NewsResponseDto> searchResults = searchService.searchNewsByKeyword(keywords);
-
-        return searchResults;
+        return searchService.searchNewsByKeyword(keywords);
     }
 }
