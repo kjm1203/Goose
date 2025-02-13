@@ -35,6 +35,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
             findNavController().navigate(R.id.dest_profile_edit)
         }
 
+        binding.tvLogout.setOnClickListener {
+            findNavController().navigate(R.id.dest_logout_dialog)
+        }
+
         setBarChart()
         setBarChartAnimation()
     }
