@@ -4,6 +4,7 @@ import com.ssafy.goose.domain.news.entity.NewsArticle;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -36,6 +37,10 @@ public class NewsArticleDto {
      * 🔹 엔티티 → DTO 변환
      */
     public static NewsArticleDto fromEntity(NewsArticle article) {
+        // extractedAt를 UTC로 가정하고, Asia/Seoul로 변환
+        ZonedDateTime utcTime = article.getExtractedAt().atZone(ZoneId.of("UTC"));
+        ZonedDateTime kstTime = utcTime.withZoneSameInstant(ZoneId.of("Asia/Seoul"));
+
         return NewsArticleDto.builder()
                 .id(article.getId())
                 .title(article.getTitle())
@@ -46,9 +51,9 @@ public class NewsArticleDto {
                 .content(article.getContent())
                 .paragraphs(article.getParagraphs())
                 .topImage(article.getTopImage())
-                .extractedAt(article.getExtractedAt())
+                .extractedAt(kstTime.toLocalDateTime()) // KST로 변환된 시간 저장
                 .biasScore(article.getBiasScore() != null ? article.getBiasScore() : 0.0)
-                .reliability(article.getReliability() != null ? article.getReliability() : 50.0) // ✅ 기본값 50.0 설정
+                .reliability(article.getReliability() != null ? article.getReliability() : 50.0)
                 .paragraphReliabilities(article.getParagraphReliabilities())
                 .paragraphReasons(article.getParagraphReasons())
                 .build();

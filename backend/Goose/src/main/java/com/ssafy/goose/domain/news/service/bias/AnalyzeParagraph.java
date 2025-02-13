@@ -24,14 +24,13 @@ public class AnalyzeParagraph {
         this.restTemplate = new RestTemplate();
     }
 
-    public ParagraphAnalysisResult analyze(String[] keywords, String content, List<String> paragraphs, List<ReferenceNewsArticle> remainingArticles) {
+    public ParagraphAnalysisResult analyze(String[] keywords, List<String> paragraphs, List<ReferenceNewsArticle> remainingArticles) {
         // ✅ FastAPI 요청 데이터 생성
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("news", Map.of(
-                "content", content,
                 "paragraphs", paragraphs,
                 "keywords", keywords
         ));
