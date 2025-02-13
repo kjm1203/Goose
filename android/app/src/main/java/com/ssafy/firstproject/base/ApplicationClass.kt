@@ -3,10 +3,12 @@ package com.ssafy.firstproject.base
 import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.ssafy.firstproject.data.repository.ContentSearchRepository
 import com.ssafy.firstproject.data.source.local.SharedPreferencesUtil
 import com.ssafy.firstproject.data.repository.NewsRepository
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -48,6 +50,7 @@ class ApplicationClass : Application() {
 
         // repository 객체
         lateinit var newsRepository: NewsRepository
+        lateinit var contentSearchRepository: ContentSearchRepository
     }
 
 
@@ -63,7 +66,7 @@ class ApplicationClass : Application() {
             .readTimeout(10000, TimeUnit.MILLISECONDS)
             .connectTimeout(5000, TimeUnit.MILLISECONDS)
             // 로그캣에 okhttp.OkHttpClient로 검색하면 http 통신 내용을 보여줍니다.
-//            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor(AddCookiesInterceptor())
             .addInterceptor(ReceivedCookiesInterceptor()).build()
 
@@ -77,6 +80,7 @@ class ApplicationClass : Application() {
 
         // repository 초기화
         newsRepository = NewsRepository()
+        contentSearchRepository = ContentSearchRepository()
     }
 
     //GSon은 엄격한 json type을 요구하는데, 느슨하게 하기 위한 설정. success, fail이 json이 아니라 단순 문자열로 리턴될 경우 처리..
