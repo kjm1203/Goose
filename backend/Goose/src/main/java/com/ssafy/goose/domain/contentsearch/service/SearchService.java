@@ -29,7 +29,7 @@ public class SearchService {
             // MongoDB에 해당 키워드로 뉴스 검색
             List<News> newsList = contentNewsRepository.searchByTitleOrDescriptionOrContent(keyword);
             if (!newsList.isEmpty()) {
-                // MongoDB에 검색된 결과가 있으면 해당 데이터 반환
+                // ✅ newsAgency 보완 후 추가
                 allResults.addAll(convertNewsToNewsResponse(newsList));
             } else {
                 // MongoDB에 검색 결과가 없으면 네이버 API 검색
@@ -43,6 +43,13 @@ public class SearchService {
     private List<NewsResponseDto> convertNewsToNewsResponse(List<News> newsList) {
         List<NewsResponseDto> newsResponseDtos = new ArrayList<>();
         for (News news : newsList) {
+            String newsAgency = news.getNewsAgency();
+
+            // ✅ newsAgency가 비어 있으면 크롤링을 통해 보완
+            if (newsAgency == null || newsAgency.equals("Unknown")) {
+                newsAgency = internetSearchService.extractNewsAgency(news.getOriginalLink());
+            }
+
             newsResponseDtos.add(new NewsResponseDto(
                     news.getTitle(),
                     news.getOriginalLink(),
@@ -52,10 +59,10 @@ public class SearchService {
                     news.getParagraphs(),
                     news.getContent(),
                     news.getTopImage(),
+                    newsAgency,
                     news.getExtractedAt()
             ));
         }
-
         return newsResponseDtos;
     }
 }

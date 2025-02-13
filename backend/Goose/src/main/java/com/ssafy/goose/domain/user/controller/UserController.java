@@ -1,6 +1,7 @@
 package com.ssafy.goose.domain.user.controller;
 
 import com.ssafy.goose.domain.user.dto.LoginRequestDto;
+import com.ssafy.goose.domain.user.dto.NewsDeterminationResponseDto;
 import com.ssafy.goose.domain.user.dto.SignupRequestDto;
 import com.ssafy.goose.domain.user.dto.UserResponseDto;
 import com.ssafy.goose.domain.user.service.UserService;
@@ -9,6 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "User API", description = "회원가입, 로그인, 로그아웃 기능을 제공하는 API")
 @RestController
@@ -39,5 +42,15 @@ public class UserController {
     public ResponseEntity<UserResponseDto> logout(@RequestHeader("Authorization") String authorizationHeader) {
         String token = authorizationHeader.replace("Bearer ", "");
         return ResponseEntity.ok(userService.logout(token));
+    }
+
+    //읽은 뉴스 조회 기능 추가
+    @GetMapping("/{userId}/determinations")
+    @Operation(summary = "뉴스 판별 기록 조회", description = "사용자의 최근 10개 뉴스 판별 기록을 조회합니다.")
+    public ResponseEntity<List<NewsDeterminationResponseDto>> getDeterminations(
+            @PathVariable Long userId,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+        return ResponseEntity.ok(userService.getNewsDeterminations(userId, token));
     }
 }

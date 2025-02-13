@@ -20,6 +20,7 @@ public class NewsResponseDto {
     private String paragraphs;         // 뉴스 본문에 포함된 주요 문단들
     private String content;            // 본문 내용
     private String topImage;           // 대표 이미지 URL
+    private String newsAgency;         // 언론사
     private LocalDateTime extractedAt; // 추출 시간
 
     // 객체 정보를 문자열로 반환
@@ -34,6 +35,7 @@ public class NewsResponseDto {
                 ", paragraphs='" + paragraphs + '\'' +
                 ", content='" + content + '\'' +
                 ", topImage='" + topImage + '\'' +
+                ", newsAgency='" + newsAgency + '\'' +
                 ", extractedAt=" + extractedAt +
                 '}';
     }
