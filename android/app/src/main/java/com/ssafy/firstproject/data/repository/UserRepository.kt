@@ -10,6 +10,10 @@ class UserRepository {
 
     private val userService = RetrofitUtil.userService
 
+    suspend fun refreshToken(refreshToken: String): Response<AuthResponse> {
+        return userService.refreshToken(refreshToken)
+    }
+
     suspend fun signUp(user: User): Response<AuthResponse> {
         return userService.signUp(user)
     }

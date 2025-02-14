@@ -12,6 +12,9 @@ import retrofit2.http.Query
 
 interface UserService {
 
+    @POST("users/refresh")
+    suspend fun refreshToken(@Body refreshToken: String): Response<AuthResponse>
+
     @POST("users/signup")
     suspend fun signUp(@Body user: User): Response<AuthResponse>
 
