@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.mlkit.vision.common.InputImage
@@ -20,7 +21,9 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
+import com.ssafy.firstproject.data.model.request.SpellCheckRequest
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
+import com.ssafy.firstproject.ui.check.viewmodel.CheckViewModel
 
 private const val TAG = "CheckFragment_ssafy"
 class CheckFragment : BaseFragment<FragmentCheckBinding>(
@@ -29,6 +32,8 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 ) {
 
     private val args by navArgs<CheckFragmentArgs>()
+    private val viewModel by viewModels<CheckViewModel>()
+
     private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,6 +96,8 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             binding.actvCheckType.setText(getString(R.string.type_content))
             binding.tieContentInput.setText(args.recognizedText)
         }
+
+        observeSpellCheckedText()
     }
 
     override fun onResume() {
@@ -179,13 +186,19 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 
                     Log.d(TAG, "extractTextByImage cleaned: $cleanedText")
 
-                    binding.tieExtractTextInput.setText(cleanedText)
+                    viewModel.getSpellCheckedText(SpellCheckRequest(cleanedText))
                 }
                 .addOnFailureListener { exception ->
                     binding.tieExtractTextInput.setText(exception.message)
                 }
         }.onFailure { exception ->
             exception.printStackTrace()
+        }
+    }
+
+    private fun observeSpellCheckedText() {
+        viewModel.spellCheckedText.observe(viewLifecycleOwner) {
+            binding.tieExtractTextInput.setText(it.revised)
         }
     }
 }
