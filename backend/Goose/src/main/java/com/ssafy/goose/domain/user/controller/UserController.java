@@ -1,9 +1,6 @@
 package com.ssafy.goose.domain.user.controller;
 
-import com.ssafy.goose.domain.user.dto.LoginRequestDto;
-import com.ssafy.goose.domain.user.dto.NewsDeterminationResponseDto;
-import com.ssafy.goose.domain.user.dto.SignupRequestDto;
-import com.ssafy.goose.domain.user.dto.UserResponseDto;
+import com.ssafy.goose.domain.user.dto.*;
 import com.ssafy.goose.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,6 +39,18 @@ public class UserController {
     public ResponseEntity<UserResponseDto> logout(@RequestHeader("Authorization") String authorizationHeader) {
         String token = authorizationHeader.replace("Bearer ", "");
         return ResponseEntity.ok(userService.logout(token));
+    }
+
+    @GetMapping("/check-username")
+    @Operation(summary = "아이디 중복 확인", description = "사용 가능한 아이디인지 확인합니다.")
+    public ResponseEntity<UserCheckResponseDto> checkUsername(@RequestParam String username) {
+        return ResponseEntity.ok(userService.checkUsernameAvailability(username));
+    }
+
+    @GetMapping("/check-nickname")
+    @Operation(summary = "닉네임 중복 확인", description = "사용 가능한 닉네임인지 확인합니다.")
+    public ResponseEntity<UserCheckResponseDto> checkNickname(@RequestParam String nickname) {
+        return ResponseEntity.ok(userService.checkNicknameAvailability(nickname));
     }
 
     //읽은 뉴스 조회 기능 추가

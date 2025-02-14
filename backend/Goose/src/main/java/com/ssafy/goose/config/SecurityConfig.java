@@ -32,9 +32,15 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/swagger-resources/**",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/api/users/signup",
+                                "/api/users/login",
+                                "/api/users/logout",
+                                "/api/users/check-username",
+                                "/api/users/check-nickname",
+                                "/api/news/**",
+                                "/api/content/**"
                         ).permitAll()
-                        .requestMatchers("/api/users/signup", "/api/users/login", "/api/users/logout", "/api/news/**", "/api/content/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

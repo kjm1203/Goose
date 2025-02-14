@@ -74,7 +74,7 @@ public class NewsCrawlerService {
      */
     public Map<String, Object> getNews(String keyword, int displayCount) {
         String url = "https://openapi.naver.com/v1/search/news.json?query=" + keyword + "&display="+ displayCount +"&sort=date";
-        System.out.println("요청 API URL : " + url);
+//        System.out.println("요청 API URL : " + url);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Naver-Client-Id", clientId);

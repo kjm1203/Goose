@@ -28,7 +28,7 @@ public class NewsContentScraping {
         HttpEntity<Map<String, String>> entity = new HttpEntity<>(requestBody, headers);
 
         try {
-            System.out.println("🔍 [NewsContentScraping] FastAPI 요청 시작: " + url);
+//            System.out.println("🔍 [NewsContentScraping] FastAPI 요청 시작: " + url);
             ResponseEntity<Map> response = restTemplate.exchange(FASTAPI_NEWS_URL, HttpMethod.POST, entity, Map.class);
             Map<String, Object> result = response.getBody();
 
@@ -44,17 +44,17 @@ public class NewsContentScraping {
                 // 🔹 결과 반영
                 result.put("title", cleanTitle);
 
-                System.out.println("✅ [NewsContentScraping] 크롤링 성공");
-                System.out.println("  📌 제목: " + cleanTitle);
-                System.out.println("  📌 본문 (앞부분): " + ((String) result.get("text")).substring(0, Math.min(200, ((String) result.get("text")).length())) + "...");
-                System.out.println("  📌 대표 이미지: " + result.get("image"));
+//                System.out.println("✅ [NewsContentScraping] 크롤링 성공");
+//                System.out.println("  📌 제목: " + cleanTitle);
+//                System.out.println("  📌 본문 (앞부분): " + ((String) result.get("text")).substring(0, Math.min(200, ((String) result.get("text")).length())) + "...");
+//                System.out.println("  📌 대표 이미지: " + result.get("image"));
             } else {
-                System.out.println("⚠️ [NewsContentScraping] 크롤링 결과가 null입니다.");
+//                System.out.println("⚠️ [NewsContentScraping] 크롤링 결과가 null입니다.");
             }
 
             return result;
         } catch (Exception e) {
-            System.err.println("❌ [NewsContentScraping] 크롤링 실패: " + e.getMessage());
+//            System.err.println("❌ [NewsContentScraping] 크롤링 실패: " + e.getMessage());
             return null;
         }
     }
