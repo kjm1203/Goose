@@ -1,7 +1,6 @@
 package com.ssafy.goose;
 
 import com.ssafy.goose.domain.news.scheduler.AutoCrawlingService;
-import com.ssafy.goose.domain.factcheck.scheduler.AutoFactCheckCrawlingService;
 import com.ssafy.goose.domain.news.service.bias.BiasAnalyseService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +20,6 @@ public class GooseApplication {
 	@Bean
 	public CommandLineRunner run(
 			AutoCrawlingService autoCrawlingService,
-			AutoFactCheckCrawlingService autoFactCheckCrawlingService,
 			BiasAnalyseService biasAnalyseService
 	) {
 		return args -> {
