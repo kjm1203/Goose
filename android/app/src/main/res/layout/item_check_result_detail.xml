@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/tv_item_truth"
-        style="@style/Widget.TextView.Rate.Item.Title"
+        style="@style/Widget.TextView.Rate.Item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_16dp"
@@ -70,6 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.1" />
+
 
         <TextView
             android:id="@+id/tv_result"
