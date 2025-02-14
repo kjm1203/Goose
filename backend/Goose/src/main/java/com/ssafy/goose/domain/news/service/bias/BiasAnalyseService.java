@@ -40,7 +40,18 @@ public class BiasAnalyseService {
 //      List<String> keywords = keywordExtractorService.extractTopKeywords(title, 3);
         KeywordResponseDto keywordResponse = keywordService.extractKeywords(content);
         String[] keywords = keywordResponse.getKeywords();
+
+        if (keywords == null || keywords.length < 3) {
+            System.out.println("❌ 추출된 키워드가 부족합니다. 기본 점수를 반환합니다.");
+            return BiasAnalysisResult.builder()
+                    .biasScore(50.0)
+                    .reliability(50.0)
+                    .paragraphReliabilities(null)
+                    .paragraphReasons(null)
+                    .build();
+        }
         System.out.println("🔹 추출된 키워드: " + keywords[0] + ", " + keywords[1] + ", " + keywords[2]);
+
 
         // 2. 3일 이내 키워드 기반 레퍼런스 뉴스 검색
         LocalDateTime threeDaysAgo = LocalDateTime.now().minusDays(3);
