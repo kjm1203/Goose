@@ -105,30 +105,32 @@ public class NewsSearchService implements InternetSearchService {
             String naverLink = jsonObject.optString("link", "");
             String pubDate = jsonObject.optString("pubDate", "");
 
-            // ✅ 언론사 정보 가져오기
-            String newsAgency = (!originalLink.isEmpty())
-                    ? extractNewsAgency(originalLink)
-                    : extractNewsAgency(naverLink);
+            // 언론사 정보는 이전 로직에서 추출하지만, 엔티티에 포함되지 않는다면 DTO에 포함할지 결정해야 합니다.
+            // 여기서는 newsAgency 필드는 사용하지 않는다고 가정합니다.
 
+            NewsResponseDto newsDto = NewsResponseDto.builder()
+                    .id(null) // Naver API에서 id 정보가 없다면 null 처리
+                    .title(jsonObject.optString("title", "Unknown"))
+                    .originalLink(originalLink)
+                    .naverLink(naverLink)
+                    .description(jsonObject.optString("description", ""))
+                    .pubDate(pubDate)
+                    .content("") // Naver API에서 본문 내용은 제공되지 않으므로 빈 문자열
+                    .paragraphs(new ArrayList<>())             // 문단 정보는 따로 제공되지 않으므로 빈 리스트
+                    .paragraphReliabilities(new ArrayList<>())   // 빈 리스트
+                    .paragraphReasons(new ArrayList<>())         // 빈 리스트
+                    .topImage("")                                // 대표 이미지 URL이 없다면 빈 문자열
+                    .extractedAt(LocalDateTime.now())            // 현재 시간을 추출 시간으로 사용
+                    .biasScore(0.0)                              // 기본 편향성 점수
+                    .reliability(50.0)                           // 기본 신뢰도 점수 (예: 50.0)
+                    .build();
 
-            NewsResponseDto newsDto = new NewsResponseDto(
-                    jsonObject.optString("title", "Unknown"),
-                    originalLink,
-                    naverLink,
-                    jsonObject.optString("description", ""),
-                    jsonObject.optString("pubDate", ""),
-                    "",
-                    "",
-                    "",
-                    newsAgency,
-                    LocalDateTime.now()
-
-            );
-            // ✅ pubDateTimestamp 변환
+            // pubDateTimestamp 변환 등 추가 로직이 있다면 여기서 처리할 수 있습니다.
             long pubDateTimestamp = newsDto.getPubDateTimestamp();
 
             newsList.add(newsDto);
         }
+
 
         return newsList;
     }
