@@ -2,10 +2,7 @@ package com.ssafy.goose.domain.user.service;
 
 import com.ssafy.goose.domain.news.entity.NewsArticle;
 import com.ssafy.goose.domain.news.repository.NewsRepository;
-import com.ssafy.goose.domain.user.dto.LoginRequestDto;
-import com.ssafy.goose.domain.user.dto.NewsDeterminationResponseDto;
-import com.ssafy.goose.domain.user.dto.SignupRequestDto;
-import com.ssafy.goose.domain.user.dto.UserResponseDto;
+import com.ssafy.goose.domain.user.dto.*;
 import com.ssafy.goose.domain.user.entity.User;
 import com.ssafy.goose.domain.user.repository.UserNewsDeterminationRepository;
 import com.ssafy.goose.domain.user.repository.UserRepository;
@@ -84,6 +81,19 @@ public class UserService {
         }
         return UserResponseDto.success();
     }
+
+    public UserCheckResponseDto checkUsernameAvailability(String username) {
+        boolean exists = userRepository.findByUsername(username).isPresent();
+        return exists ? new UserCheckResponseDto(false, "이미 사용 중인 ID입니다.")
+                : new UserCheckResponseDto(true, "사용 가능한 ID입니다.");
+    }
+
+    public UserCheckResponseDto checkNicknameAvailability(String nickname) {
+        boolean exists = userRepository.findByNickname(nickname).isPresent();
+        return exists ? new UserCheckResponseDto(false, "이미 사용 중인 닉네임입니다.")
+                : new UserCheckResponseDto(true, "사용 가능한 닉네임입니다.");
+    }
+
 
     //읽은 뉴스 조회
     public List<NewsDeterminationResponseDto> getNewsDeterminations(Long userId, String token) {
