@@ -1,11 +1,14 @@
 package com.ssafy.firstproject.data.source.remote
 
 import com.ssafy.firstproject.data.model.AuthResponse
+import com.ssafy.firstproject.data.model.DuplicateCheckResponse
 import com.ssafy.firstproject.data.model.User
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface UserService {
 
@@ -18,4 +21,9 @@ interface UserService {
     @POST("users/logout")
     suspend fun logout(@Header("Authorization") accessToken: String): Response<AuthResponse>
 
+    @GET("users/check-username")
+    suspend fun checkUserName(@Query("username") id: String): Response<DuplicateCheckResponse>
+
+    @GET("users/check-nickname")
+    suspend fun checkNIckName(@Query("nickname") nickname: String): Response<DuplicateCheckResponse>
 }

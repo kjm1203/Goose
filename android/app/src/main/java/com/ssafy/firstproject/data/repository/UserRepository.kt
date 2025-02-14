@@ -1,6 +1,7 @@
 package com.ssafy.firstproject.data.repository
 
 import com.ssafy.firstproject.data.model.AuthResponse
+import com.ssafy.firstproject.data.model.DuplicateCheckResponse
 import com.ssafy.firstproject.data.model.User
 import com.ssafy.firstproject.data.source.remote.RetrofitUtil
 import retrofit2.Response
@@ -20,4 +21,13 @@ class UserRepository {
     suspend fun logout(accessToken: String): Response<AuthResponse> {
         return userService.logout(accessToken)
     }
+
+    suspend fun checkId(id: String): Response<DuplicateCheckResponse> {
+        return userService.checkUserName(id)
+    }
+
+    suspend fun checkNickname(nickname: String): Response<DuplicateCheckResponse> {
+        return userService.checkNIckName(nickname)
+    }
+
 }
