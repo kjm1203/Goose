@@ -1,4 +1,4 @@
-package com.ssafy.firstproject.data.model
+package com.ssafy.firstproject.data.model.request
 
 data class User(
     val username: String,

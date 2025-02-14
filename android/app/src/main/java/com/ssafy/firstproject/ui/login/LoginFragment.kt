@@ -7,7 +7,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
-import com.ssafy.firstproject.data.model.User
+import com.ssafy.firstproject.data.model.request.User
 import com.ssafy.firstproject.databinding.FragmentLoginBinding
 import com.ssafy.firstproject.ui.login.viewmodel.LoginViewModel
 import com.ssafy.firstproject.util.setOnSingleClickListener

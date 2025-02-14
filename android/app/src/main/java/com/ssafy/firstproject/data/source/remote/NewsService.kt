@@ -1,6 +1,6 @@
 package com.ssafy.firstproject.data.source.remote
 
-import com.ssafy.firstproject.data.model.NewsArticle
+import com.ssafy.firstproject.data.model.response.NewsArticle
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.firstproject.base.ApplicationClass
-import com.ssafy.firstproject.data.model.NewsArticle
+import com.ssafy.firstproject.data.model.response.NewsArticle
 import kotlinx.coroutines.launch
 
 private const val TAG = "NewsDetailViewModel"

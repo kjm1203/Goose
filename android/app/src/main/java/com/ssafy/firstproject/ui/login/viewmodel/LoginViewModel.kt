@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.firstproject.base.ApplicationClass
 import com.ssafy.firstproject.base.ApplicationClass.Companion.sharedPreferencesUtil
-import com.ssafy.firstproject.data.model.User
+import com.ssafy.firstproject.data.model.request.User
 import kotlinx.coroutines.launch
 
 private const val TAG = "LoginViewModel"

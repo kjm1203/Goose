@@ -1,6 +1,6 @@
 package com.ssafy.firstproject.data.repository
 
-import com.ssafy.firstproject.data.model.NewsArticle
+import com.ssafy.firstproject.data.model.response.NewsArticle
 import com.ssafy.firstproject.data.source.remote.RetrofitUtil
 import retrofit2.Response
 

@@ -1,8 +1,8 @@
 package com.ssafy.firstproject.data.repository
 
-import com.ssafy.firstproject.data.model.AuthResponse
-import com.ssafy.firstproject.data.model.DuplicateCheckResponse
-import com.ssafy.firstproject.data.model.User
+import com.ssafy.firstproject.data.model.response.AuthResponse
+import com.ssafy.firstproject.data.model.response.DuplicateCheckResponse
+import com.ssafy.firstproject.data.model.request.User
 import com.ssafy.firstproject.data.source.remote.RetrofitUtil
 import retrofit2.Response
 
