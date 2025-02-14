@@ -24,6 +24,7 @@ import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.data.model.request.SpellCheckRequest
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
 import com.ssafy.firstproject.ui.check.viewmodel.CheckViewModel
+import com.ssafy.firstproject.util.TextUtil
 
 private const val TAG = "CheckFragment_ssafy"
 class CheckFragment : BaseFragment<FragmentCheckBinding>(
@@ -95,6 +96,10 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         if (args.recognizedText.isNotEmpty()) {
             binding.actvCheckType.setText(getString(R.string.type_content))
             binding.tieContentInput.setText(args.recognizedText)
+
+            val cleanedText = TextUtil.parseSpellCheckedText(args.recognizedText)
+
+            viewModel.getSpellCheckedText(SpellCheckRequest(content = cleanedText))
         }
 
         observeSpellCheckedText()
@@ -178,13 +183,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             // 이미지 처리 시작
             recognizer.process(image)
                 .addOnSuccessListener { visionText ->
-                    Log.d(TAG, "extractTextByImage visionText: ${visionText.text}")
-
-                    var cleanedText = visionText.text.replace("[\"',\n]".toRegex(), "")
-
-                    cleanedText = cleanedText.replace("다.", "다. ")
-
-                    Log.d(TAG, "extractTextByImage cleaned: $cleanedText")
+                    val cleanedText = TextUtil.parseSpellCheckedText(visionText.text)
 
                     viewModel.getSpellCheckedText(SpellCheckRequest(cleanedText))
                 }
@@ -198,7 +197,10 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 
     private fun observeSpellCheckedText() {
         viewModel.spellCheckedText.observe(viewLifecycleOwner) {
-            binding.tieExtractTextInput.setText(it.revised)
+            when (binding.actvCheckType.text.toString()) {
+                getString(R.string.type_img) -> binding.tieExtractTextInput.setText(it.revised)
+                getString(R.string.type_content) -> binding.tieContentInput.setText(it.revised)
+            }
         }
     }
 }
