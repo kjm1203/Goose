@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Configuration
 @EnableMongoRepositories(basePackages = {
         "com.ssafy.goose.domain.news.repository",  // ✅ 기존 뉴스 관련 MongoDB Repository
-        "com.ssafy.goose.domain.factcheck.repository" // ✅ 팩트체크 관련 MongoDB Repository 추가
+        "com.ssafy.goose.domain.contentsearch.repository"
 })
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
 

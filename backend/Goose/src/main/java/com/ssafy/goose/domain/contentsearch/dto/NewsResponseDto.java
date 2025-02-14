@@ -33,6 +33,7 @@ public class NewsResponseDto {
     private LocalDateTime extractedAt;           // 추출 시간
     private Double biasScore;                    // 편향성 점수
     private Double reliability;                  // 기사 신뢰도 점수
+    private String newsAgency;                   // 언론사 정보 추가
 
     @Override
     public String toString() {
@@ -51,6 +52,7 @@ public class NewsResponseDto {
                 ", extractedAt=" + extractedAt +
                 ", biasScore=" + biasScore +
                 ", reliability=" + reliability +
+                ", newsAgency='" + newsAgency + '\'' +
                 '}';
     }
 
@@ -72,5 +74,4 @@ public class NewsResponseDto {
             }
         }
     }
-
 }

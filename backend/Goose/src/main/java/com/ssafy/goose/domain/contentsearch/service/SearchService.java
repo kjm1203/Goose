@@ -3,7 +3,7 @@ package com.ssafy.goose.domain.contentsearch.service;
 import com.ssafy.goose.domain.contentsearch.dto.NewsResponseDto;
 import com.ssafy.goose.domain.contentsearch.entity.News;
 import com.ssafy.goose.domain.contentsearch.external.InternetSearchService;
-import com.ssafy.goose.domain.contentsearch.repository.jpa.ContentNewsRepository;
+import com.ssafy.goose.domain.contentsearch.repository.mongo.ContentNewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,18 +61,19 @@ public class SearchService {
                 newsAgency = internetSearchService.extractNewsAgency(news.getOriginalLink());
             }
 
-            NewsResponseDto newsDto = new NewsResponseDto(
-                    news.getTitle(),
-                    news.getOriginalLink(),
-                    news.getNaverLink(),
-                    news.getDescription(),
-                    news.getPubDate(),
-                    news.getParagraphs(),
-                    news.getContent(),
-                    news.getTopImage(),
-                    newsAgency,
-                    news.getExtractedAt() != null ? news.getExtractedAt() : LocalDateTime.now()
-            );
+            NewsResponseDto newsDto = NewsResponseDto.builder()
+                    .title(news.getTitle())
+                    .originalLink(news.getOriginalLink())
+                    .naverLink(news.getNaverLink())
+                    .description(news.getDescription())
+                    .pubDate(news.getPubDate())
+                    .paragraphs(news.getParagraphs())
+                    .content(news.getContent())
+                    .topImage(news.getTopImage())
+                    .newsAgency(news.getNewsAgency())
+                    .extractedAt(news.getExtractedAt() != null ? news.getExtractedAt() : LocalDateTime.now())
+                    .build();
+
 
             // ✅ pubDateTimestamp
             long pubDateTimestamp = newsDto.getPubDateTimestamp();
