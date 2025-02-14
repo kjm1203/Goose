@@ -8,6 +8,7 @@ class SharedPreferencesUtil(context: Context) {
     companion object {
         private const val SHARED_PREFERENCES_NAME = "shared_preferences"
         private const val ACCESS_TOKEN_KEY_NAME = "access_token"
+        private const val REFRESH_TOKEN_KEY_NAME = "refresh_token"
     }
 
     private var preferences: SharedPreferences =
@@ -20,12 +21,28 @@ class SharedPreferencesUtil(context: Context) {
     }
 
     fun getAccessToken(): String? {
-        return preferences.getString(ACCESS_TOKEN_KEY_NAME, "")
+        return preferences.getString(ACCESS_TOKEN_KEY_NAME, null)
     }
 
     fun removeAccessToken() {
         val editor = preferences.edit()
         editor.remove(ACCESS_TOKEN_KEY_NAME)
+        editor.apply()
+    }
+
+    fun addRefreshToken(refreshToken: String) {
+        val editor = preferences.edit()
+        editor.putString(REFRESH_TOKEN_KEY_NAME, refreshToken)
+        editor.apply()
+    }
+
+    fun getRefreshToken(): String? {
+        return preferences.getString(REFRESH_TOKEN_KEY_NAME, null)
+    }
+
+    fun removeRefreshToken() {
+        val editor = preferences.edit()
+        editor.remove(REFRESH_TOKEN_KEY_NAME)
         editor.apply()
     }
 }
