@@ -31,4 +31,11 @@ public class User {
 
     @Column(name = "is_deleted", columnDefinition = "TINYINT(1) DEFAULT 0")
     private Boolean isDeleted;
+
+    @Column(unique = true, nullable = true)
+    private String token;  // RefreshToken
+
+    public void updateToken(String newToken) {
+        this.token = newToken;
+    }
 }

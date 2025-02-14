@@ -51,6 +51,7 @@ public class UserService {
                 .nickname(signupRequest.getNickname())
                 .createdAt((int) Instant.now().getEpochSecond())
                 .isDeleted(false)
+                .token(null)
                 .build();
 
         userRepository.save(user);
@@ -63,37 +64,84 @@ public class UserService {
                 .orElse(null);
 
         if (user == null) {
-            return UserResponseDto.error("사용자가 존재하지 않습니다.");
+            return UserResponseDto.error("존재하지 않는 사용자입니다.");
         }
 
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             return UserResponseDto.error("비밀번호가 일치하지 않습니다.");
         }
 
-        String token = jwtTokenProvider.createToken(user.getUsername());
-        return UserResponseDto.success(token);
+        // AccessToken 생성
+        String accessToken = jwtTokenProvider.createAccessToken(user.getUsername());
+
+        // 기존 RefreshToken이 있으면 유지, 없으면 새로 생성
+        String refreshToken = user.getToken();
+        if (refreshToken == null || !jwtTokenProvider.validateToken(refreshToken)) {
+            refreshToken = jwtTokenProvider.createRefreshToken(user.getUsername());
+            user.setToken(refreshToken);
+            userRepository.save(user);
+        }
+
+        return UserResponseDto.success(accessToken, refreshToken);
     }
 
     // 로그아웃
-    public UserResponseDto logout(String token) {
-        if (!jwtTokenProvider.validateToken(token)) {
-            return UserResponseDto.error("유효하지 않은 토큰입니다.");
+    public UserResponseDto logout(String refreshToken) {
+        if (!jwtTokenProvider.validateToken(refreshToken)) {
+            return UserResponseDto.error("유효하지 않은 RefreshToken입니다.");
         }
+
+        String username = jwtTokenProvider.getUsername(refreshToken);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        // RefreshToken 삭제 (DB에서 무효화)
+        user.setToken(null);
+        userRepository.save(user);
+
         return UserResponseDto.success();
     }
-
+    
+    // 회원 가입 시 ID 중복 체크
     public UserCheckResponseDto checkUsernameAvailability(String username) {
         boolean exists = userRepository.findByUsername(username).isPresent();
         return exists ? new UserCheckResponseDto(false, "이미 사용 중인 ID입니다.")
                 : new UserCheckResponseDto(true, "사용 가능한 ID입니다.");
     }
 
+    // 회원 가입 시 닉네임 중복 체크
     public UserCheckResponseDto checkNicknameAvailability(String nickname) {
         boolean exists = userRepository.findByNickname(nickname).isPresent();
         return exists ? new UserCheckResponseDto(false, "이미 사용 중인 닉네임입니다.")
                 : new UserCheckResponseDto(true, "사용 가능한 닉네임입니다.");
     }
 
+    // RefreshToken 검증 및 AccessToken 재발급
+    public UserResponseDto refreshAccessToken(String refreshToken) {
+        // RefreshToken 유효성 검증
+        if (!jwtTokenProvider.validateToken(refreshToken)) {
+            return UserResponseDto.error("유효하지 않은 RefreshToken입니다.");
+        }
+
+        String username = jwtTokenProvider.getUsername(refreshToken);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        // 요청된 RefreshToken과 DB에 저장된 RefreshToken이 같은지 확인
+        if (!refreshToken.equals(user.getToken())) {
+            return UserResponseDto.error("RefreshToken이 일치하지 않습니다.");
+        }
+
+        // RefreshToken을 즉시 폐기 및 새로 발급
+        String newRefreshToken = jwtTokenProvider.createRefreshToken(username);
+        user.setToken(newRefreshToken);
+        userRepository.save(user);
+
+        // 새로운 AccessToken 발급
+        String newAccessToken = jwtTokenProvider.createAccessToken(username);
+
+        return UserResponseDto.success(newAccessToken, newRefreshToken);
+    }
 
     //읽은 뉴스 조회
     public List<NewsDeterminationResponseDto> getNewsDeterminations(Long userId, String token) {

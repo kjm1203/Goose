@@ -10,20 +10,21 @@ import lombok.Getter;
 public class UserResponseDto {
     private boolean success;
     private String accessToken;
+    private String refreshToken;
     private String error;
 
-    // 로그인 성공 응답 (accessToken 포함)
-    public static UserResponseDto success(String accessToken) {
-        return new UserResponseDto(true, accessToken, null);
+    // 로그인 성공 응답 (accessToken + RefreshToken)
+    public static UserResponseDto success(String accessToken, String refreshToken) {
+        return new UserResponseDto(true, accessToken, refreshToken, null);
     }
 
     // 회원가입, 로그아웃 성공 응답 (토큰 필요 없음)
     public static UserResponseDto success() {
-        return new UserResponseDto(true, null, null);
+        return new UserResponseDto(true, null, null, null);
     }
 
     // 실패 응답 (에러 메시지 포함)
     public static UserResponseDto error(String errorMessage) {
-        return new UserResponseDto(false, null, errorMessage);
+        return new UserResponseDto(false, null, null, errorMessage);
     }
 }
