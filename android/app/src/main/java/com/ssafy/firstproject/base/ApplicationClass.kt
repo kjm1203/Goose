@@ -64,6 +64,8 @@ class ApplicationClass : Application() {
         val okHttpClient = OkHttpClient.Builder()
             .readTimeout(10000, TimeUnit.MILLISECONDS)
             .connectTimeout(5000, TimeUnit.MILLISECONDS)
+            .addInterceptor(AuthInterceptor())
+            .authenticator(TokenAuthenticator())
             // 로그캣에 okhttp.OkHttpClient로 검색하면 http 통신 내용을 보여줍니다.
 //            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
