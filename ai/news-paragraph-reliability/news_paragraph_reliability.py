@@ -9,7 +9,7 @@ import numpy as np
 import torch
 
 # OpenAI API Key 설정 (실제 키로 교체)
-openai.api_key = "***REMOVED***"
+openai.api_key = os.environ.get("OPENAI_API_KEY", "")
 
 app = FastAPI()
 
