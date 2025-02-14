@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ArrayAdapter
@@ -21,6 +22,7 @@ import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
 
+private const val TAG = "CheckFragment_ssafy"
 class CheckFragment : BaseFragment<FragmentCheckBinding>(
     FragmentCheckBinding::bind,
     R.layout.fragment_check
@@ -59,10 +61,9 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         }
 
         binding.btnCheck.setOnClickListener {
-            val newsText = binding.tieExtractTextInput.text.toString()
-            val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(newsText)
-
-            findNavController().navigate(action)
+            Log.d(TAG, "onViewCreated: ${binding.actvCheckType.text.toString()}")
+            
+            navigateCheckFragment(binding.actvCheckType.text.toString())
         }
 
         // 이미지 추가 버튼 클릭 시 갤러리 실행
@@ -108,6 +109,28 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         binding.actvCheckType.setAdapter(adapter)
     }
 
+    private fun navigateCheckFragment(type: String) {
+        val navController = findNavController()
+
+        when (type) {
+            getString(R.string.type_img) -> {
+                val text = binding.tieExtractTextInput.text.toString()
+                val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(text)
+
+                navController.navigate(action)
+            }
+            getString(R.string.type_url) -> {
+                navController.navigate(R.id.dest_news_result)
+            }
+            getString(R.string.type_content) -> {
+                val text = binding.tieContentInput.text.toString()
+                val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(text)
+
+                navController.navigate(action)
+            }
+        }
+    }
+
     private fun showBySelectedItem(selectedItem: String) {
         when (selectedItem) {
             getString(R.string.type_img) -> {
@@ -148,7 +171,14 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             // 이미지 처리 시작
             recognizer.process(image)
                 .addOnSuccessListener { visionText ->
-                    val cleanedText = visionText.text.replace("[\"',\n]".toRegex(), "")
+                    Log.d(TAG, "extractTextByImage visionText: ${visionText.text}")
+
+                    var cleanedText = visionText.text.replace("[\"',\n]".toRegex(), "")
+
+                    cleanedText = cleanedText.replace("다.", "다. ")
+
+                    Log.d(TAG, "extractTextByImage cleaned: $cleanedText")
+
                     binding.tieExtractTextInput.setText(cleanedText)
                 }
                 .addOnFailureListener { exception ->

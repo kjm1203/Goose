@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_white_4dp"
                     android:dropDownHeight="150dp"
-                    android:hint="@string/image"
+                    android:text="@string/image"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
