@@ -78,6 +78,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_16dp"
+            android:enabled="false"
             android:text="@string/user_duplicate_check"
             app:layout_constraintBottom_toBottomOf="@+id/til_signup_id_input"
             app:layout_constraintHeight_percent="0.08"
@@ -92,10 +93,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_8dp"
             android:layout_marginTop="@dimen/spacing_8dp"
-            android:text="@string/user_limit_message"
+            android:textColor="@color/maximumRed"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_signup_id_input" />
+            app:layout_constraintTop_toBottomOf="@+id/til_signup_id_input"
+            tools:text="@string/user_limit_message" />
 
         <TextView
             android:id="@+id/tv_pw_title"
@@ -167,11 +169,11 @@
             style="@style/Widget.TextView.Meta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/user_limit_message"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_signup_pw_check_input" />
+            app:layout_constraintTop_toBottomOf="@+id/til_signup_pw_check_input"
+            tools:text="@string/user_limit_message" />
 
         <TextView
             android:id="@+id/tv_nickname"
@@ -216,6 +218,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_16dp"
+            android:enabled="false"
             android:text="@string/user_duplicate_check"
             app:layout_constraintBottom_toBottomOf="@+id/til_signup_nickname_input"
             app:layout_constraintHeight_percent="0.08"
@@ -228,18 +231,18 @@
             style="@style/Widget.TextView.Meta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/user_limit_message"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_signup_nickname_input" />
+            app:layout_constraintTop_toBottomOf="@+id/til_signup_nickname_input"
+            tools:text="@string/user_limit_message" />
 
         <Button
             android:id="@+id/btn_signup"
             style="@style/Widget.Button.Primary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="72dp"
             android:enabled="false"
             android:text="@string/user_do_signup"
             app:layout_constraintEnd_toEndOf="parent"
