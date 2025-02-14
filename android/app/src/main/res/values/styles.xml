@@ -135,7 +135,7 @@
         <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
     </style>
 
-    <style name="Widget.TextView.Rate.Item.Title">
+    <style name="Widget.TextView.Rate.Item">
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/spoqahansansneo_medium</item>
     </style>
