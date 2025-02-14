@@ -36,9 +36,14 @@ public class UserController {
 
     @PostMapping("/logout")
     @Operation(summary = "로그아웃", description = "사용자 로그아웃을 처리합니다.")
-    public ResponseEntity<UserResponseDto> logout(@RequestHeader("Authorization") String authorizationHeader) {
-        String token = authorizationHeader.replace("Bearer ", "");
-        return ResponseEntity.ok(userService.logout(token));
+    public ResponseEntity<UserResponseDto> logout(@RequestBody RefreshTokenRequestDto refreshTokenRequest) {
+        return ResponseEntity.ok(userService.logout(refreshTokenRequest.getRefreshToken()));
+    }
+
+    @PostMapping("/refresh")
+    @Operation(summary = "토큰 갱신", description = "RefreshToken을 사용해 새로운 AccessToken을 발급합니다.")
+    public ResponseEntity<UserResponseDto> refresh(@RequestBody RefreshTokenRequestDto refreshTokenRequest) {
+        return ResponseEntity.ok(userService.refreshAccessToken(refreshTokenRequest.getRefreshToken()));
     }
 
     @GetMapping("/check-username")

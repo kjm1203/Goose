@@ -33,11 +33,7 @@ public class SecurityConfig {
                                 "/swagger-ui.html",
                                 "/swagger-resources/**",
                                 "/webjars/**",
-                                "/api/users/signup",
-                                "/api/users/login",
-                                "/api/users/logout",
-                                "/api/users/check-username",
-                                "/api/users/check-nickname",
+                                "/api/users/**",
                                 "/api/news/**",
                                 "/api/content/**"
                         ).permitAll()

@@ -12,19 +12,31 @@ import java.security.Key;
 public class JwtTokenProvider {
 
     private final Key secretKey;
-    private final long validityInMilliseconds;
+    private final long accessTokenValidity;
+    private final long refreshTokenValidity;
 
     public JwtTokenProvider(@Value("${jwt.secret}") String secret,
-                            @Value("${jwt.expiration:3600000}") long validity) {
+                            @Value("${jwt.access-expiration:3600000}") long accessValidity,
+                            @Value("${jwt.refresh-expiration:1209600000}") long refreshValidity) {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
-        this.validityInMilliseconds = validity;
+        this.accessTokenValidity = accessValidity;
+        this.refreshTokenValidity = refreshValidity;
     }
 
-    // JWT 토큰 생성
-    public String createToken(String nickname) {
-        Claims claims = Jwts.claims().setSubject(nickname);
+    // AccessToken 생성
+    public String createAccessToken(String username) {
+        return createToken(username, accessTokenValidity);
+    }
+
+    // RefreshToken 생성
+    public String createRefreshToken(String username) {
+        return createToken(username, refreshTokenValidity);
+    }
+
+    private String createToken(String username, long validity) {
+        Claims claims = Jwts.claims().setSubject(username);
         Date now = new Date();
-        Date expiry = new Date(now.getTime() + validityInMilliseconds);
+        Date expiry = new Date(now.getTime() + validity);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -34,8 +46,8 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // 토큰에서 사용자 식별자(nickname) 추출
-    public String getNickname(String token) {
+    // 토큰에서 사용자 식별자(username) 추출
+    public String getUsername(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
@@ -54,9 +66,6 @@ public class JwtTokenProvider {
 
             return !claims.getBody().getExpiration().before(new Date());
         } catch (ExpiredJwtException e) {
-            // 로그아웃 요청에서 만료된 토큰 허용
-            return false;
-        } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }
