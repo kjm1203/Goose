@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder
 import com.ssafy.firstproject.data.repository.ContentSearchRepository
 import com.ssafy.firstproject.data.source.local.SharedPreferencesUtil
 import com.ssafy.firstproject.data.repository.NewsRepository
+import com.ssafy.firstproject.data.repository.UserRepository
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -49,6 +50,7 @@ class ApplicationClass : Application() {
         }
 
         // repository 객체
+        lateinit var userRepository: UserRepository
         lateinit var newsRepository: NewsRepository
         lateinit var contentSearchRepository: ContentSearchRepository
     }
@@ -65,10 +67,11 @@ class ApplicationClass : Application() {
         val okHttpClient = OkHttpClient.Builder()
             .readTimeout(10000, TimeUnit.MILLISECONDS)
             .connectTimeout(5000, TimeUnit.MILLISECONDS)
+            .addInterceptor(AuthInterceptor())
+            .authenticator(TokenAuthenticator())
             // 로그캣에 okhttp.OkHttpClient로 검색하면 http 통신 내용을 보여줍니다.
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .addInterceptor(AddCookiesInterceptor())
-            .addInterceptor(ReceivedCookiesInterceptor()).build()
+            .build()
 
         // 앱이 처음 생성되는 순간, retrofit 인스턴스를 생성
         retrofit = Retrofit.Builder()
@@ -79,6 +82,7 @@ class ApplicationClass : Application() {
             .build()
 
         // repository 초기화
+        userRepository = UserRepository()
         newsRepository = NewsRepository()
         contentSearchRepository = ContentSearchRepository()
     }

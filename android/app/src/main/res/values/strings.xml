@@ -84,7 +84,19 @@
     <string name="user_nickname">닉네임</string>
     <string name="user_do_signup">가입하기</string>
     <string name="user_limit_message">4~12자 영문 소문자와 숫자 조합으로 입력해주세요.</string>
+    <string name="nickname_limit_message">한글, 영어, 숫자만 사용하여 2~12자로 닉네임을 입력해 주세요.</string>
     <string name="user_not_correct_message">비밀번호가 일치하지 않습니다.</string>
+    <string name="user_id_message">사용할 수 있는 아이디입니다.</string>
+    <string name="user_password_message">사용할 수 있는 비밀번호입니다.</string>
+    <string name="login_limit_message">아이디와 비밀번호를 입력해주세요.😊</string>
+    <string name="login_success_message">로그인에 성공하였습니다.😊</string>
+    <string name="login_fail_message">로그인에 실패하였습니다. 다시 시도해주세요.😅</string>
+    <string name="signup_success_message">회원 가입에 성공하였습니다.😊</string>
+    <string name="signup_fail_message">회원 가입에 실패하였습니다. 다시 시도해주세요.😅</string>
+    <string name="logout_dialog_message">정말 로그아웃 하시겠습니까?</string>
+    <string name="no">아니요</string>
+    <string name="yes">네</string>
+    <string name="logout_success_message">로그아웃 성공</string>
 
     <string-array name="check_types">
         <item>@string/type_img</item>

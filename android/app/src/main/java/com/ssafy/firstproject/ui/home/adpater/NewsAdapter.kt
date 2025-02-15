@@ -1,15 +1,13 @@
 package com.ssafy.firstproject.ui.home.adpater
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getString
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ssafy.firstproject.R
-import com.ssafy.firstproject.data.model.NewsArticle
+import com.ssafy.firstproject.data.model.response.NewsArticle
 import com.ssafy.firstproject.databinding.ItemNewsBinding
 import com.ssafy.firstproject.util.CommonUtils
 
