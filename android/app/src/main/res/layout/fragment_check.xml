@@ -145,11 +145,31 @@
                 app:layout_constraintStart_toStartOf="@id/iv_add_image"
                 app:layout_constraintTop_toTopOf="@id/iv_add_image" />
 
+            <TextView
+                android:id="@+id/tv_add_image_check_info"
+                style="@style/Widget.TextView.Caption.Silver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/til_extract_text_input"
+                app:layout_constraintTop_toTopOf="@+id/btn_add_image_check"
+                app:layout_constraintBottom_toBottomOf="@id/btn_add_image_check"
+                android:text="검사 버튼을 누르면 분석 성능이 향상됩니다!" />
+
+            <Button
+                android:id="@+id/btn_add_image_check"
+                style="@style/Widget.Button.Spell"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/spacing_8dp"
+                app:layout_constraintEnd_toEndOf="@+id/til_extract_text_input"
+                app:layout_constraintTop_toBottomOf="@+id/til_extract_text_input"
+                android:text="검사"/>
+
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/group_add_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="iv_add_image,iv_add_image_plus" />
+                app:constraint_referenced_ids="iv_add_image,iv_add_image_plus,til_extract_text_input,tv_add_image_check_info,btn_add_image_check"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_content_input"
