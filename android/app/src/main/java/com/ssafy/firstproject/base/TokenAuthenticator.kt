@@ -40,7 +40,10 @@ class TokenAuthenticator : Authenticator {
                                 // RefreshToken이 만료된 경우
                                 sharedPreferencesUtil.removeAccessToken()
                                 sharedPreferencesUtil.removeRefreshToken()
-                                null
+
+                                // AcceessToken 없이 요청 재시도
+                                response.request.newBuilder()
+                                    .build()
                             }
                         }
                     } else {
