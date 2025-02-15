@@ -149,24 +149,21 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 binding.groupAddImg.visibility = View.VISIBLE
                 binding.tilExtractTextInput.visibility = View.VISIBLE
                 binding.tilUrlInput.visibility = View.GONE
-                binding.tilContentInput.visibility = View.GONE
-                binding.ivCamera.visibility = View.GONE
+                binding.groupContentArea.visibility = View.GONE
             }
 
             getString(R.string.type_url) -> {
                 binding.groupAddImg.visibility = View.GONE
                 binding.tilExtractTextInput.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.VISIBLE
-                binding.tilContentInput.visibility = View.GONE
-                binding.ivCamera.visibility = View.GONE
+                binding.groupContentArea.visibility = View.GONE
             }
 
             getString(R.string.type_content) -> {
                 binding.groupAddImg.visibility = View.GONE
                 binding.tilExtractTextInput.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.GONE
-                binding.tilContentInput.visibility = View.VISIBLE
-                binding.ivCamera.visibility = View.VISIBLE
+                binding.groupContentArea.visibility = View.VISIBLE
             }
         }
     }
