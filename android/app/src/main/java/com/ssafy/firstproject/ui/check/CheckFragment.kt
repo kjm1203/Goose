@@ -179,7 +179,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 .addOnSuccessListener { visionText ->
                     val cleanedText = TextUtil.parseSpellCheckedText(visionText.text)
 
-                    viewModel.getSpellCheckedText(SpellCheckRequest(cleanedText))
+                    binding.tieExtractTextInput.setText(cleanedText)
                 }
                 .addOnFailureListener { exception ->
                     binding.tieExtractTextInput.setText(exception.message)
