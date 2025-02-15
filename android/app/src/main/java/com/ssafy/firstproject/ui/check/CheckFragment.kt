@@ -25,6 +25,7 @@ import com.ssafy.firstproject.data.model.request.SpellCheckRequest
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
 import com.ssafy.firstproject.ui.check.viewmodel.CheckViewModel
 import com.ssafy.firstproject.util.TextUtil
+import com.ssafy.firstproject.util.setOnSingleClickListener
 
 private const val TAG = "CheckFragment_ssafy"
 class CheckFragment : BaseFragment<FragmentCheckBinding>(
@@ -100,6 +101,12 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             val cleanedText = TextUtil.parseSpellCheckedText(args.recognizedText)
 
             viewModel.getSpellCheckedText(SpellCheckRequest(content = cleanedText))
+        }
+
+        binding.btnAddImageCheck.setOnSingleClickListener {
+            val imageContentText = binding.tieExtractTextInput.text.toString()
+
+            viewModel.getSpellCheckedText(SpellCheckRequest(imageContentText))
         }
 
         observeSpellCheckedText()
