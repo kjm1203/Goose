@@ -116,13 +116,17 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         binding.btnAddImageCheck.setOnSingleClickListener {
             val imageContentText = binding.tieExtractTextInput.text.toString()
 
-            viewModel.getSpellCheckedText(SpellCheckRequest(imageContentText))
+            if (imageContentText.isNotEmpty()) {
+                viewModel.getSpellCheckedText(SpellCheckRequest(imageContentText))
+            }
         }
 
         binding.btnContentSpellCheck.setOnSingleClickListener {
             val contentText = binding.tieContentInput.text.toString()
 
-            viewModel.getSpellCheckedText(SpellCheckRequest(contentText))
+            if (contentText.isNotEmpty()) {
+                viewModel.getSpellCheckedText(SpellCheckRequest(contentText))
+            }
         }
 
         observeSpellCheckedText()
