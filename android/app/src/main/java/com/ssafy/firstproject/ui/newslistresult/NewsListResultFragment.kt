@@ -43,7 +43,10 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
 
     private fun initAdapter() {
         adapter = NewsListResultAdapter { item ->
-            Log.d(TAG, "initAdapter: $item")
+            val action = NewsListResultFragmentDirections
+                .actionDestNewsListResultToDestNewsResult(item)
+
+            findNavController().navigate(action)
         }
 
         binding.rvNewsResult.adapter = adapter
