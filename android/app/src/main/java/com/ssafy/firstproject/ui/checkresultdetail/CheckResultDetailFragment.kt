@@ -6,9 +6,11 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
-import com.ssafy.firstproject.data.model.NewsContent
+import com.ssafy.firstproject.data.model.NewsParagraphAnalysis
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.databinding.FragmentCheckResultDetailBinding
 import com.ssafy.firstproject.ui.checkresultdetail.adapter.CheckResultDetailAdapter
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
@@ -45,23 +47,61 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
             adapter = checkResultDetailAdapter
         }
 
-        val newsList = listOf(
-            NewsContent(
-                "트럼프 대통령의 이같은 관세 압박... 트럼프 대통령의 이같은 관세 압박... \n" +
-                        "트럼프 대통령의 이같은 관세 압박... 트럼프 대통령의 이같은 관세 압박... \n" +
-                        "트럼프 대통령의 이같은 관세 압박...",
-                "잘못된 정보가 없습니다."
-            ),
-            NewsContent("경제 성장률이 예상보다 낮아...", "일부 과장된 정보 포함"),
-            NewsContent("경제 성장률이 예상보다 낮아...", "일부 과장된 정보 포함"),
-            NewsContent("경제 성장률이 예상보다 낮아...", "일부 과장된 정보 포함"),
-            NewsContent("경제 성장률이 예상보다 낮아...", "일부 과장된 정보 포함")
+        combineParagraphData(
+            paragraphs = newsArticle.paragraphs,
+            reliabilities = newsArticle.paragraphReliabilities,
+            reasons = newsArticle.paragraphReasons
         )
 
-        checkResultDetailAdapter.submitList(newsList)
+        updateUIByData(newsArticle)
 
-        animateProgress(binding.pbDetailTruth, 30)
-        animateProgress(binding.pbDetailAi, 60)
-        animateProgress(binding.pbDetailBias, 90)
+//        checkResultDetailAdapter.submitList(newsList)
+    }
+
+    private fun updateUIByData(newsArticle: NewsAnalysisArticle) {
+        Glide.with(binding.root)
+            .load(newsArticle.topImage)
+            .into(binding.ivResultImage)
+
+        binding.tvNewsTitle.text = newsArticle.title
+        binding.tvNewsDate.text = newsArticle.pubDate
+
+        newsArticle.reliability?.let {
+            val truthPercent = it.toInt()
+
+            binding.tvDetailPercentTruth.text = "${truthPercent}%"
+            animateProgress(binding.pbDetailTruth, truthPercent)
+        }
+
+        newsArticle.biasScore?.let {
+            val biasPercent = it.toInt()
+
+            binding.tvDetailBiasPercent.text = "${biasPercent}%"
+            animateProgress(binding.pbDetailBias, biasPercent)
+        }
+    }
+
+    private fun combineParagraphData(
+        paragraphs: List<String?>,
+        reliabilities: List<Double?>,
+        reasons: List<String?>
+    ): List<NewsParagraphAnalysis> {
+        val combinedList = mutableListOf<NewsParagraphAnalysis>()
+
+        for (i in paragraphs.indices) {
+            val paragraph = paragraphs[i]
+            val reliability = reliabilities.getOrNull(i)
+            val reason = reasons.getOrNull(i) ?: "이유 정보 없음"
+
+            val analysis = NewsParagraphAnalysis(
+                paragraph = paragraph,
+                paragraphReliability = reliability,
+                paragraphReason = reason
+            )
+
+            combinedList.add(analysis)
+        }
+
+        return combinedList.toList()
     }
 }
