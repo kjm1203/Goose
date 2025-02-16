@@ -1,5 +1,9 @@
 package com.ssafy.firstproject.data.model.response
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class NewsAnalysisArticle(
     val biasScore: Double?,  // JSON의 실수형 biasScore 반영
     val content: String?,  // null 가능하도록 변경
@@ -17,4 +21,4 @@ data class NewsAnalysisArticle(
     val reliability: Double?,  // JSON에서 Double 타입으로 들어오므로 수정
     val title: String,
     val topImage: String?
-)
+) : Parcelable
