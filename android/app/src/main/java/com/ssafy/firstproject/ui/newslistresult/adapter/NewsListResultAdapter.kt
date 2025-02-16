@@ -26,7 +26,7 @@ class NewsListResultAdapter(private val itemClickListener: ItemClickListener) :
     }
 
     fun interface ItemClickListener {
-        fun onClick(id: String)
+        fun onClick(item: NewsAnalysisArticle)
     }
 
     inner class CustomViewHolder(private val binding: ItemNewsBinding) :
@@ -40,6 +40,10 @@ class NewsListResultAdapter(private val itemClickListener: ItemClickListener) :
             binding.tvTitle.text = item.title
             binding.tvSummary.text = item.description
             binding.tvTruthPercent.text = binding.root.context.getString(R.string.reliability, item.reliability?.toInt())
+
+            binding.root.setOnClickListener {
+                itemClickListener.onClick(item)
+            }
         }
     }
 
