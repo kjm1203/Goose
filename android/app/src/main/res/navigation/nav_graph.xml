@@ -101,7 +101,7 @@
 
         <argument
             android:name="newsArticle"
-            app:argType="com.example.app.NewsAnalysisArticle" />
+            app:argType="com.ssafy.firstproject.data.model.response.NewsAnalysisArticle" />
     </fragment>
 
     <fragment
