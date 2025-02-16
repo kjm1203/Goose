@@ -42,7 +42,9 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
     }
 
     private fun initAdapter() {
-        adapter = NewsListResultAdapter { id -> }
+        adapter = NewsListResultAdapter { item ->
+            Log.d(TAG, "initAdapter: $item")
+        }
 
         binding.rvNewsResult.adapter = adapter
     }
