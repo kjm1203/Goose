@@ -98,6 +98,10 @@
             android:id="@+id/action_dest_check_result_detail_to_dest_check"
             app:destination="@id/dest_check"
             app:popUpTo="@id/dest_check" />
+
+        <argument
+            android:name="newsArticle"
+            app:argType="com.example.app.NewsAnalysisArticle" />
     </fragment>
 
     <fragment
@@ -198,6 +202,9 @@
         <argument
             android:name="newsArticle"
             app:argType="com.ssafy.firstproject.data.model.response.NewsAnalysisArticle" />
+        <action
+            android:id="@+id/action_dest_news_result_to_dest_check_result_detail"
+            app:destination="@id/dest_check_result_detail" />
     </fragment>
 
 </navigation>
