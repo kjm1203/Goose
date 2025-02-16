@@ -47,15 +47,15 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
             adapter = checkResultDetailAdapter
         }
 
-        combineParagraphData(
-            paragraphs = newsArticle.paragraphs,
-            reliabilities = newsArticle.paragraphReliabilities,
-            reasons = newsArticle.paragraphReasons
-        )
-
         updateUIByData(newsArticle)
 
-//        checkResultDetailAdapter.submitList(newsList)
+        checkResultDetailAdapter.submitList(
+            combineParagraphData(
+                paragraphs = newsArticle.paragraphs,
+                reliabilities = newsArticle.paragraphReliabilities,
+                reasons = newsArticle.paragraphReasons
+            )
+        )
     }
 
     private fun updateUIByData(newsArticle: NewsAnalysisArticle) {
