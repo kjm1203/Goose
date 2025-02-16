@@ -28,6 +28,8 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val newsArticle = args.newsArticle
+
         binding.toolbarNewsResult.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -38,7 +40,12 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
             findNavController().navigate(R.id.dest_check_result_detail)
         }
 
-        val newsArticle = args.newsArticle
+        binding.btnCheckDetail.setOnClickListener {
+            val action = NewsResultFragmentDirections
+                .actionDestNewsResultToDestCheckResultDetail(newsArticle)
+
+            findNavController().navigate(action)
+        }
 
         Log.d(TAG, "onViewCreated: $newsArticle")
 
