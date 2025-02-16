@@ -94,6 +94,16 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             false
         }
 
+        binding.tieContentInput.setOnTouchListener { v, event ->
+            if (v.canScrollVertically(1) || v.canScrollVertically(-1)) {
+                v.parent.requestDisallowInterceptTouchEvent(true)
+                if (event.action == MotionEvent.ACTION_UP) {
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            false
+        }
+
         if (args.recognizedText.isNotEmpty()) {
             binding.actvCheckType.setText(getString(R.string.type_content))
             binding.tieContentInput.setText(args.recognizedText)
