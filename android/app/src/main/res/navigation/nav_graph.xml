@@ -184,12 +184,20 @@
             android:name="newsText"
             android:defaultValue=""
             app:argType="string" />
+        <action
+            android:id="@+id/action_dest_news_list_result_to_dest_news_result"
+            app:destination="@id/dest_news_result" />
     </fragment>
 
     <fragment
         android:id="@+id/dest_news_result"
         android:name="com.ssafy.firstproject.ui.newsresult.NewsResultFragment"
         android:label="NewsResultFragment"
-        tools:layout="@layout/fragment_news_result" />
+        tools:layout="@layout/fragment_news_result">
+
+        <argument
+            android:name="newsArticle"
+            app:argType="com.ssafy.firstproject.data.model.response.NewsAnalysisArticle" />
+    </fragment>
 
 </navigation>
