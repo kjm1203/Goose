@@ -1,7 +1,7 @@
 package com.ssafy.firstproject.data.repository
 
-import com.ssafy.firstproject.data.model.NewsAnalysisArticle
 import com.ssafy.firstproject.data.model.request.KeywordSearch
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.data.source.remote.RetrofitUtil
 import retrofit2.Response
 

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ssafy.firstproject.data.model.NewsAnalysisArticle
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.databinding.ItemNewsBinding
 
 class NewsListResultAdapter(private val itemClickListener: ItemClickListener) :
@@ -14,7 +14,7 @@ class NewsListResultAdapter(private val itemClickListener: ItemClickListener) :
 
     companion object CustomComparator : DiffUtil.ItemCallback<NewsAnalysisArticle>() {
         override fun areItemsTheSame(oldItem: NewsAnalysisArticle, newItem: NewsAnalysisArticle): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: NewsAnalysisArticle, newItem: NewsAnalysisArticle): Boolean {
