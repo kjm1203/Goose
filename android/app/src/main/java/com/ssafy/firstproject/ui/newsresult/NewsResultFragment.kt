@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.databinding.FragmentNewsResultBinding
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 
@@ -41,21 +42,30 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
 
         Log.d(TAG, "onViewCreated: $newsArticle")
 
+        updateNewsArticleUI(newsArticle, binding)
+    }
+
+    private fun updateNewsArticleUI(newsArticle: NewsAnalysisArticle, binding: FragmentNewsResultBinding) {
+        // 신뢰도 관련 처리
         newsArticle.reliability?.let {
             val trustScore = "${it.toInt()}%"
             val fullText = "해당 기사의\n신뢰도는\n$trustScore 입니다."
 
-            // 함수 호출
+            // 신뢰도 텍스트 색상 적용
             setTextWithColoredSubString(binding.tvBubbleTruth, fullText, trustScore, Color.BLUE)
 
-            binding.tvPercentTruth.text = "${it.toInt()}%"
+            // 신뢰도 퍼센트 표시
+            binding.tvPercentTruth.text = trustScore
             animateProgress(binding.pbTruth, it.toInt())
         }
+
+        // Bias 점수 관련 처리
         newsArticle.biasScore?.let {
             binding.tvBiasPercent.text = "${it.toInt()}%"
             animateProgress(binding.pbBias, it.toInt())
         }
 
+        // AI 점수 관련 처리 (고정값 60%)
         animateProgress(binding.pbAi, 60)
         binding.tvAiWhetherPercent.text = "60%"
     }
