@@ -19,7 +19,7 @@ class LogoutDialogViewModel : ViewModel() {
     fun logout() {
         viewModelScope.launch {
             kotlin.runCatching {
-                ApplicationClass.userRepository.logout(sharedPreferencesUtil.getAccessToken() ?: "")
+                ApplicationClass.userRepository.logout(sharedPreferencesUtil.getRefreshToken() ?: "")
             }.onSuccess { response ->
                 if (response.isSuccessful) {
                     response.body()?.let {

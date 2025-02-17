@@ -75,6 +75,7 @@ class LogoutDialogFragment : DialogFragment() {
                 ).show()
 
                 sharedPreferencesUtil.removeAccessToken()
+                sharedPreferencesUtil.removeRefreshToken()
             }
         }
     }
