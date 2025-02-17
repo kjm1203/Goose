@@ -154,6 +154,8 @@
 
     <!-- 분석한 뉴스 보기 -->
     <string name="record_list">분석한 뉴스 보기</string>
+    <string name="no_record_list">분석한 뉴스가 없습니다.</string>
+    <string name="analysisRequestedAt">판단날짜</string>
 
     <!-- 프로필 수정 -->
     <string name="user_profile_edit">프로필 수정</string>
