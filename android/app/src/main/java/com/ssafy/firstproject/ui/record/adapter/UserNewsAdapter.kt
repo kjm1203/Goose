@@ -35,7 +35,9 @@ class UserNewsAdapter(private val itemClickListener: ItemClickListener) :
         fun bind(item: UserNews) {
             Glide.with(binding.root)
                 .load(item.topImage)
+                .error(R.drawable.ic_goose)
                 .into(binding.ivNewsImg)
+
             binding.tvTitle.text = item.title
             binding.tvSummary.text = item.description
             binding.tvTruthPercent.text = binding.root.context.getString(
