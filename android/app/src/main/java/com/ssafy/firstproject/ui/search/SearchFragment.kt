@@ -34,6 +34,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(
                 viewModel.getSearchNewsList(keyword.toString())
             } else {
                 adapter.submitList(emptyList())
+                setVisibility(true)
             }
         }
     }
@@ -49,6 +50,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(
     private fun observeNewsList() {
         viewModel.newsList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            setVisibility(it.isEmpty())
+        }
+    }
+
+    private fun setVisibility(isEmpty: Boolean) {
+        if (isEmpty) {
+            binding.rvNews.visibility = View.GONE
+            binding.groupNoSearch.visibility = View.VISIBLE
+        } else {
+            binding.rvNews.visibility = View.VISIBLE
+            binding.groupNoSearch.visibility = View.GONE
         }
     }
 }
