@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.firstproject.base.ApplicationClass
 import com.ssafy.firstproject.base.ApplicationClass.Companion.sharedPreferencesUtil
+import com.ssafy.firstproject.data.model.request.KeywordSearch
+import com.ssafy.firstproject.data.model.request.LogoutRequest
 import kotlinx.coroutines.launch
 
 private const val TAG = "LogoutDialogViewModel"
@@ -19,7 +21,11 @@ class LogoutDialogViewModel : ViewModel() {
     fun logout() {
         viewModelScope.launch {
             kotlin.runCatching {
-                ApplicationClass.userRepository.logout(sharedPreferencesUtil.getRefreshToken() ?: "")
+                ApplicationClass.userRepository.logout(
+                    LogoutRequest(
+                        sharedPreferencesUtil.getRefreshToken()!!
+                    )
+                )
             }.onSuccess { response ->
                 if (response.isSuccessful) {
                     response.body()?.let {
