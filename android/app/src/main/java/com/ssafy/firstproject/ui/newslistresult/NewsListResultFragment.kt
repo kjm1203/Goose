@@ -27,6 +27,8 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.lavLoadingAnimation.playAnimation()
+
         val newsText = args.newsText
 
         Log.d(TAG, "onViewCreated: $newsText")
@@ -54,6 +56,8 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
 
     private fun observeNewsArticle() {
         viewModel.newsAnalysisArticles.observe(viewLifecycleOwner) {
+            binding.lavLoadingAnimation.visibility = View.GONE
+            binding.lavLoadingAnimation.pauseAnimation()
             adapter.submitList(it)
         }
     }
