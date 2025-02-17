@@ -36,9 +36,9 @@ class UserNewsAdapter(private val itemClickListener: ItemClickListener) :
                 .into(binding.ivNewsImg)
             binding.tvTitle.text = item.title
             binding.tvSummary.text = item.description
-            binding.tvTruthPercent.text =
-                binding.root.context.getString(R.string.record_reliability, item.reliability)
-            binding.tvDate.text = item.analysisRequestedAt
+//            binding.tvTruthPercent.text =
+//                binding.root.context.getString(R.string.record_reliability, item.reliability)
+//            binding.tvDate.text = item.analysisRequestedAt
 
             binding.root.setOnClickListener {
                 itemClickListener.onClick(item.id)
