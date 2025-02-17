@@ -49,6 +49,10 @@
     <string name="type_url">URL</string>
     <string name="type_content">내용</string>
 
+    <string name='type_img_en'>Image</string>
+    <string name="type_url_en">URL</string>
+    <string name="type_content_en">Content</string>
+
     <string name="check_news_title">뉴스 분석하기</string>
     <string name="check_news_subtitle">내가 본 기사는 어느정도 사실일까?\n뉴스를 분석해보세요</string>
     <string name="check_title_type">분석 타입</string>
