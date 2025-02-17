@@ -31,10 +31,12 @@
     <ImageView
         android:id="@+id/iv"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_goose"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_sherlock_goose"
         app:layout_constraintBottom_toTopOf="@id/btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.27"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_caption" />
 
