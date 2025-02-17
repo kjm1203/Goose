@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ssafy.firstproject.R
+import com.ssafy.firstproject.data.mapper.NewsMapper
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.data.model.response.UserNews
 import com.ssafy.firstproject.databinding.ItemNewsBinding
 
@@ -24,7 +26,7 @@ class UserNewsAdapter(private val itemClickListener: ItemClickListener) :
     }
 
     fun interface ItemClickListener {
-        fun onClick(newsId: String)
+        fun onClick(newsAnalysisArticle: NewsAnalysisArticle)
     }
 
     inner class UserNewsViewHolder(private val binding: ItemNewsBinding) :
@@ -36,12 +38,15 @@ class UserNewsAdapter(private val itemClickListener: ItemClickListener) :
                 .into(binding.ivNewsImg)
             binding.tvTitle.text = item.title
             binding.tvSummary.text = item.description
-//            binding.tvTruthPercent.text =
-//                binding.root.context.getString(R.string.record_reliability, item.reliability)
-//            binding.tvDate.text = item.analysisRequestedAt
+            binding.tvTruthPercent.text = binding.root.context.getString(
+                R.string.reliability,
+                item.reliability.toInt()
+            )
+
+            val newsAnalysisArticle = NewsMapper.mapToNewsAnalysisArticle(item)
 
             binding.root.setOnClickListener {
-                itemClickListener.onClick(item.id)
+                itemClickListener.onClick(newsAnalysisArticle)
             }
         }
     }
