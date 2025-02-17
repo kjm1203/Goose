@@ -32,7 +32,12 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>(
     }
 
     private fun initAdapter() {
-        adapter = UserNewsAdapter {}
+        adapter = UserNewsAdapter { item ->
+            val action = RecordFragmentDirections.actionDestRecordToDestCheckResultDetail(item)
+
+            findNavController().navigate(action)
+        }
+
         binding.rvNews.adapter = adapter
     }
 
