@@ -45,8 +45,10 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
 
     private fun initAdapter() {
         adapter = NewsListResultAdapter { item ->
-            val action = NewsListResultFragmentDirections
-                .actionDestNewsListResultToDestNewsResult(item)
+            val action = NewsListResultFragmentDirections.actionDestNewsListResultToDestNewsResult(
+                url = "",
+                newsArticle = item
+            )
 
             findNavController().navigate(action)
         }
