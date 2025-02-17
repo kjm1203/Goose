@@ -2,6 +2,8 @@ package com.ssafy.firstproject.ui.record
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ssafy.firstproject.R
@@ -30,13 +32,19 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>(
     }
 
     private fun initAdapter() {
-        adapter = UserNewsAdapter{}
+        adapter = UserNewsAdapter {}
         binding.rvNews.adapter = adapter
     }
 
     private fun observeNewsList() {
         viewModel.userNewsList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            setVisibility(it.isEmpty())
         }
+    }
+
+    private fun setVisibility(isEmpty: Boolean) {
+        binding.rvNews.isGone = isEmpty
+        binding.groupNoRecord.isVisible = isEmpty
     }
 }
