@@ -11,7 +11,7 @@ data class NewsArticle(
     val paragraphs: List<String>,
     val pubDate: String,
     val pubDateTimestamp: Long,
-    val reliability: Int,
+    val reliability: Double,
     val title: String,
     val topImage: String
 )
