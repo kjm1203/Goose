@@ -69,14 +69,14 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
         newsArticle.reliability?.let {
             val truthPercent = it.toInt()
 
-            binding.tvDetailPercentTruth.text = "${truthPercent}%"
+            binding.tvDetailPercentTruth.text = getString(R.string.trust_percentage, truthPercent)
             animateProgress(binding.pbDetailTruth, truthPercent)
         }
 
         newsArticle.biasScore?.let {
             val biasPercent = it.toInt()
 
-            binding.tvDetailBiasPercent.text = "${biasPercent}%"
+            binding.tvDetailBiasPercent.text = getString(R.string.trust_percentage, biasPercent)
             animateProgress(binding.pbDetailBias, biasPercent)
         }
     }

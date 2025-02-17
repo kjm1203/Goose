@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.firstproject.R
 import com.ssafy.firstproject.data.model.NewsParagraphAnalysis
 import com.ssafy.firstproject.databinding.ItemCheckResultDetailBinding
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
@@ -23,7 +24,7 @@ class CheckResultDetailAdapter :
             binding.tvNewsItemContent.text = newsParagraphAnalysis.paragraph.toString().replace(" ", "\u00A0")
 
             newsParagraphAnalysis.paragraphReliability?.let {
-                binding.tvItemPercent.text = "${it.toInt()}%"
+                binding.tvItemPercent.text = binding.root.context.getString(R.string.trust_percentage, it.toInt())
                 animateProgress(binding.pbNewsParagraphTruth, it.toInt())
             }
 
