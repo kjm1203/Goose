@@ -28,6 +28,7 @@ class LoginViewModel : ViewModel() {
                         _isLoginSuccess.value = it.success
                         if (it.success) {
                             sharedPreferencesUtil.addAccessToken(it.accessToken)
+                            sharedPreferencesUtil.addRefreshToken(it.accessToken)
                         }
                     }
                     Log.d(TAG, "login: ${response.body()}")
