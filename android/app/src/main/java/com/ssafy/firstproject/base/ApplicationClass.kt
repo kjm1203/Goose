@@ -8,6 +8,7 @@ import com.ssafy.firstproject.data.source.local.SharedPreferencesUtil
 import com.ssafy.firstproject.data.repository.NewsRepository
 import com.ssafy.firstproject.data.repository.UserNewsRepository
 import com.ssafy.firstproject.data.repository.UserRepository
+import com.ssafy.firstproject.data.repository.SpellCheckRepository
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,8 +24,10 @@ class ApplicationClass : Application() {
     companion object {
         // 핸드폰으로 접속은 같은 인터넷으로 연결 되어있어야함 (유,무선)
         const val SERVER_URL = "http://i12d208.p.ssafy.io:8090/api/"
+        const val SPELL_CHECK_SERVER_URL = "http://i12d208.p.ssafy.io:5060/"
         lateinit var sharedPreferencesUtil: SharedPreferencesUtil
         lateinit var retrofit: Retrofit
+        lateinit var spellCheckRetrofit: Retrofit
 
         private val nullOnEmptyConverterFactory = object : Converter.Factory() {
             fun converterFactory() = this
@@ -55,8 +58,8 @@ class ApplicationClass : Application() {
         lateinit var newsRepository: NewsRepository
         lateinit var contentSearchRepository: ContentSearchRepository
         lateinit var userNewsRepository: UserNewsRepository
+        lateinit var spellCheckRepository: SpellCheckRepository
     }
-
 
     override fun onCreate() {
         super.onCreate()
@@ -83,11 +86,19 @@ class ApplicationClass : Application() {
             .client(okHttpClient)
             .build()
 
+        spellCheckRetrofit = Retrofit.Builder()
+            .baseUrl(SPELL_CHECK_SERVER_URL)
+            .addConverterFactory(nullOnEmptyConverterFactory)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
+            .build()
+
         // repository 초기화
         userRepository = UserRepository()
         newsRepository = NewsRepository()
         contentSearchRepository = ContentSearchRepository()
         userNewsRepository = UserNewsRepository()
+        spellCheckRepository = SpellCheckRepository()
     }
 
     //GSon은 엄격한 json type을 요구하는데, 느슨하게 하기 위한 설정. success, fail이 json이 아니라 단순 문자열로 리턴될 경우 처리..

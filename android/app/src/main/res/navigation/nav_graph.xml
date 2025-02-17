@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_dest_check_to_dest_news_list_result"
             app:destination="@id/dest_news_list_result" />
+        <action
+            android:id="@+id/action_dest_check_to_dest_news_result"
+            app:destination="@id/dest_news_result" />
     </fragment>
 
     <fragment
@@ -94,6 +97,9 @@
         android:label="CheckResultDetailFragment"
         tools:layout="@layout/fragment_check_result_detail">
 
+        <argument
+            android:name="newsArticle"
+            app:argType="com.ssafy.firstproject.data.model.response.NewsAnalysisArticle" />
         <action
             android:id="@+id/action_dest_check_result_detail_to_dest_check"
             app:destination="@id/dest_check"
@@ -191,13 +197,28 @@
             android:name="newsText"
             android:defaultValue=""
             app:argType="string" />
+        <action
+            android:id="@+id/action_dest_news_list_result_to_dest_news_result"
+            app:destination="@id/dest_news_result" />
     </fragment>
 
     <fragment
         android:id="@+id/dest_news_result"
         android:name="com.ssafy.firstproject.ui.newsresult.NewsResultFragment"
         android:label="NewsResultFragment"
-        tools:layout="@layout/fragment_news_result" />
+        tools:layout="@layout/fragment_news_result">
+
+        <argument
+            android:name="url"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
+            android:name="newsArticle"
+            app:argType="com.ssafy.firstproject.data.model.response.NewsAnalysisArticle" />
+        <action
+            android:id="@+id/action_dest_news_result_to_dest_check_result_detail"
+            app:destination="@id/dest_check_result_detail" />
+    </fragment>
 
     <dialog
         android:id="@+id/dest_logout_dialog"

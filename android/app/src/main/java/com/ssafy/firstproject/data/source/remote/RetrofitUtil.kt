@@ -8,5 +8,6 @@ class RetrofitUtil {
         val newsService: NewsService = ApplicationClass.retrofit.create(NewsService::class.java)
         val contentSearchService: ContentSearchService = ApplicationClass.retrofit.create(ContentSearchService::class.java)
         val userNewsService : UserNewsService = ApplicationClass.retrofit.create(UserNewsService::class.java)
+        val spellCheckService: SpellCheckService = ApplicationClass.spellCheckRetrofit.create(SpellCheckService::class.java)
     }
 }

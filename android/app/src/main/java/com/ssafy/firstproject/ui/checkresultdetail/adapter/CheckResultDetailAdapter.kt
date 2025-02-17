@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ssafy.firstproject.data.model.NewsContent
+import com.ssafy.firstproject.R
+import com.ssafy.firstproject.data.model.NewsParagraphAnalysis
 import com.ssafy.firstproject.databinding.ItemCheckResultDetailBinding
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 import com.ssafy.firstproject.util.ViewAnimationUtil.rotateImage
 
 class CheckResultDetailAdapter :
-    ListAdapter<NewsContent, CheckResultDetailAdapter.CheckResultDetailViewHolder>(
+    ListAdapter<NewsParagraphAnalysis, CheckResultDetailAdapter.CheckResultDetailViewHolder>(
         CheckNewsDiffCallback()
     ) {
     inner class CheckResultDetailViewHolder(private val binding: ItemCheckResultDetailBinding) :
@@ -19,18 +20,15 @@ class CheckResultDetailAdapter :
 
         private var currentRotation = 0f // 현재 회전 각도 상태 저장
 
-        fun bind(newsContent: NewsContent) {
-            binding.tvNewsItemContent.text = newsContent.content
-//            binding.tvResult.text = newsContent.result
+        fun bind(newsParagraphAnalysis: NewsParagraphAnalysis) {
+            binding.tvNewsItemContent.text = newsParagraphAnalysis.paragraph.toString().replace(" ", "\u00A0")
 
-            val cleanText = binding.tvItemResultDetail.text.toString().replace(" ", "\u00A0")
-            binding.tvItemResultDetail.text = cleanText
+            newsParagraphAnalysis.paragraphReliability?.let {
+                binding.tvItemPercent.text = binding.root.context.getString(R.string.trust_percentage, it.toInt())
+                animateProgress(binding.pbNewsParagraphTruth, it.toInt())
+            }
 
-            val randomProgress = (1..100).random()
-
-            animateProgress(binding.pbNewsParagraphTruth, randomProgress)
-
-            binding.tvItemPercent.text = "${randomProgress}%"
+            binding.tvItemResultDetail.text = newsParagraphAnalysis.paragraphReason.toString().replace(" ", "\u00A0")
 
             binding.root.setOnClickListener {
                 currentRotation += if (currentRotation % 180 == 0f) 90f else -90f

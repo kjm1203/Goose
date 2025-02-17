@@ -6,15 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ssafy.firstproject.data.model.NewsAnalysisArticle
+import com.ssafy.firstproject.R
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.databinding.ItemNewsBinding
 
+private const val TAG = "NewsListResultAdapter_ssafy"
 class NewsListResultAdapter(private val itemClickListener: ItemClickListener) :
     ListAdapter<NewsAnalysisArticle, NewsListResultAdapter.CustomViewHolder>(CustomComparator) {
 
     companion object CustomComparator : DiffUtil.ItemCallback<NewsAnalysisArticle>() {
         override fun areItemsTheSame(oldItem: NewsAnalysisArticle, newItem: NewsAnalysisArticle): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: NewsAnalysisArticle, newItem: NewsAnalysisArticle): Boolean {
@@ -23,7 +25,7 @@ class NewsListResultAdapter(private val itemClickListener: ItemClickListener) :
     }
 
     fun interface ItemClickListener {
-        fun onClick(id: String)
+        fun onClick(item: NewsAnalysisArticle)
     }
 
     inner class CustomViewHolder(private val binding: ItemNewsBinding) :
@@ -36,13 +38,11 @@ class NewsListResultAdapter(private val itemClickListener: ItemClickListener) :
             binding.tvDate.text = item.pubDate
             binding.tvTitle.text = item.title
             binding.tvSummary.text = item.description
-//            binding.tvDate.text = CommonUtils.formatDateYYMMDD(item.pubDate)
-//            binding.tvTruthPercent.text =
-//                binding.root.context.getString(R.string.reliability, item.reliability)
-//
-//            binding.root.setOnClickListener {
-//                itemClickListener.onClick(item.id)
-//            }
+            binding.tvTruthPercent.text = binding.root.context.getString(R.string.reliability, item.reliability?.toInt())
+
+            binding.root.setOnClickListener {
+                itemClickListener.onClick(item)
+            }
         }
     }
 

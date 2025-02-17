@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.mlkit.vision.common.InputImage
@@ -20,7 +21,12 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
+import com.ssafy.firstproject.data.model.request.SpellCheckRequest
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
+import com.ssafy.firstproject.ui.check.viewmodel.CheckViewModel
+import com.ssafy.firstproject.util.TextUtil
+import com.ssafy.firstproject.util.setOnSingleClickListener
 
 private const val TAG = "CheckFragment_ssafy"
 class CheckFragment : BaseFragment<FragmentCheckBinding>(
@@ -29,6 +35,8 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 ) {
 
     private val args by navArgs<CheckFragmentArgs>()
+    private val viewModel by viewModels<CheckViewModel>()
+
     private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +69,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         }
 
         binding.btnCheck.setOnClickListener {
-            Log.d(TAG, "onViewCreated: ${binding.actvCheckType.text.toString()}")
+            Log.d(TAG, "onViewCreated: ${binding.actvCheckType.text}")
             
             navigateCheckFragment(binding.actvCheckType.text.toString())
         }
@@ -87,10 +95,42 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             false
         }
 
+        binding.tieContentInput.setOnTouchListener { v, event ->
+            if (v.canScrollVertically(1) || v.canScrollVertically(-1)) {
+                v.parent.requestDisallowInterceptTouchEvent(true)
+                if (event.action == MotionEvent.ACTION_UP) {
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            false
+        }
+
         if (args.recognizedText.isNotEmpty()) {
             binding.actvCheckType.setText(getString(R.string.type_content))
             binding.tieContentInput.setText(args.recognizedText)
+
+            val cleanedText = TextUtil.parseSpellCheckedText(args.recognizedText)
+
+            viewModel.getSpellCheckedText(SpellCheckRequest(content = cleanedText))
         }
+
+        binding.btnAddImageCheck.setOnSingleClickListener {
+            val imageContentText = binding.tieExtractTextInput.text.toString()
+
+            if (imageContentText.isNotEmpty()) {
+                viewModel.getSpellCheckedText(SpellCheckRequest(imageContentText))
+            }
+        }
+
+        binding.btnContentSpellCheck.setOnSingleClickListener {
+            val contentText = binding.tieContentInput.text.toString()
+
+            if (contentText.isNotEmpty()) {
+                viewModel.getSpellCheckedText(SpellCheckRequest(contentText))
+            }
+        }
+
+        observeSpellCheckedText()
     }
 
     override fun onResume() {
@@ -120,7 +160,15 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 navController.navigate(action)
             }
             getString(R.string.type_url) -> {
-                navController.navigate(R.id.dest_news_result)
+                val url = binding.tieUrlInput.text.toString()
+                val action = CheckFragmentDirections.actionDestCheckToDestNewsResult(
+                    url = url,
+                    newsArticle = NewsAnalysisArticle()
+                )
+
+                navController.navigate(action)
+
+                Log.d(TAG, "navigateCheckFragment: ${binding.tieUrlInput.text}")
             }
             getString(R.string.type_content) -> {
                 val text = binding.tieContentInput.text.toString()
@@ -135,26 +183,20 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         when (selectedItem) {
             getString(R.string.type_img) -> {
                 binding.groupAddImg.visibility = View.VISIBLE
-                binding.tilExtractTextInput.visibility = View.VISIBLE
                 binding.tilUrlInput.visibility = View.GONE
-                binding.tilContentInput.visibility = View.GONE
-                binding.ivCamera.visibility = View.GONE
+                binding.groupContentArea.visibility = View.GONE
             }
 
             getString(R.string.type_url) -> {
                 binding.groupAddImg.visibility = View.GONE
-                binding.tilExtractTextInput.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.VISIBLE
-                binding.tilContentInput.visibility = View.GONE
-                binding.ivCamera.visibility = View.GONE
+                binding.groupContentArea.visibility = View.GONE
             }
 
             getString(R.string.type_content) -> {
                 binding.groupAddImg.visibility = View.GONE
-                binding.tilExtractTextInput.visibility = View.GONE
                 binding.tilUrlInput.visibility = View.GONE
-                binding.tilContentInput.visibility = View.VISIBLE
-                binding.ivCamera.visibility = View.VISIBLE
+                binding.groupContentArea.visibility = View.VISIBLE
             }
         }
     }
@@ -171,13 +213,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
             // 이미지 처리 시작
             recognizer.process(image)
                 .addOnSuccessListener { visionText ->
-                    Log.d(TAG, "extractTextByImage visionText: ${visionText.text}")
-
-                    var cleanedText = visionText.text.replace("[\"',\n]".toRegex(), "")
-
-                    cleanedText = cleanedText.replace("다.", "다. ")
-
-                    Log.d(TAG, "extractTextByImage cleaned: $cleanedText")
+                    val cleanedText = TextUtil.parseSpellCheckedText(visionText.text)
 
                     binding.tieExtractTextInput.setText(cleanedText)
                 }
@@ -186,6 +222,15 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 }
         }.onFailure { exception ->
             exception.printStackTrace()
+        }
+    }
+
+    private fun observeSpellCheckedText() {
+        viewModel.spellCheckedText.observe(viewLifecycleOwner) {
+            when (binding.actvCheckType.text.toString()) {
+                getString(R.string.type_img) -> binding.tieExtractTextInput.setText(it.revised)
+                getString(R.string.type_content) -> binding.tieContentInput.setText(it.revised)
+            }
         }
     }
 }
