@@ -130,6 +130,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         }
 
         observeSpellCheckedText()
+        observeNewsAnalysisArticle()
     }
 
     override fun onResume() {
@@ -159,7 +160,10 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 navController.navigate(action)
             }
             getString(R.string.type_url) -> {
-                navController.navigate(R.id.dest_news_result)
+
+                Log.d(TAG, "navigateCheckFragment: ${binding.tieUrlInput.text}")
+                
+                viewModel.searchByUrl(binding.tieUrlInput.text.toString())
             }
             getString(R.string.type_content) -> {
                 val text = binding.tieContentInput.text.toString()
@@ -222,6 +226,16 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 getString(R.string.type_img) -> binding.tieExtractTextInput.setText(it.revised)
                 getString(R.string.type_content) -> binding.tieContentInput.setText(it.revised)
             }
+        }
+    }
+
+    private fun observeNewsAnalysisArticle() {
+        viewModel.newsAnalysisArticle.observe(viewLifecycleOwner) {
+            Log.d(TAG, "observeNewsAnalysisArticle: $it")
+            
+            val action = CheckFragmentDirections.actionDestCheckToDestNewsResult(it)
+
+            findNavController().navigate(action)
         }
     }
 }
