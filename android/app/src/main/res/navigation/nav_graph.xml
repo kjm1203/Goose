@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_dest_check_to_dest_news_list_result"
             app:destination="@id/dest_news_list_result" />
+        <action
+            android:id="@+id/action_dest_check_to_dest_news_result"
+            app:destination="@id/dest_news_result" />
     </fragment>
 
     <fragment
