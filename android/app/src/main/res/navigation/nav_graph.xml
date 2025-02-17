@@ -201,7 +201,10 @@
         android:name="com.ssafy.firstproject.ui.newsresult.NewsResultFragment"
         android:label="NewsResultFragment"
         tools:layout="@layout/fragment_news_result">
-
+        <argument
+            android:name="url"
+            android:defaultValue=""
+            app:argType="string" />
         <argument
             android:name="newsArticle"
             app:argType="com.ssafy.firstproject.data.model.response.NewsAnalysisArticle" />
