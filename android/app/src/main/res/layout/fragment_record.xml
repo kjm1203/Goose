@@ -51,7 +51,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_record" />
 
-
     <TextView
         android:id="@+id/tv_no_my_news"
         style="@style/Widget.TextView.Header.Secondary"
