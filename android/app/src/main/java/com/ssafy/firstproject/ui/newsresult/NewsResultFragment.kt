@@ -1,6 +1,5 @@
 package com.ssafy.firstproject.ui.newsresult
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
@@ -9,12 +8,14 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.databinding.FragmentNewsResultBinding
+import com.ssafy.firstproject.ui.newsresult.viewmodel.NewsResultViewModel
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 
 private const val TAG = "NewsResultFragment_ssafy"
@@ -23,12 +24,32 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
     R.layout.fragment_news_result
 ) {
     private val args: NewsResultFragmentArgs by navArgs()
+    private val viewModel by viewModels<NewsResultViewModel>()
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val newsArticle = args.newsArticle
+        val url = args.url
+
+        Log.d(TAG, "onViewCreated: $url")
+
+        //url이 비었으면, item으로 들어온 것
+        if (url.isEmpty()) {
+            args.newsArticle.let { viewModel.setNewsArticle(it) }
+        } else {
+            viewModel.searchByUrl(url)
+        }
+
+        binding.btnCheckDetail.setOnClickListener {
+            val newsAnalysisArticle = viewModel.newsAnalysisResult.value
+
+            newsAnalysisArticle?.let {
+                val action = NewsResultFragmentDirections
+                    .actionDestNewsResultToDestCheckResultDetail(it)
+
+                findNavController().navigate(action)
+            }
+        }
 
         binding.toolbarNewsResult.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -36,27 +57,14 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
 
         binding.btnOtherCheck.setOnClickListener { findNavController().popBackStack() }
 
-        binding.btnCheckDetail.setOnClickListener {
-            findNavController().navigate(R.id.dest_check_result_detail)
-        }
-
-        binding.btnCheckDetail.setOnClickListener {
-            val action = NewsResultFragmentDirections
-                .actionDestNewsResultToDestCheckResultDetail(newsArticle)
-
-            findNavController().navigate(action)
-        }
-
-        Log.d(TAG, "onViewCreated: $newsArticle")
-
-        updateNewsArticleUI(newsArticle, binding)
+        observeSearchNews()
     }
 
     private fun updateNewsArticleUI(newsArticle: NewsAnalysisArticle, binding: FragmentNewsResultBinding) {
         // 신뢰도 관련 처리
         newsArticle.reliability?.let {
-            val trustScore = "${it.toInt()}%"
-            val fullText = "해당 기사의\n신뢰도는\n$trustScore 입니다."
+            val trustScore = getString(R.string.trust_percentage, it.toInt())
+            val fullText = getString(R.string.article_trust_score, trustScore)
 
             // 신뢰도 텍스트 색상 적용
             setTextWithColoredSubString(binding.tvBubbleTruth, fullText, trustScore, Color.BLUE)
@@ -68,13 +76,13 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
 
         // Bias 점수 관련 처리
         newsArticle.biasScore?.let {
-            binding.tvBiasPercent.text = "${it.toInt()}%"
+            binding.tvBiasPercent.text = getString(R.string.trust_percentage, it.toInt())
             animateProgress(binding.pbBias, it.toInt())
         }
 
         // AI 점수 관련 처리 (고정값 60%)
         animateProgress(binding.pbAi, 60)
-        binding.tvAiWhetherPercent.text = "60%"
+        binding.tvAiWhetherPercent.text = getString(R.string.trust_percentage, 60)
     }
 
     private fun setTextWithColoredSubString(textView: TextView, fullText: String, targetSubstring: String, color: Int) {
@@ -89,5 +97,11 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
 
         // TextView에 적용
         textView.text = spannable
+    }
+
+    private fun observeSearchNews() {
+        viewModel.newsAnalysisResult.observe(viewLifecycleOwner) {
+            updateNewsArticleUI(it, binding)
+        }
     }
 }
