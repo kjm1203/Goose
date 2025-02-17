@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ssafy.firstproject.data.model.UserNews
 import com.ssafy.firstproject.databinding.ItemNewsBinding
 import com.ssafy.firstproject.util.CommonUtils
@@ -14,7 +15,7 @@ class UserNewsAdapter(private val itemClickListener: ItemClickListener) :
 
     companion object UserNewsDiffCallback : DiffUtil.ItemCallback<UserNews>() {
         override fun areItemsTheSame(oldItem: UserNews, newItem: UserNews): Boolean {
-            return oldItem.newsId == newItem.newsId
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: UserNews, newItem: UserNews): Boolean {
@@ -30,13 +31,16 @@ class UserNewsAdapter(private val itemClickListener: ItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: UserNews) {
-            binding.tvTitle.text = item.newsTitle
-            binding.tvSummary.text = item.newsContent
+            Glide.with(binding.root)
+                .load(item.topImage)
+                .into(binding.ivNewsImg)
+            binding.tvTitle.text = item.title
+            binding.tvSummary.text = item.description
             binding.tvTruthPercent.text = "신뢰도: ${item.reliability}%"
-            binding.tvDate.text = "판단 날짜: $CommonUtils.formatDateYYMMDD(item.determinedAt)" // 날짜 포맷 필요
+            binding.tvDate.text = "판단 날짜: $CommonUtils.formatDateYYMMDD(item.analysisRequestedAt)"
 
             binding.root.setOnClickListener {
-                itemClickListener.onClick(item.newsId)
+                itemClickListener.onClick(item.id)
             }
         }
     }
@@ -48,7 +52,7 @@ class UserNewsAdapter(private val itemClickListener: ItemClickListener) :
     }
 
     override fun onBindViewHolder(holder: UserNewsViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        val dto = getItem(position)
+        holder.bind(dto)
     }
 }

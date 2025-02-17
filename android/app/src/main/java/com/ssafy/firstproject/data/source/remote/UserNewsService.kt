@@ -7,10 +7,8 @@ import retrofit2.http.Path
 
 interface UserNewsService {
 
-    @GET("users/{username}/determinations")
-    suspend fun getUserNewsList(
-        @Path("username") username: String,
-    ) : Response<List<UserNews>>
+    @GET("content/my-news-analysis")
+    suspend fun getUserNewsList() : Response<List<UserNews>>
 
 }
 

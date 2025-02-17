@@ -7,8 +7,8 @@ import retrofit2.Response
 class UserNewsRepository {
     private val userNewsService = RetrofitUtil.userNewsService
 
-    suspend fun getUserNewsList(username: String) : Response<List<UserNews>> {
-        return userNewsService.getUserNewsList(username)
+    suspend fun getUserNewsList() : Response<List<UserNews>> {
+        return userNewsService.getUserNewsList()
     }
 }
 

@@ -23,7 +23,7 @@ class RecordViewModel : ViewModel() {
     private fun getUserNewsList() {
         viewModelScope.launch {
             kotlin.runCatching {
-                ApplicationClass.userNewsRepository.getUserNewsList(username = "string")
+                ApplicationClass.userNewsRepository.getUserNewsList()
             }.onSuccess { response ->
                 if (response.isSuccessful) {
                     response.body()?.let {
