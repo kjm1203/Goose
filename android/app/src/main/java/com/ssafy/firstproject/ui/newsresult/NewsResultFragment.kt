@@ -60,7 +60,7 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
         observeSearchNews()
     }
 
-    private fun updateNewsArticleUI(newsArticle: NewsAnalysisArticle, binding: FragmentNewsResultBinding) {
+    private fun updateNewsArticleUI(newsArticle: NewsAnalysisArticle) {
         // 신뢰도 관련 처리
         newsArticle.reliability?.let {
             val trustScore = getString(R.string.trust_percentage, it.toInt())
@@ -101,7 +101,7 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
 
     private fun observeSearchNews() {
         viewModel.newsAnalysisResult.observe(viewLifecycleOwner) {
-            updateNewsArticleUI(it, binding)
+            updateNewsArticleUI(it)
         }
     }
 }
