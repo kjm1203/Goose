@@ -12,6 +12,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.ssafy.firstproject.base.ApplicationClass.Companion.sharedPreferencesUtil
 
 private const val TAG = "MyPageFragment"
 
@@ -27,8 +28,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         }
 
         // 로그인 여부 확인 (false:비로그인)
-        val isLoggedIn = true
-        handleLoginState(isLoggedIn)
+        val isLogin = sharedPreferencesUtil.checkLogin()
+        handleLoginState(isLogin)
 
         // 기존 클릭 리스너 유지
         binding.tvProfileEdit.setOnClickListener {
