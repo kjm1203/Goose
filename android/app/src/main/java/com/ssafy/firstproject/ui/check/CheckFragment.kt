@@ -22,6 +22,7 @@ import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.data.model.request.SpellCheckRequest
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.databinding.FragmentCheckBinding
 import com.ssafy.firstproject.ui.check.viewmodel.CheckViewModel
 import com.ssafy.firstproject.util.TextUtil
@@ -68,7 +69,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         }
 
         binding.btnCheck.setOnClickListener {
-            Log.d(TAG, "onViewCreated: ${binding.actvCheckType.text.toString()}")
+            Log.d(TAG, "onViewCreated: ${binding.actvCheckType.text}")
             
             navigateCheckFragment(binding.actvCheckType.text.toString())
         }
@@ -130,7 +131,6 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         }
 
         observeSpellCheckedText()
-        observeNewsAnalysisArticle()
     }
 
     override fun onResume() {
@@ -160,10 +160,15 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 navController.navigate(action)
             }
             getString(R.string.type_url) -> {
+                val url = binding.tieUrlInput.text.toString()
+                val action = CheckFragmentDirections.actionDestCheckToDestNewsResult(
+                    url = url,
+                    newsArticle = NewsAnalysisArticle()
+                )
+
+                navController.navigate(action)
 
                 Log.d(TAG, "navigateCheckFragment: ${binding.tieUrlInput.text}")
-                
-                viewModel.searchByUrl(binding.tieUrlInput.text.toString())
             }
             getString(R.string.type_content) -> {
                 val text = binding.tieContentInput.text.toString()
@@ -226,16 +231,6 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 getString(R.string.type_img) -> binding.tieExtractTextInput.setText(it.revised)
                 getString(R.string.type_content) -> binding.tieContentInput.setText(it.revised)
             }
-        }
-    }
-
-    private fun observeNewsAnalysisArticle() {
-        viewModel.newsAnalysisArticle.observe(viewLifecycleOwner) {
-            Log.d(TAG, "observeNewsAnalysisArticle: $it")
-            
-            val action = CheckFragmentDirections.actionDestCheckToDestNewsResult(it)
-
-            findNavController().navigate(action)
         }
     }
 }
