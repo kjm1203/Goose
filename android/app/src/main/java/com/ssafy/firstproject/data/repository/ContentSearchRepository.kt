@@ -11,4 +11,8 @@ class ContentSearchRepository {
     suspend fun searchKeywords(keywordSearch: KeywordSearch) : Response<List<NewsAnalysisArticle>> {
         return contentSearchService.searchKeywords(keywordSearch)
     }
+
+    suspend fun searchByUrl(url: String) : Response<NewsAnalysisArticle> {
+        return contentSearchService.searchByUrl(url)
+    }
 }
