@@ -45,4 +45,8 @@ class SharedPreferencesUtil(context: Context) {
         editor.remove(REFRESH_TOKEN_KEY_NAME)
         editor.apply()
     }
+
+    fun checkLogin(): Boolean {
+        return getAccessToken() != null
+    }
 }
