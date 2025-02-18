@@ -112,6 +112,9 @@
         <item>@string/type_content</item>
     </string-array>
 
+    <string name="content_input_message">내용을 입력해주세요.</string>
+    <string name="url_input_message">URL을 입력해주세요.</string>
+
     <!-- 이미지 판별 -->
     <string name="image_check">사진 판별하기</string>
     <string name="image_check_caption">이 사진은 정말 진실일까요?\n
