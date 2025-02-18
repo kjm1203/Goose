@@ -30,9 +30,14 @@ class GameFragment : BaseFragment<FragmentGameBinding>(
 
         binding.fab.setOnClickListener {
             calcTotalTimeSpent()
-            val action =
-                GameFragmentDirections.actionDestGameToDestChoiceDialog(totalTimeSpent)
-            findNavController().navigate(action)
+            viewModel.fakeNews.value?.let {
+                val action =
+                    GameFragmentDirections.actionDestGameToDestChoiceDialog(
+                        newsId = it.id,
+                        totalTimeSpent = totalTimeSpent
+                    )
+                findNavController().navigate(action)
+            }
         }
 
         observeFakeNews()
