@@ -1,6 +1,7 @@
 package com.ssafy.firstproject.ui.newsdetail
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -104,7 +105,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
             isRotationEnabled = false
             centerText = getString(R.string.trust_percentage, reliability.toInt())
             setEntryLabelColor(Color.BLACK)
-            setCenterTextSize(10f)
+            setCenterTextSize(12f)
+            setCenterTextTypeface(Typeface.DEFAULT_BOLD)
             animateY(1400, Easing.EaseInOutQuad)
             animate()
             setTouchEnabled(false)
