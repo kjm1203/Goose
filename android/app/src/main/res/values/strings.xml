@@ -149,6 +149,8 @@
     <string name="trust_percent">신뢰도</string>
     <string name="not_trust_percent">불신도</string>
     <string name="trust_percentage">%d%%</string>
+    <string name="mode_analysis">분석하러 가기</string>
+    <string name="mode_other_analysis">다른 뉴스 분석</string>
 
     <!-- 마이 페이지 -->
     <string name="my_page_title">마이 페이지</string>
