@@ -160,7 +160,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 
                     navController.navigate(action)
                 } else {
-                    showToast("내용을 입력해주세요.")
+                    showToast(getString(R.string.content_input_message))
                 }
             }
             getString(R.string.type_url) -> {
@@ -174,17 +174,18 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
 
                     navController.navigate(action)
                 } else {
-                    showToast("URL을 입력해주세요.")
+                    showToast(getString(R.string.url_input_message))
                 }
             }
             getString(R.string.type_content) -> {
                 val text = binding.tieContentInput.text.toString()
+
                 if (text.isNotEmpty()) {
                     val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(text)
 
                     navController.navigate(action)
                 } else {
-                    showToast("내용을 입력해주세요.")
+                    showToast(getString(R.string.content_input_message))
                 }
             }
         }
