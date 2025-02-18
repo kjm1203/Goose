@@ -191,6 +191,9 @@
         <argument
             android:name="choiceResult"
             app:argType="com.ssafy.firstproject.data.model.response.UserChoiceResponse" />
+        <action
+            android:id="@+id/action_dest_game_result_to_dest_game_result_detail"
+            app:destination="@id/dest_game_result_detail" />
     </fragment>
 
     <fragment
