@@ -78,6 +78,7 @@
 
     <string name="check_result_detail_title">결과 자세히보기</string>
     <string name="check_other_news">다른 것도 분석하러 가기</string>
+    <string name="analysis_loading">분석중...</string>
 
     <!-- 로그인과 회원가입 -->
     <string name="user_login">로그인</string>
