@@ -30,6 +30,9 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         val url = args.url
+        val mode = args.mode
+
+        binding.btnOtherCheck.text = mode
 
         Log.d(TAG, "onViewCreated: $url")
 
@@ -55,7 +58,9 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
             findNavController().popBackStack()
         }
 
-        binding.btnOtherCheck.setOnClickListener { findNavController().popBackStack() }
+        binding.btnOtherCheck.setOnClickListener {
+            findNavController().navigate(R.id.dest_check)
+        }
 
         observeSearchNews()
     }

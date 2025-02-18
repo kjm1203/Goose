@@ -40,7 +40,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
             viewModel.newsArticle.value?.let {
                 val action = NewsDetailFragmentDirections.actionDestNewsDetailToDestNewsResult(
                     url = "",
-                    newsArticle = it
+                    newsArticle = it,
+                    mode =  "분석하러 가기"
                 )
 
                 findNavController().navigate(action)

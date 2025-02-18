@@ -169,7 +169,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 if (url.isNotEmpty()) {
                     val action = CheckFragmentDirections.actionDestCheckToDestNewsResult(
                         url = url,
-                        newsArticle = NewsAnalysisArticle()
+                        newsArticle = NewsAnalysisArticle(),
                     )
 
                     navController.navigate(action)
