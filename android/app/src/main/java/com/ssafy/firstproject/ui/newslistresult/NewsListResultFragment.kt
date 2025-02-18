@@ -52,7 +52,7 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
             val action = NewsListResultFragmentDirections.actionDestNewsListResultToDestNewsResult(
                 url = "",
                 newsArticle = item,
-                mode = "다른 것도 분석하기"
+                mode = getString(R.string.mode_other_analysis)
             )
 
             findNavController().navigate(action)
