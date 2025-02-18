@@ -15,7 +15,7 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.ApplicationClass
 import com.ssafy.firstproject.base.BaseFragment
-import com.ssafy.firstproject.data.model.response.GameStatistics
+import com.ssafy.firstproject.data.model.response.GameResultDetailResponse
 import com.ssafy.firstproject.databinding.FragmentGameResultDetailBinding
 import com.ssafy.firstproject.ui.gameresultdetail.viewmodel.GameResultDetailViewModel
 import eightbitlab.com.blurview.RenderScriptBlur
@@ -34,7 +34,7 @@ class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         observeGameStatistics()
-        viewModel.getGameStatistics(args.newsId)
+        viewModel.getGameResultDetail(args.newsId)
         checkLogin()
         setClickListener()
     }
@@ -54,12 +54,12 @@ class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
     }
 
     private fun observeGameStatistics() {
-        viewModel.gameStatistics.observe(viewLifecycleOwner) {
+        viewModel.gameResultDetailResponse.observe(viewLifecycleOwner) {
             setData(it)
         }
     }
 
-    private fun setData(data: GameStatistics) {
+    private fun setData(data: GameResultDetailResponse) {
         binding.tvAnswer.text = data.correctAnswer
         binding.tvReason.text = data.fakeReason
         setPieChart(data.selectionPercentages)

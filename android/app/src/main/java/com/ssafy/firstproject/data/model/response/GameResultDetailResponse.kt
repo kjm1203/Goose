@@ -1,6 +1,6 @@
 package com.ssafy.firstproject.data.model.response
 
-data class GameStatistics(
+data class GameResultDetailResponse(
     val correctAnswer: String,
     val fakeReason: String,
     val selectionPercentages: Map<String, Double>
