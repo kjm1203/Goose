@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/iv_answer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
@@ -81,6 +81,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_time_ranking">
 
+        <TextView
+            android:id="@+id/tv_no_ranker"
+            style="@style/Widget.TextView.Header.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/spacing_48dp"
+            android:text="@string/no_ranker"
+            android:textAlignment="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/iv_medal_gold"
             android:layout_width="wrap_content"
@@ -118,6 +132,7 @@
             android:id="@+id/group_gold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:constraint_referenced_ids="iv_medal_gold,tv_time_gold,tv_nickname_gold" />
 
         <ImageView
@@ -158,6 +173,7 @@
             android:id="@+id/group_silver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:constraint_referenced_ids="iv_medal_silver,tv_time_silver,tv_nickname_silver" />
 
         <ImageView
@@ -198,6 +214,7 @@
             android:id="@+id/group_bronze"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:constraint_referenced_ids="iv_medal_bronze,tv_time_bronze,tv_nickname_bronze" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -216,8 +233,8 @@
 
         <ImageView
             android:id="@+id/iv_answer_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_check"
             app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
             app:layout_constraintStart_toStartOf="parent"
