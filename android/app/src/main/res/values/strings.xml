@@ -16,7 +16,7 @@
     <string name="play">play</string>
     <string name="answer_selection_button">정답 선택 버튼</string>
     <string name="news_img">뉴스 이미지</string>
-    <string name="choice_dialog_header">이 기사는\n진짜? 가짜?</string>
+    <string name="choice_dialog_header">왜 가짜일까요?</string>
     <string name="result_img">결과 이미지</string>
     <string name="answer">정답</string>
     <string name="answer_chart">답안분포</string>
@@ -31,6 +31,7 @@
     <string name="total_time_spent">%.3f초</string>
     <string name="go_answer_reason">정답 이유 자세히 보기</string>
     <string name="go_next_game">다른 게임 풀기</string>
+    <string name="no_ranker">랭커가 없습니다</string>
 
     <string name="choice_real">이건 진짜임ㅇㅇ</string>
     <string name="choice_fake_news">허위 정보여서 가짜</string>
