@@ -8,6 +8,10 @@ import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentMyPageBinding
 import android.graphics.Color
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.components.XAxis
@@ -139,20 +143,48 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
 
         val userName = getString(R.string.user_name, userGrowth.nickname)
         binding.tvUserName.text = userName
-        // TextView
-        val growthText =
-            getString(R.string.my_growth_text, userGrowth.totalQuestions, userGrowth.correctCount)
-        binding.tvGrowthText.text = growthText
 
-        // ProgressBar
+        // TextView 업데이트 (문제 수와 맞춘 문제 수)
+        val fullText =
+            getString(R.string.my_growth_text, userGrowth.totalQuestions, userGrowth.correctCount)
+        val totalQuestionsPart = "${userGrowth.totalQuestions}문제"
+        val correctCountPart = "${userGrowth.correctCount}문제"
+
+        // SpannableStringBuilder로 특정 부분 굵게 설정
+        val spannable = SpannableStringBuilder(fullText)
+
+        // %1$d문제 부분 굵게 설정
+        val totalStartIndex = fullText.indexOf(totalQuestionsPart)
+        if (totalStartIndex != -1) {
+            spannable.setSpan(
+                StyleSpan(Typeface.BOLD),
+                totalStartIndex,
+                totalStartIndex + totalQuestionsPart.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        // %2$d문제 부분 굵게 설정
+        val correctStartIndex = fullText.indexOf(correctCountPart)
+        if (correctStartIndex != -1) {
+            spannable.setSpan(
+                StyleSpan(Typeface.BOLD),
+                correctStartIndex,
+                correctStartIndex + correctCountPart.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        binding.tvGrowthText.text = spannable
+
+        // ProgressBar 업데이트
         ObjectAnimator.ofInt(binding.pbProgressBar, "progress", userGrowth.correctRate.toInt())
             .apply {
                 duration = 300L
                 start()
             }
 
-        // 퍼센트 텍스트
+        // 퍼센트 텍스트 업데이트
         binding.tvProgressPercentage.text = "${userGrowth.correctRate.toInt()}%"
     }
 }
-

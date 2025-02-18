@@ -150,7 +150,7 @@
     <string name="my_page_title">마이 페이지</string>
     <string name="user_name">%1$s님</string>
     <string name="my_growth_title">나의 성장은 어느 정도일까?</string>
-    <string name="my_growth_text">총 %1$d문제를 풀어서\n%2$d문제를 맞췄어요!</string>
+    <string name="my_growth_text">총 %1$d문제를 풀어서\n%2$d문제를 맞혔어요!</string>
     <string name="profile_edit">프로필 수정</string>
     <string name="my_news_list">분석한 뉴스</string>
     <string name="logout">로그아웃</string>
