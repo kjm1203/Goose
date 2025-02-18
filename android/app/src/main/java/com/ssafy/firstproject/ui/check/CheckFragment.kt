@@ -170,6 +170,7 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                     val action = CheckFragmentDirections.actionDestCheckToDestNewsResult(
                         url = url,
                         newsArticle = NewsAnalysisArticle(),
+                        mode = getString(R.string.mode_other_analysis)
                     )
 
                     navController.navigate(action)
