@@ -11,7 +11,7 @@ import com.ssafy.firstproject.data.mapper.NewsMapper
 import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.data.model.response.UserNews
 import com.ssafy.firstproject.databinding.ItemNewsBinding
-import com.ssafy.firstproject.util.CommonUtils
+import com.ssafy.firstproject.util.DateUtil
 
 class UserNewsAdapter(private val itemClickListener: ItemClickListener) :
     ListAdapter<UserNews, UserNewsAdapter.UserNewsViewHolder>(UserNewsDiffCallback) {
@@ -46,13 +46,7 @@ class UserNewsAdapter(private val itemClickListener: ItemClickListener) :
                 item.reliability.toInt()
             )
 
-            val year = item.analysisRequestedAt[0].toString().substring(2)
-            val month = item.analysisRequestedAt[1]
-            val day = item.analysisRequestedAt[2]
-
-            val analysisType = item.analysisType
-
-            binding.tvDate.text = "$year-$month-$day ${analysisType} 판별"
+            binding.tvDate.text = "${DateUtil.parseDate(item.analysisRequestedAt)} ${item.analysisType} 판별"
 
             val newsAnalysisArticle = NewsMapper.mapToNewsAnalysisArticle(item)
 
