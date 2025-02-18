@@ -8,18 +8,26 @@
         android:id="@+id/pv_camera"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_recognized"
+        app:layout_constraintBottom_toTopOf="@id/sv_text_container"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_recognized"
+    <ScrollView
+        android:id="@+id/sv_text_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="#80000000"
-        android:padding="16dp"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/btn_use_text" />
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/btn_use_text"
+        app:layout_constraintHeight_percent="0.3">
+
+        <TextView
+            android:id="@+id/tv_recognized"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </ScrollView>
 
     <Button
         android:id="@+id/btn_use_text"
@@ -27,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:enabled="false"
-        android:text="이 텍스트 사용하기"
+        android:text="@string/use_text"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

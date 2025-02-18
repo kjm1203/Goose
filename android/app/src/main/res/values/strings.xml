@@ -64,6 +64,7 @@
     <string name="spell_check_info">검사 버튼을 누르면 분석 성능이 향상됩니다!</string>
     <string name="spell_check">검사</string>
     <string name="check">분석하기</string>
+    <string name="use_text">이 텍스트 사용하기</string>
 
     <!-- 뉴스 분석 결과-->
     <string name="news_check_result_title">뉴스 분석 결과</string>
