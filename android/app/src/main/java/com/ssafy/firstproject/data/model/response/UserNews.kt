@@ -18,5 +18,7 @@ data class UserNews(
     val reliability: Double,
     val title: String,
     val topImage: String,
-    val username: String
+    val username: String,
+    val aiRate: Double,
+    val evaluationMessage: String
 )

@@ -15,13 +15,15 @@ object NewsMapper {
             newsAgency = userNews.newsAgency,
             originalLink = userNews.originalLink,
             paragraphReasons = userNews.paragraphReasons,
-            paragraphReliabilities = userNews.paragraphReliabilities.map { it ?: 0.0 },
+            paragraphReliabilities = userNews.paragraphReliabilities.map { it },
             paragraphs = userNews.paragraphs,
             pubDate = userNews.pubDate,
             pubDateTimestamp = convertPubDateToTimestamp(userNews.pubDate),
             reliability = userNews.reliability,
             title = userNews.title,
-            topImage = userNews.topImage
+            topImage = userNews.topImage,
+            aiRate = userNews.aiRate,
+            evaluationMessage = userNews.evaluationMessage
         )
     }
 

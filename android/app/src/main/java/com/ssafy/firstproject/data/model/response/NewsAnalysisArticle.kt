@@ -20,5 +20,7 @@ data class NewsAnalysisArticle(
     val pubDateTimestamp: Long? = 0,
     val reliability: Double? = 0.0,
     val title: String? = "",
-    val topImage: String? = ""
+    val topImage: String? = "",
+    val aiRate: Double? = 0.0,
+    val evaluationMessage: String = ""
 ) : Parcelable

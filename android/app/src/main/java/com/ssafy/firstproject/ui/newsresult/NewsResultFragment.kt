@@ -90,9 +90,10 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
             animateProgress(binding.pbBias, it.toInt())
         }
 
-        // AI 점수 관련 처리 (고정값 60%)
-        animateProgress(binding.pbAi, 60)
-        binding.tvAiWhetherPercent.text = getString(R.string.trust_percentage, 60)
+        newsArticle.aiRate?.let {
+            binding.tvAiWhetherPercent.text = getString(R.string.trust_percentage, it.toInt())
+            animateProgress(binding.pbAi, it.toInt())
+        }
     }
 
     private fun setTextWithColoredSubString(textView: TextView, fullText: String, targetSubstring: String, color: Int) {

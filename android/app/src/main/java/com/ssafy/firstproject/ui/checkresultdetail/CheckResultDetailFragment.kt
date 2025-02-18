@@ -73,6 +73,13 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
             animateProgress(binding.pbDetailTruth, truthPercent)
         }
 
+        newsArticle.aiRate?.let {
+            val aiPercent = it.toInt()
+
+            binding.tvDetailAiWhetherPercent.text = getString(R.string.trust_percentage, aiPercent)
+            animateProgress(binding.pbDetailTruth, aiPercent)
+        }
+
         newsArticle.biasScore?.let {
             val biasPercent = it.toInt()
 

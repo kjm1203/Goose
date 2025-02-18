@@ -13,5 +13,7 @@ data class NewsArticle(
     val pubDateTimestamp: Long,
     val reliability: Double,
     val title: String,
-    val topImage: String
+    val topImage: String,
+    val aiRate: Double,
+    val evaluationMessage: String
 )
