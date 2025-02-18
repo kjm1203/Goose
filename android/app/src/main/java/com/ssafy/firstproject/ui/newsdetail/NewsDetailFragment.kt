@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.animation.Easing
@@ -16,6 +17,8 @@ import com.ssafy.firstproject.databinding.FragmentNewsDetailBinding
 import com.ssafy.firstproject.ui.newsdetail.adapter.NewsContentAdapter
 import com.ssafy.firstproject.ui.newsdetail.viewmodel.NewsDetailViewModel
 import com.ssafy.firstproject.util.CommonUtils
+import com.ssafy.firstproject.util.DateUtil
+import com.ssafy.firstproject.util.setOnSingleClickListener
 
 class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
     FragmentNewsDetailBinding::bind,
@@ -32,6 +35,17 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
         initAdapter()
         observeNewsArticle()
         viewModel.getNewsArticle(args.newsId)
+
+        binding.fab.setOnSingleClickListener {
+            viewModel.newsArticle.value?.let {
+                val action = NewsDetailFragmentDirections.actionDestNewsDetailToDestNewsResult(
+                    url = "",
+                    newsArticle = it
+                )
+
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun initAdapter() {
@@ -46,11 +60,13 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
                     .load(it.topImage)
                     .into(iv)
                 tvTitle.text = it.title
-                tvDate.text = CommonUtils.formatDateYYMMDD(it.pubDateTimestamp)
+
+                it.pubDateTimestamp?.let { timestamp -> tvDate.text = CommonUtils.formatDateYYMMDD(timestamp) }
             }
-            val paragraphList = it.paragraphs.map { p -> p.replace(" ", "\u00A0") }
+
+            val paragraphList = it.paragraphs
             adapter.submitList(paragraphList)
-            setPieChart(it.reliability.toFloat())
+            it.reliability?.let { it1 -> setPieChart(it1.toFloat()) }
         }
     }
 
