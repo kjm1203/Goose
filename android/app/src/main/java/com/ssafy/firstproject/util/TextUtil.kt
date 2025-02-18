@@ -6,4 +6,7 @@ object TextUtil {
         cleanedText = cleanedText.replace("다.", "다. ")
         return cleanedText
     }
+    fun replaceSpacesWithNbsp(text: String): String {
+        return text.replace(" ", "\u00A0")
+    }
 }
