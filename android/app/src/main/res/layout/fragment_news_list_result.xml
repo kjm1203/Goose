@@ -89,4 +89,15 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading" />
 
+    <TextView
+        android:id="@+id/tv_loading"
+        style="@style/Widget.TextView.Loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/analysis_loading"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lav_loading_animation" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
