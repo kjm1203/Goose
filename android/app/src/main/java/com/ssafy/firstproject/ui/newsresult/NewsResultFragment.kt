@@ -1,10 +1,12 @@
 package com.ssafy.firstproject.ui.newsresult
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -16,6 +18,7 @@ import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.databinding.FragmentNewsResultBinding
 import com.ssafy.firstproject.ui.newsresult.viewmodel.NewsResultViewModel
+import com.ssafy.firstproject.util.TextUtil
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 
 private const val TAG = "NewsResultFragment_ssafy"
@@ -77,7 +80,7 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
             val fullText = getString(R.string.article_trust_score, trustScore)
 
             // 신뢰도 텍스트 색상 적용
-            setTextWithColoredSubString(binding.tvBubbleTruth, fullText, trustScore, Color.BLUE)
+            setTextWithColoredSubString(binding.tvBubbleTruth, fullText, trustScore, Color.RED)
 
             // 신뢰도 퍼센트 표시
             binding.tvPercentTruth.text = trustScore
@@ -94,6 +97,10 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
             binding.tvAiWhetherPercent.text = getString(R.string.trust_percentage, it.toInt())
             animateProgress(binding.pbAi, it.toInt())
         }
+
+        newsArticle.evaluationMessage.let {
+            binding.tvCheckContent.text = TextUtil.replaceSpacesWithNbsp(it)
+        }
     }
 
     private fun setTextWithColoredSubString(textView: TextView, fullText: String, targetSubstring: String, color: Int) {
@@ -105,6 +112,7 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
 
         // 특정 부분만 색상 변경
         spannable.setSpan(ForegroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(StyleSpan(Typeface.BOLD), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         // TextView에 적용
         textView.text = spannable
