@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/spacing_16dp"
-    android:background="@drawable/bg_white_15dp">
+    android:padding="@dimen/spacing_6dp"
+    android:background="@drawable/bg_white_8dp">
 
     <ImageView
         android:id="@+id/iv_news_img"
@@ -17,6 +18,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerInside"
         tools:src="@tools:sample/avatars"
         tools:targetApi="s" />
 
@@ -25,7 +27,7 @@
         style="@style/Widget.TextView.Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_16dp"
+        android:layout_marginStart="@dimen/spacing_8dp"
         android:layout_marginTop="@dimen/spacing_12dp"
         app:layout_constraintBottom_toTopOf="@id/tv_title"
         app:layout_constraintStart_toEndOf="@id/iv_news_img"
@@ -35,7 +37,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/Widget.TextView.Caption"
+        style="@style/Widget.TextView.Caption.Bold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -65,7 +67,7 @@
 
     <TextView
         android:id="@+id/tv_truth_percent"
-        style="@style/Widget.TextView.Body.small"
+        style="@style/Widget.TextView.Body.truth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_8dp"
