@@ -7,28 +7,30 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.firstproject.base.ApplicationClass.Companion.gameRepository
 import com.ssafy.firstproject.data.model.request.UserChoiceRequest
+import com.ssafy.firstproject.data.model.response.UserChoiceResponse
 import kotlinx.coroutines.launch
 
 private const val TAG = "ChoiceDialogViewModel"
 
 class ChoiceDialogViewModel : ViewModel() {
 
-    private val _isGameResultSubmitSuccess = MutableLiveData<Boolean>()
-    val isGameResultSubmitSuccess: LiveData<Boolean> get() = _isGameResultSubmitSuccess
+    private val _userChoiceResult = MutableLiveData<UserChoiceResponse>()
+    val userChoiceResult: LiveData<UserChoiceResponse> get() = _userChoiceResult
 
-    fun submitGameResult(userChoiceRequest: UserChoiceRequest) {
+    fun submitUserChoice(userChoiceRequest: UserChoiceRequest) {
         viewModelScope.launch {
             runCatching {
-                gameRepository.submitFakeNewsResult(userChoiceRequest)
+                gameRepository.submitUserChoice(userChoiceRequest)
             }.onSuccess { response ->
                 if (response.isSuccessful) {
-                    _isGameResultSubmitSuccess.value = true
+                    response.body()?.let {
+                        _userChoiceResult.value = it
+                    }
                     Log.d(TAG, "updateGameResult: ${response.body()}")
                 } else {
                     Log.d(TAG, "updateGameResult fail: ${response.code()}")
                 }
             }.onFailure {
-                _isGameResultSubmitSuccess.value = false
                 Log.e(TAG, "updateGameResult: ${it.message}", it)
             }
         }

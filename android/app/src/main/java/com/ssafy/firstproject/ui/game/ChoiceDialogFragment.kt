@@ -42,7 +42,7 @@ class ChoiceDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun submitGameResult(choice: String) {
-        viewModel.submitGameResult(
+        viewModel.submitUserChoice(
             UserChoiceRequest(
                 dwellTime = args.totalTimeSpent,
                 newsId = args.newsId,
@@ -52,14 +52,9 @@ class ChoiceDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun observeSubmitGameResultSuccess() {
-        viewModel.isGameResultSubmitSuccess.observe(viewLifecycleOwner) { isSuccess ->
-            if (isSuccess) {
-                val action = ChoiceDialogFragmentDirections.actionDestChoiceDialogToDestGameResult(
-                    args.newsId,
-                    args.totalTimeSpent
-                )
-                findNavController().navigate(action)
-            }
+        viewModel.userChoiceResult.observe(viewLifecycleOwner) {
+            val action = ChoiceDialogFragmentDirections.actionDestChoiceDialogToDestGameResult(it)
+            findNavController().navigate(action)
         }
     }
 
