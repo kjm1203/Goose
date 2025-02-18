@@ -1,6 +1,6 @@
 package com.ssafy.firstproject.data.source.remote
 
-import com.ssafy.firstproject.data.model.request.GameResultRequest
+import com.ssafy.firstproject.data.model.request.UserChoiceRequest
 import com.ssafy.firstproject.data.model.response.FakeNews
 import com.ssafy.firstproject.data.model.response.GameStatistics
 import retrofit2.Response
@@ -16,7 +16,7 @@ interface GameService {
 
     @POST("game-result/submit")
     suspend fun submitFakeNewsResult(
-        @Body gameResultRequest: GameResultRequest
+        @Body userChoiceRequest: UserChoiceRequest
     ): Response<Unit>
 
     @GET("statistics/news")

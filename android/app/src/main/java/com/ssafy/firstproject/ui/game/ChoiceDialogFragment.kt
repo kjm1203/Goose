@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ssafy.firstproject.R
-import com.ssafy.firstproject.data.model.request.GameResultRequest
+import com.ssafy.firstproject.data.model.request.UserChoiceRequest
 import com.ssafy.firstproject.databinding.DialogChoiceBinding
 import com.ssafy.firstproject.ui.game.viewmodel.ChoiceDialogViewModel
 
@@ -43,7 +43,7 @@ class ChoiceDialogFragment : BottomSheetDialogFragment() {
 
     private fun submitGameResult(choice: String) {
         viewModel.submitGameResult(
-            GameResultRequest(
+            UserChoiceRequest(
                 dwellTime = args.totalTimeSpent,
                 newsId = args.newsId,
                 userChoice = choice
