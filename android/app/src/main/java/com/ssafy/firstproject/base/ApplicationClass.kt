@@ -4,6 +4,7 @@ import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.ssafy.firstproject.data.repository.ContentSearchRepository
+import com.ssafy.firstproject.data.repository.GameRepository
 import com.ssafy.firstproject.data.source.local.SharedPreferencesUtil
 import com.ssafy.firstproject.data.repository.NewsRepository
 import com.ssafy.firstproject.data.repository.UserNewsRepository
@@ -59,6 +60,7 @@ class ApplicationClass : Application() {
         lateinit var contentSearchRepository: ContentSearchRepository
         lateinit var userNewsRepository: UserNewsRepository
         lateinit var spellCheckRepository: SpellCheckRepository
+        lateinit var gameRepository: GameRepository
     }
 
     override fun onCreate() {
@@ -99,6 +101,7 @@ class ApplicationClass : Application() {
         contentSearchRepository = ContentSearchRepository()
         userNewsRepository = UserNewsRepository()
         spellCheckRepository = SpellCheckRepository()
+        gameRepository = GameRepository()
     }
 
     //GSon은 엄격한 json type을 요구하는데, 느슨하게 하기 위한 설정. success, fail이 json이 아니라 단순 문자열로 리턴될 경우 처리..
