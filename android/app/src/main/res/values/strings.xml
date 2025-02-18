@@ -38,9 +38,9 @@
     <string name="choice_clickbait">클릭베이트여서 가짜</string>
 
     <string name="real">진짜</string>
-    <string name="fake_news">허위 정보</string>
-    <string name="exaggerated_news">과장 보도</string>
-    <string name="clickbait">클릭 베이트</string>
+    <string name="fake_news">허위정보</string>
+    <string name="exaggerated_news">과장보도</string>
+    <string name="clickbait">클릭베이트</string>
     <string name="game_result_login">답안 분포를 확인하기 위해\n로그인이 필요합니다.</string>
     <string name="go_login">로그인 하기</string>
 
