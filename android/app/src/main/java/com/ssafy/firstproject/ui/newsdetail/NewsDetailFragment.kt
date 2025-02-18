@@ -46,6 +46,10 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
                 findNavController().navigate(action)
             }
         }
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun initAdapter() {
