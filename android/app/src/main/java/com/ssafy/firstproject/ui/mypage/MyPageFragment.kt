@@ -8,17 +8,23 @@ import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentMyPageBinding
 import android.graphics.Color
+import android.util.Log
+import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.ssafy.firstproject.base.ApplicationClass.Companion.sharedPreferencesUtil
+import com.ssafy.firstproject.data.model.response.UserGrowth
+import com.ssafy.firstproject.data.source.remote.RetrofitUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val TAG = "MyPageFragment"
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
-    FragmentMyPageBinding::bind,
-    R.layout.fragment_my_page
+    FragmentMyPageBinding::bind, R.layout.fragment_my_page
 ) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,38 +47,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         }
 
         setBarChart()
-        setBarChartAnimation()
+        fetchUserGrowthData()
     }
-
-    private fun handleLoginState(isLoggedIn: Boolean) {
-        if (isLoggedIn) {
-            // 로그인된 경우: 마이페이지 콘텐츠 표시
-            binding.clLoginRequired.visibility = View.GONE
-            binding.nsv.visibility = View.VISIBLE
-        } else {
-            // 비로그인된 경우: "로그인이 필요합니다" 메시지 표시
-            binding.clLoginRequired.visibility = View.VISIBLE
-            binding.nsv.visibility = View.GONE
-
-            // 로그인 버튼 클릭 이벤트 설정
-            binding.btnLogin.setOnClickListener {
-                findNavController().navigate(R.id.dest_login) // 로그인 화면으로 이동
-            }
-
-            // 회원가입 버튼 클릭 이벤트 설정
-            binding.btnSignUp.setOnClickListener {
-                findNavController().navigate(R.id.dest_signup) // 회원가입 화면으로 이동
-            }
-        }
-    }
-
-    private fun setBarChartAnimation() {
-        val exp = 90 // 예제 90까지 슬라이딩
-        ObjectAnimator.ofInt(binding.pbProgressBar, "progress", exp)
-            .setDuration(300)
-            .start()
-    }
-
 
     private fun setBarChart() {
         val barChart = binding.barChart
@@ -112,4 +88,71 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
             invalidate()
         }
     }
+
+    private fun handleLoginState(isLoggedIn: Boolean) {
+        if (isLoggedIn) {
+            // 로그인된 경우: 마이페이지 콘텐츠 표시
+            binding.clLoginRequired.visibility = View.GONE
+            binding.nsv.visibility = View.VISIBLE
+        } else {
+            // 비로그인된 경우: "로그인이 필요합니다" 메시지 표시
+            binding.clLoginRequired.visibility = View.VISIBLE
+            binding.nsv.visibility = View.GONE
+
+            // 로그인 버튼 클릭 이벤트 설정
+            binding.btnLogin.setOnClickListener {
+                findNavController().navigate(R.id.dest_login) // 로그인 화면으로 이동
+            }
+
+            // 회원가입 버튼 클릭 이벤트 설정
+            binding.btnSignUp.setOnClickListener {
+                findNavController().navigate(R.id.dest_signup) // 회원가입 화면으로 이동
+            }
+        }
+    }
+
+    private fun fetchUserGrowthData() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val response = RetrofitUtil.userGrowthService.getUserGrowth()
+
+                if (response.isSuccessful) {
+                    val userGrowth = response.body()
+
+                    if (userGrowth != null) {
+                        withContext(Dispatchers.Main) {
+                            updateUI(userGrowth)
+                        }
+                    } else {
+                        Log.e(TAG, "User growth data is null")
+                    }
+                } else {
+                    Log.e(TAG, "API Error: ${response.code()} - ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error fetching user growth data", e)
+            }
+        }
+    }
+
+    private fun updateUI(userGrowth: UserGrowth) {
+
+        val userName = getString(R.string.user_name, userGrowth.nickname)
+        binding.tvUserName.text = userName
+        // TextView
+        val growthText =
+            getString(R.string.my_growth_text, userGrowth.totalQuestions, userGrowth.correctCount)
+        binding.tvGrowthText.text = growthText
+
+        // ProgressBar
+        ObjectAnimator.ofInt(binding.pbProgressBar, "progress", userGrowth.correctRate.toInt())
+            .apply {
+                duration = 300L
+                start()
+            }
+
+        // 퍼센트 텍스트
+        binding.tvProgressPercentage.text = "${userGrowth.correctRate.toInt()}%"
+    }
 }
+
