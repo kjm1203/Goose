@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.data.model.NewsParagraphAnalysis
 import com.ssafy.firstproject.databinding.ItemCheckResultDetailBinding
+import com.ssafy.firstproject.util.TextUtil
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 import com.ssafy.firstproject.util.ViewAnimationUtil.rotateImage
 
@@ -32,7 +33,9 @@ class CheckResultDetailAdapter :
 
             binding.tvResult.text = "유사한 뉴스 기사 내용 보기"
 
-            binding.tvItemResultDetail.text = newsParagraphAnalysis.paragraphReason.toString().replace(" ", "\u00A0")
+            binding.tvItemResultDetail.text = TextUtil.replaceSpacesWithNbsp(
+                newsParagraphAnalysis.paragraphReason.toString()
+            )
 
             binding.root.setOnClickListener {
                 currentRotation += if (currentRotation % 180 == 0f) 90f else -90f
