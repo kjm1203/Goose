@@ -189,11 +189,8 @@
         tools:layout="@layout/fragment_game_result">
 
         <argument
-            android:name="newsId"
-            app:argType="string" />
-        <argument
-            android:name="totalTimeSpent"
-            app:argType="long" />
+            android:name="choiceResult"
+            app:argType="com.ssafy.firstproject.data.model.response.UserChoiceResponse" />
     </fragment>
 
     <fragment
