@@ -32,19 +32,22 @@ class ChoiceDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnFakeNews.setOnClickListener {
-            val gameResultRequest = getGameResult(getString(R.string.fake_news))
-            viewModel.submitGameResult(gameResultRequest)
-        }
-
         observeSubmitGameResultSuccess()
+
+        with(binding) {
+            btnFakeNews.setOnClickListener { submitGameResult(getString(R.string.fake_news)) }
+            btnExaggeratedNews.setOnClickListener { submitGameResult(getString(R.string.exaggerated_news)) }
+            btnClickbait.setOnClickListener { submitGameResult(getString(R.string.clickbait)) }
+        }
     }
 
-    private fun getGameResult(choice: String): GameResultRequest {
-        return GameResultRequest(
-            dwellTime = args.totalTimeSpent,
-            newsId = args.newsId,
-            userChoice = choice
+    private fun submitGameResult(choice: String) {
+        viewModel.submitGameResult(
+            GameResultRequest(
+                dwellTime = args.totalTimeSpent,
+                newsId = args.newsId,
+                userChoice = choice
+            )
         )
     }
 
