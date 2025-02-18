@@ -216,6 +216,10 @@
         tools:layout="@layout/fragment_news_result">
 
         <argument
+            android:name="mode"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
             android:name="url"
             android:defaultValue=""
             app:argType="string" />
