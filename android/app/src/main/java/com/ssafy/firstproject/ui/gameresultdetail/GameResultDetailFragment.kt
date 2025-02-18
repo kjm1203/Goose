@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.animation.Easing
@@ -33,6 +34,13 @@ class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeGameStatistics()
+        viewModel.getGameStatistics(args.newsId)
+        checkLogin()
+        setClickListener()
+    }
+
+    private fun setClickListener() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -41,9 +49,9 @@ class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
             findNavController().navigate(R.id.action_dest_game_result_detail_to_dest_game_start)
         }
 
-        observeGameStatistics()
-        viewModel.getGameStatistics(args.newsId)
-        checkLogin()
+        binding.btnLogin.setOnClickListener {
+            findNavController().navigate(R.id.dest_login)
+        }
     }
 
     private fun observeGameStatistics() {
