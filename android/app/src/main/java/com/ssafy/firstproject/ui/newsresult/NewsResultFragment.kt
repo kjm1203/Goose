@@ -29,6 +29,10 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.groupNewsResult.visibility = View.GONE
+        binding.tvLoading.visibility = View.VISIBLE
+        binding.lavLoadingAnimation.visibility = View.VISIBLE
+
         val url = args.url
         val mode = args.mode
 
@@ -108,6 +112,10 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
     private fun observeSearchNews() {
         viewModel.newsAnalysisResult.observe(viewLifecycleOwner) {
             updateNewsArticleUI(it)
+
+            binding.groupNewsResult.visibility = View.VISIBLE
+            binding.tvLoading.visibility = View.GONE
+            binding.lavLoadingAnimation.visibility = View.GONE
         }
     }
 }
