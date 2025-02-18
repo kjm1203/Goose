@@ -59,7 +59,8 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
         }
 
         binding.btnOtherCheck.setOnClickListener {
-            findNavController().navigate(R.id.dest_check)
+            val action = NewsResultFragmentDirections.actionDestNewsResultToDestCheck()
+            findNavController().navigate(action)
         }
 
         observeSearchNews()
