@@ -24,9 +24,13 @@ class CheckResultDetailAdapter :
             binding.tvNewsItemContent.text = newsParagraphAnalysis.paragraph.toString().replace(" ", "\u00A0")
 
             newsParagraphAnalysis.paragraphReliability?.let {
-                binding.tvItemPercent.text = binding.root.context.getString(R.string.trust_percentage, it.toInt())
-                animateProgress(binding.pbNewsParagraphTruth, it.toInt())
+                val percent = (it * 100).toInt()
+
+                binding.tvItemPercent.text = binding.root.context.getString(R.string.trust_percentage, percent)
+                animateProgress(binding.pbNewsParagraphTruth, percent)
             }
+
+            binding.tvResult.text = "유사한 뉴스 기사 내용 보기"
 
             binding.tvItemResultDetail.text = newsParagraphAnalysis.paragraphReason.toString().replace(" ", "\u00A0")
 
