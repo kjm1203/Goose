@@ -26,12 +26,12 @@ class ChoiceDialogViewModel : ViewModel() {
                     response.body()?.let {
                         _userChoiceResult.value = it
                     }
-                    Log.d(TAG, "updateGameResult: ${response.body()}")
+                    Log.d(TAG, "submitUserChoice: ${response.body()}")
                 } else {
-                    Log.d(TAG, "updateGameResult fail: ${response.code()}")
+                    Log.d(TAG, "submitUserChoice fail: ${response.code()}")
                 }
             }.onFailure {
-                Log.e(TAG, "updateGameResult: ${it.message}", it)
+                Log.e(TAG, "submitUserChoice: ${it.message}", it)
             }
         }
     }
