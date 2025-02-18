@@ -27,6 +27,7 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.groupNewsListResult.visibility = View.GONE
         binding.tvLoading.visibility = View.VISIBLE
         binding.lavLoadingAnimation.visibility = View.VISIBLE
 
@@ -61,6 +62,7 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
 
     private fun observeNewsArticle() {
         viewModel.newsAnalysisArticles.observe(viewLifecycleOwner) {
+            binding.groupNewsListResult.visibility = View.VISIBLE
             binding.lavLoadingAnimation.visibility = View.GONE
             binding.tvLoading.visibility = View.GONE
 
