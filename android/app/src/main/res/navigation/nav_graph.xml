@@ -84,7 +84,10 @@
         android:name="com.ssafy.firstproject.ui.game.ChoiceDialogFragment"
         android:label="ChoiceDialogFragment"
         tools:layout="@layout/dialog_choice">
-        
+
+        <argument
+            android:name="newsId"
+            app:argType="string" />
         <argument
             android:name="totalTimeSpent"
             app:argType="long" />
@@ -185,6 +188,9 @@
         android:label="GameResultFragment"
         tools:layout="@layout/fragment_game_result">
 
+        <argument
+            android:name="newsId"
+            app:argType="string" />
         <argument
             android:name="totalTimeSpent"
             app:argType="long" />
