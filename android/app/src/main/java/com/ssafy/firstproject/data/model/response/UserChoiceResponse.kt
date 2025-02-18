@@ -10,6 +10,7 @@ data class UserChoiceResponse(
     val id: Int,
     val newsId: String,
     val nickname: String,
-    val solvedAt: String,
-    val userChoice: String
+    val solvedAt: List<Int>,
+    val userChoice: String,
+    val correctAnswer: String
 ) : Parcelable
