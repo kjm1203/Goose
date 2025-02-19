@@ -12,6 +12,7 @@ import com.ssafy.firstproject.util.TextUtil
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 import com.ssafy.firstproject.util.ViewAnimationUtil.rotateImage
 import com.ssafy.firstproject.util.ViewUtil
+import org.w3c.dom.Text
 
 class CheckResultDetailAdapter :
     ListAdapter<NewsParagraphAnalysis, CheckResultDetailAdapter.CheckResultDetailViewHolder>(
@@ -23,7 +24,7 @@ class CheckResultDetailAdapter :
         private var currentRotation = 0f // 현재 회전 각도 상태 저장
 
         fun bind(newsParagraphAnalysis: NewsParagraphAnalysis) {
-            binding.tvNewsItemContent.text = newsParagraphAnalysis.paragraph.toString().replace(" ", "\u00A0")
+            binding.tvNewsItemContent.text = TextUtil.replaceSpacesWithNbsp(newsParagraphAnalysis.paragraph.toString())
 
             newsParagraphAnalysis.paragraphReliability?.let {
                 val percent = (it * 100).toInt()
@@ -35,7 +36,7 @@ class CheckResultDetailAdapter :
                 animateProgress(binding.pbNewsParagraphTruth, percent)
             }
 
-            binding.tvResult.text = "유사한 뉴스 기사 내용 보기"
+            binding.tvResult.text = TextUtil.replaceSpacesWithNbsp("유사한 뉴스 기사 내용 보기")
 
             binding.tvItemResultDetail.text = TextUtil.replaceSpacesWithNbsp(
                 newsParagraphAnalysis.paragraphReason.toString()
