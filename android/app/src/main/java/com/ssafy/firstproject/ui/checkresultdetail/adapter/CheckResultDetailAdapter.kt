@@ -11,6 +11,7 @@ import com.ssafy.firstproject.databinding.ItemCheckResultDetailBinding
 import com.ssafy.firstproject.util.TextUtil
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 import com.ssafy.firstproject.util.ViewAnimationUtil.rotateImage
+import com.ssafy.firstproject.util.ViewUtil
 
 class CheckResultDetailAdapter :
     ListAdapter<NewsParagraphAnalysis, CheckResultDetailAdapter.CheckResultDetailViewHolder>(
@@ -28,6 +29,9 @@ class CheckResultDetailAdapter :
                 val percent = (it * 100).toInt()
 
                 binding.tvItemPercent.text = binding.root.context.getString(R.string.trust_percentage, percent)
+
+                ViewUtil.setProgressDrawableByTarget(binding.pbNewsParagraphTruth, percent)
+
                 animateProgress(binding.pbNewsParagraphTruth, percent)
             }
 

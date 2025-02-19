@@ -15,6 +15,7 @@ import com.ssafy.firstproject.databinding.FragmentCheckResultDetailBinding
 import com.ssafy.firstproject.ui.checkresultdetail.adapter.CheckResultDetailAdapter
 import com.ssafy.firstproject.util.CommonUtils
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
+import com.ssafy.firstproject.util.ViewUtil
 
 private const val TAG = "CheckResultDetailFragment_ssafy"
 class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>(
@@ -74,6 +75,8 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
             val truthPercent = it.toInt()
 
             binding.tvDetailPercentTruth.text = getString(R.string.trust_percentage, truthPercent)
+
+            ViewUtil.setProgressDrawableByTarget(binding.pbDetailTruth, truthPercent)
             animateProgress(binding.pbDetailTruth, truthPercent)
         }
 
@@ -81,6 +84,7 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
             val aiPercent = it.toInt()
 
             binding.tvDetailAiWhetherPercent.text = getString(R.string.trust_percentage, aiPercent)
+            ViewUtil.setProgressDrawableByTarget(binding.pbDetailTruth, aiPercent)
             animateProgress(binding.pbDetailTruth, aiPercent)
         }
 
@@ -88,6 +92,7 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
             val biasPercent = it.toInt()
 
             binding.tvDetailBiasPercent.text = getString(R.string.trust_percentage, biasPercent)
+            ViewUtil.setProgressDrawableByTarget(binding.pbDetailBias, biasPercent)
             animateProgress(binding.pbDetailBias, biasPercent)
         }
     }
@@ -97,16 +102,16 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
         reliabilities: List<Double?>?,
         reasons: List<String?>?
     ): List<NewsParagraphAnalysis> {
-        val safeParagraphs = paragraphs ?: emptyList()  // 🔥 null이면 빈 리스트로 변경
+        val safeParagraphs = paragraphs ?: emptyList()
         val safeReliabilities = reliabilities ?: emptyList()
         val safeReasons = reasons ?: emptyList()
 
-        val size = minOf(safeParagraphs.size, safeReliabilities.size, safeReasons.size) // 🔥 세 리스트 중 최소 크기 기준
+        val size = minOf(safeParagraphs.size, safeReliabilities.size, safeReasons.size)
 
         val combinedList = mutableListOf<NewsParagraphAnalysis>()
 
         for (i in 0 until size) {
-            val paragraph = safeParagraphs.getOrNull(i) // 🔥 getOrNull() 사용하여 IndexOutOfBounds 방지
+            val paragraph = safeParagraphs.getOrNull(i)
             val reliability = safeReliabilities.getOrNull(i)
             val reason = safeReasons.getOrNull(i)
 

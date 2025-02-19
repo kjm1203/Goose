@@ -14,13 +14,6 @@ object ViewAnimationUtil {
 
         if (targetProgress <= currentProgress) return
 
-        if (targetProgress < 33) {
-            progressBar.progressDrawable = progressBar.context.getDrawable(R.drawable.bg_progress_bar_33)
-        } else if (targetProgress < 66) {
-            progressBar.progressDrawable = progressBar.context.getDrawable(R.drawable.bg_progress_bar_66)
-        } else {
-            progressBar.progressDrawable = progressBar.context.getDrawable(R.drawable.bg_progress_bar_100)
-        }
         // 애니메이션 설정
         val animator = ObjectAnimator.ofInt(progressBar, "progress", currentProgress, targetProgress).apply {
             duration = 500

@@ -20,6 +20,7 @@ import com.ssafy.firstproject.databinding.FragmentNewsResultBinding
 import com.ssafy.firstproject.ui.newsresult.viewmodel.NewsResultViewModel
 import com.ssafy.firstproject.util.TextUtil
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
+import com.ssafy.firstproject.util.ViewUtil
 
 private const val TAG = "NewsResultFragment_ssafy"
 class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
@@ -84,17 +85,26 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
 
             // 신뢰도 퍼센트 표시
             binding.tvPercentTruth.text = trustScore
+
+            ViewUtil.setProgressDrawableByTarget(binding.pbTruth, it.toInt())
+
             animateProgress(binding.pbTruth, it.toInt())
         }
 
         // Bias 점수 관련 처리
         newsArticle.biasScore?.let {
             binding.tvBiasPercent.text = getString(R.string.trust_percentage, it.toInt())
+
+            ViewUtil.setProgressDrawableByTarget(binding.pbBias, it.toInt())
+
             animateProgress(binding.pbBias, it.toInt())
         }
 
         newsArticle.aiRate?.let {
             binding.tvAiWhetherPercent.text = getString(R.string.trust_percentage, it.toInt())
+
+            ViewUtil.setProgressDrawableByTarget(binding.pbAi, it.toInt())
+
             animateProgress(binding.pbAi, it.toInt())
         }
 
