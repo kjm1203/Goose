@@ -68,7 +68,7 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
         binding.tvNewsTitle.text = newsArticle.title
 
         newsArticle.pubDate?.let {
-            binding.tvNewsDate.text = CommonUtils.convertPubDateToFormattedDate(it)
+            if (it.isNotEmpty()) binding.tvNewsDate.text = CommonUtils.convertPubDateToFormattedDate(it)
         }
 
         newsArticle.reliability?.let {
