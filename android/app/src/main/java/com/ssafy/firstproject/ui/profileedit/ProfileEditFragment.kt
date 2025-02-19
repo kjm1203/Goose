@@ -6,9 +6,12 @@ import android.view.View
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.ssafy.firstproject.R
+import com.ssafy.firstproject.base.ApplicationClass
 import com.ssafy.firstproject.base.BaseFragment
+import com.ssafy.firstproject.data.model.request.ProfileEditRequest
 import com.ssafy.firstproject.databinding.FragmentProfileEditBinding
 import com.ssafy.firstproject.ui.profileedit.viewmodel.ProfileEditViewModel
 import com.ssafy.firstproject.util.setOnSingleClickListener
@@ -27,6 +30,7 @@ class ProfileEditFragment : BaseFragment<FragmentProfileEditBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         observeValidation()
+        observeProfileUpdate()
         initEvent()
     }
 
@@ -135,6 +139,34 @@ class ProfileEditFragment : BaseFragment<FragmentProfileEditBinding>(
 
         viewModel.isAllValid.observe(viewLifecycleOwner) {
             binding.btnEdit.isEnabled = it
+        }
+
+        binding.btnEdit.setOnSingleClickListener {
+            viewModel.updateProfile(
+                ProfileEditRequest(
+                    newNickname = binding.tieEditNicknameInput.text.toString(),
+                    newPassword = binding.tieEditPwInput.text.toString()
+                )
+            )
+        }
+    }
+
+    private fun observeProfileUpdate() {
+        viewModel.profileEditResponse.observe(viewLifecycleOwner) {
+            if (it.success) {
+                showToast(getString(R.string.profile_edit_success_message))
+                ApplicationClass.sharedPreferencesUtil.addAccessToken(it.accessToken)
+                ApplicationClass.sharedPreferencesUtil.addRefreshToken(it.refreshToken)
+                findNavController().navigate(
+                    R.id.dest_home,  // 이동할 목적지
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.nav_graph, true) // 네비게이션 그래프의 루트까지 제거
+                        .build()
+                )
+            } else {
+                showToast(getString(R.string.profile_edit_fail_message))
+            }
         }
     }
 }

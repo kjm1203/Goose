@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.firstproject.base.ApplicationClass
+import com.ssafy.firstproject.data.model.request.ProfileEditRequest
 import com.ssafy.firstproject.data.model.response.DuplicateCheckResponse
+import com.ssafy.firstproject.data.model.response.ProfileEditResponse
 import kotlinx.coroutines.launch
 
 private const val TAG = "ProfileEditViewModel"
@@ -66,6 +68,28 @@ class ProfileEditViewModel : ViewModel() {
                 }
             }.onFailure {
                 Log.e(TAG, "checkNicknameDuplicate: ${it.message}", it)
+            }
+        }
+    }
+
+    private val _profileEditResponse: MutableLiveData<ProfileEditResponse> = MutableLiveData()
+    val profileEditResponse: LiveData<ProfileEditResponse> get() = _profileEditResponse
+
+    fun updateProfile(profileEditRequest: ProfileEditRequest) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                ApplicationClass.userRepository.updateUserInfo(profileEditRequest)
+            }.onSuccess { response ->
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _profileEditResponse.value = it
+                    }
+                    Log.d(TAG, "updateProfile: ${response.body()}")
+                } else {
+                    Log.d(TAG, "updateProfile fail: ${response.code()}")
+                }
+            }.onFailure {
+                Log.e(TAG, "updateProfile: ${it.message}", it)
             }
         }
     }
