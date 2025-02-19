@@ -98,7 +98,7 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
             animateProgress(binding.pbAi, it.toInt())
         }
 
-        newsArticle.evaluationMessage.let {
+        newsArticle.evaluationMessage?.let {
             binding.tvCheckContent.text = TextUtil.replaceSpacesWithNbsp(it)
         }
     }

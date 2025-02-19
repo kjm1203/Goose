@@ -3,6 +3,7 @@ package com.ssafy.firstproject.ui.newsdetail
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,9 +19,9 @@ import com.ssafy.firstproject.databinding.FragmentNewsDetailBinding
 import com.ssafy.firstproject.ui.newsdetail.adapter.NewsContentAdapter
 import com.ssafy.firstproject.ui.newsdetail.viewmodel.NewsDetailViewModel
 import com.ssafy.firstproject.util.CommonUtils
-import com.ssafy.firstproject.util.DateUtil
 import com.ssafy.firstproject.util.setOnSingleClickListener
 
+private const val TAG = "NewsDetailFragment_ssafy"
 class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
     FragmentNewsDetailBinding::bind,
     R.layout.fragment_news_detail
@@ -38,12 +39,14 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
         viewModel.getNewsArticle(args.newsId)
 
         binding.fab.setOnSingleClickListener {
-            viewModel.newsArticle.value?.let {
+            viewModel.newsArticle.value?.let { article ->
                 val action = NewsDetailFragmentDirections.actionDestNewsDetailToDestNewsResult(
                     url = "",
-                    newsArticle = it,
+                    newsArticle = article,
                     mode =  getString(R.string.mode_analysis)
                 )
+
+                Log.d(TAG, "onViewCreated: $article")
 
                 findNavController().navigate(action)
             }
