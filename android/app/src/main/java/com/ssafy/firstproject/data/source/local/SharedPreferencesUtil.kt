@@ -47,6 +47,6 @@ class SharedPreferencesUtil(context: Context) {
     }
 
     fun checkLogin(): Boolean {
-        return getAccessToken() != null
+        return getAccessToken() != null // 로그인 사용자 : true, 비로그인 사용자 : false
     }
 }

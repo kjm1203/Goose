@@ -3,10 +3,12 @@ package com.ssafy.firstproject.ui.game
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentGameBinding
+import com.ssafy.firstproject.ui.game.viewmodel.GameViewModel
 
 private const val TAG = "GameFragment"
 
@@ -15,6 +17,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>(
     R.layout.fragment_game
 ) {
 
+    private val viewModel by viewModels<GameViewModel>()
     private var startTime: Long = 0
     private var totalTimeSpent: Long = 0
 
@@ -27,10 +30,17 @@ class GameFragment : BaseFragment<FragmentGameBinding>(
 
         binding.fab.setOnClickListener {
             calcTotalTimeSpent()
-            val action =
-                GameFragmentDirections.actionDestGameToDestChoiceDialog(totalTimeSpent)
-            findNavController().navigate(action)
+            viewModel.fakeNews.value?.let {
+                val action =
+                    GameFragmentDirections.actionDestGameToDestChoiceDialog(
+                        newsId = it.id,
+                        totalTimeSpent = totalTimeSpent
+                    )
+                findNavController().navigate(action)
+            }
         }
+
+        observeFakeNews()
     }
 
     override fun onResume() {
@@ -49,5 +59,12 @@ class GameFragment : BaseFragment<FragmentGameBinding>(
         totalTimeSpent += timeSpent
 
         Log.d(TAG, "현재 화면 체류 시간: ${timeSpent}ms, 누적 시간: ${totalTimeSpent}ms")
+    }
+
+    private fun observeFakeNews() {
+        viewModel.fakeNews.observe(viewLifecycleOwner) {
+            binding.tvTitle.text = it.title
+            binding.tvBody.text = it.content
+        }
     }
 }

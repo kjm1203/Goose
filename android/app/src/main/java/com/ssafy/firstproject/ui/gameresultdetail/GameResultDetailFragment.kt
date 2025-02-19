@@ -4,27 +4,42 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.ssafy.firstproject.R
+import com.ssafy.firstproject.base.ApplicationClass
 import com.ssafy.firstproject.base.BaseFragment
+import com.ssafy.firstproject.data.model.response.GameResultDetailResponse
 import com.ssafy.firstproject.databinding.FragmentGameResultDetailBinding
+import com.ssafy.firstproject.ui.gameresultdetail.viewmodel.GameResultDetailViewModel
 import eightbitlab.com.blurview.RenderScriptBlur
 
-private const val TAG = "GameResultDetailFragmen"
+private const val TAG = "GameResultDetailFragment"
 
 class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
     FragmentGameResultDetailBinding::bind,
     R.layout.fragment_game_result_detail
 ) {
 
+    private val args: GameResultDetailFragmentArgs by navArgs()
+    private val viewModel by viewModels<GameResultDetailViewModel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeGameStatistics()
+        viewModel.getGameResultDetail(args.newsId)
+        checkLogin()
+        setClickListener()
+    }
+
+    private fun setClickListener() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -33,24 +48,31 @@ class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
             findNavController().navigate(R.id.action_dest_game_result_detail_to_dest_game_start)
         }
 
-        setData()
-        checkLogin()
+        binding.btnLogin.setOnClickListener {
+            findNavController().navigate(R.id.dest_login)
+        }
     }
 
-    private fun setData() {
-        setPieChart()
+    private fun observeGameStatistics() {
+        viewModel.gameResultDetailResponse.observe(viewLifecycleOwner) {
+            setData(it)
+        }
     }
 
-    private fun setPieChart() {
+    private fun setData(data: GameResultDetailResponse) {
+        binding.tvAnswer.text = data.correctAnswer
+        binding.tvReason.text = data.fakeReason
+        setPieChart(data.selectionPercentages)
+    }
+
+    private fun setPieChart(selections: Map<String, Double>) {
         binding.pieChart.setUsePercentValues(true)
 
         // 데이터 세팅
         val entries = ArrayList<PieEntry>()
-        entries.add(PieEntry(15f, getString(R.string.real)))
-        entries.add(PieEntry(10f, getString(R.string.fake_news)))
-        entries.add(PieEntry(3f, getString(R.string.exaggerated_news)))
-        entries.add(PieEntry(72f, getString(R.string.clickbait)))
-
+        selections.entries.forEach {
+            entries.add(PieEntry(it.value.toFloat(), it.key))
+        }
 
         // 색상 세팅
         val colorsItems = ArrayList<Int>()
@@ -83,8 +105,10 @@ class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
 
     private fun checkLogin() {
         // 비로그인 사용자일 경우
-//        setLoginVisible()
-//        setBlurView()
+        if (!ApplicationClass.sharedPreferencesUtil.checkLogin()) {
+            setLoginVisible()
+            setBlurView()
+        }
     }
 
     private fun setLoginVisible() {
