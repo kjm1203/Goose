@@ -1,11 +1,14 @@
 package com.ssafy.firstproject.util
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.ProgressBar
+import com.ssafy.firstproject.R
 
 object ViewAnimationUtil {
+    @SuppressLint("UseCompatLoadingForDrawables")
     fun animateProgress(progressBar: ProgressBar, targetProgress: Int) {
         val currentProgress = progressBar.progress
 

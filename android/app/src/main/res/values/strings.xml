@@ -80,6 +80,9 @@
 
     <string name="check_result_detail_title">결과 자세히보기</string>
     <string name="check_other_news">다른 것도 분석하러 가기</string>
+    <string name="analysis_loading">분석중...</string>
+    <string name="similar_news_content_expand">유사한 뉴스 기사 내용 보기</string>
+    <string name="similar_news_content_collapse">유사한 뉴스 기사 내용 접기</string>
 
     <!-- 로그인과 회원가입 -->
     <string name="user_login">로그인</string>
@@ -112,6 +115,9 @@
         <item>@string/type_url</item>
         <item>@string/type_content</item>
     </string-array>
+
+    <string name="content_input_message">내용을 입력해주세요.</string>
+    <string name="url_input_message">URL을 입력해주세요.</string>
 
     <!-- 이미지 판별 -->
     <string name="image_check">사진 판별하기</string>
@@ -147,6 +153,8 @@
     <string name="trust_percent">신뢰도</string>
     <string name="not_trust_percent">불신도</string>
     <string name="trust_percentage">%d%%</string>
+    <string name="mode_analysis">분석하러 가기</string>
+    <string name="mode_other_analysis">다른 뉴스 분석</string>
 
     <!-- 마이 페이지 -->
     <string name="my_page_title">마이 페이지</string>

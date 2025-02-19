@@ -157,13 +157,20 @@
         <argument
             android:name="newsId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_dest_news_detail_to_dest_news_result"
+            app:destination="@id/dest_news_result" />
     </fragment>
 
     <fragment
         android:id="@+id/dest_record"
         android:name="com.ssafy.firstproject.ui.record.RecordFragment"
         android:label="RecordFragment"
-        tools:layout="@layout/fragment_record" />
+        tools:layout="@layout/fragment_record" >
+        <action
+            android:id="@+id/action_dest_record_to_dest_check_result_detail"
+            app:destination="@id/dest_check_result_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/dest_camera"
@@ -218,6 +225,10 @@
         tools:layout="@layout/fragment_news_result">
 
         <argument
+            android:name="mode"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
             android:name="url"
             android:defaultValue=""
             app:argType="string" />
@@ -227,6 +238,11 @@
         <action
             android:id="@+id/action_dest_news_result_to_dest_check_result_detail"
             app:destination="@id/dest_check_result_detail" />
+
+        <action
+            android:id="@+id/action_dest_news_result_to_dest_check"
+            app:destination="@id/dest_check"
+            app:popUpTo="@id/dest_home" />
     </fragment>
 
     <dialog

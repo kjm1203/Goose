@@ -1,5 +1,6 @@
 package com.ssafy.firstproject.data.source.remote
 
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.data.model.response.NewsArticle
 import retrofit2.Response
 import retrofit2.http.GET
@@ -19,5 +20,5 @@ interface NewsService {
     @GET("news/{newsId}")
     suspend fun getNewsArticle(
         @Path("newsId") newsId: String
-    ): Response<NewsArticle>
+    ): Response<NewsAnalysisArticle>
 }

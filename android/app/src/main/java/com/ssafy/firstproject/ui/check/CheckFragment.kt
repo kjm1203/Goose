@@ -33,7 +33,6 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
     FragmentCheckBinding::bind,
     R.layout.fragment_check
 ) {
-
     private val args by navArgs<CheckFragmentArgs>()
     private val viewModel by viewModels<CheckViewModel>()
 
@@ -155,26 +154,40 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
         when (type) {
             getString(R.string.type_img) -> {
                 val text = binding.tieExtractTextInput.text.toString()
-                val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(text)
 
-                navController.navigate(action)
+                if (text.isNotEmpty()) {
+                    val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(text)
+
+                    navController.navigate(action)
+                } else {
+                    showToast(getString(R.string.content_input_message))
+                }
             }
             getString(R.string.type_url) -> {
                 val url = binding.tieUrlInput.text.toString()
-                val action = CheckFragmentDirections.actionDestCheckToDestNewsResult(
-                    url = url,
-                    newsArticle = NewsAnalysisArticle()
-                )
 
-                navController.navigate(action)
+                if (url.isNotEmpty()) {
+                    val action = CheckFragmentDirections.actionDestCheckToDestNewsResult(
+                        url = url,
+                        newsArticle = NewsAnalysisArticle(),
+                        mode = getString(R.string.mode_other_analysis)
+                    )
 
-                Log.d(TAG, "navigateCheckFragment: ${binding.tieUrlInput.text}")
+                    navController.navigate(action)
+                } else {
+                    showToast(getString(R.string.url_input_message))
+                }
             }
             getString(R.string.type_content) -> {
                 val text = binding.tieContentInput.text.toString()
-                val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(text)
 
-                navController.navigate(action)
+                if (text.isNotEmpty()) {
+                    val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(text)
+
+                    navController.navigate(action)
+                } else {
+                    showToast(getString(R.string.content_input_message))
+                }
             }
         }
     }

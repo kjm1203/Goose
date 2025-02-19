@@ -27,6 +27,10 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.groupNewsListResult.visibility = View.GONE
+        binding.tvLoading.visibility = View.VISIBLE
+        binding.lavLoadingAnimation.visibility = View.VISIBLE
+
         binding.lavLoadingAnimation.playAnimation()
 
         val newsText = args.newsText
@@ -47,7 +51,8 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
         adapter = NewsListResultAdapter { item ->
             val action = NewsListResultFragmentDirections.actionDestNewsListResultToDestNewsResult(
                 url = "",
-                newsArticle = item
+                newsArticle = item,
+                mode = getString(R.string.mode_other_analysis)
             )
 
             findNavController().navigate(action)
@@ -58,8 +63,12 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
 
     private fun observeNewsArticle() {
         viewModel.newsAnalysisArticles.observe(viewLifecycleOwner) {
+            binding.groupNewsListResult.visibility = View.VISIBLE
             binding.lavLoadingAnimation.visibility = View.GONE
+            binding.tvLoading.visibility = View.GONE
+
             binding.lavLoadingAnimation.pauseAnimation()
+
             adapter.submitList(it)
         }
     }

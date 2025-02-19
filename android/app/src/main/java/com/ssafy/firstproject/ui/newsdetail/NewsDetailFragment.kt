@@ -1,9 +1,13 @@
 package com.ssafy.firstproject.ui.newsdetail
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.animation.Easing
@@ -16,7 +20,9 @@ import com.ssafy.firstproject.databinding.FragmentNewsDetailBinding
 import com.ssafy.firstproject.ui.newsdetail.adapter.NewsContentAdapter
 import com.ssafy.firstproject.ui.newsdetail.viewmodel.NewsDetailViewModel
 import com.ssafy.firstproject.util.CommonUtils
+import com.ssafy.firstproject.util.setOnSingleClickListener
 
+private const val TAG = "NewsDetailFragment_ssafy"
 class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
     FragmentNewsDetailBinding::bind,
     R.layout.fragment_news_detail
@@ -32,6 +38,24 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
         initAdapter()
         observeNewsArticle()
         viewModel.getNewsArticle(args.newsId)
+
+        binding.fab.setOnSingleClickListener {
+            viewModel.newsArticle.value?.let { article ->
+                val action = NewsDetailFragmentDirections.actionDestNewsDetailToDestNewsResult(
+                    url = "",
+                    newsArticle = article,
+                    mode =  getString(R.string.mode_analysis)
+                )
+
+                Log.d(TAG, "onViewCreated: $article")
+
+                findNavController().navigate(action)
+            }
+        }
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun initAdapter() {
@@ -46,11 +70,13 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
                     .load(it.topImage)
                     .into(iv)
                 tvTitle.text = it.title
-                tvDate.text = CommonUtils.formatDateYYMMDD(it.pubDateTimestamp)
+
+                it.pubDateTimestamp?.let { timestamp -> tvDate.text = CommonUtils.formatDateYYMMDD(timestamp) }
             }
-            val paragraphList = it.paragraphs.map { p -> p.replace(" ", "\u00A0") }
+
+            val paragraphList = it.paragraphs
             adapter.submitList(paragraphList)
-            setPieChart(it.reliability.toFloat())
+            it.reliability?.let { it1 -> setPieChart(it1.toFloat()) }
         }
     }
 
@@ -64,10 +90,17 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
         entries.add(PieEntry(100f - reliability, getString(R.string.not_trust_percent)))
 
         // 색상 세팅
-        val colorsArray = listOf(
-            Color.parseColor("#50A56F"),
-            Color.parseColor("#D2D1D4")
-        )
+        val colorsArray = mutableListOf<Int>()
+
+        if (reliability < 33) {
+            colorsArray.add(ContextCompat.getColor(requireContext(), R.color.coralReef))
+        } else if (reliability < 66) {
+            colorsArray.add(ContextCompat.getColor(requireContext(), R.color.icterine))
+        } else {
+            colorsArray.add(ContextCompat.getColor(requireContext(), R.color.eucalyptus))
+        }
+
+        colorsArray.add(Color.parseColor("#D2D1D4"))
 
         val pieDataSet = PieDataSet(entries, "")
         pieDataSet.apply {
@@ -83,7 +116,8 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
             isRotationEnabled = false
             centerText = getString(R.string.trust_percentage, reliability.toInt())
             setEntryLabelColor(Color.BLACK)
-            setCenterTextSize(10f)
+            setCenterTextSize(12f)
+            setCenterTextTypeface(Typeface.DEFAULT_BOLD)
             animateY(1400, Easing.EaseInOutQuad)
             animate()
             setTouchEnabled(false)

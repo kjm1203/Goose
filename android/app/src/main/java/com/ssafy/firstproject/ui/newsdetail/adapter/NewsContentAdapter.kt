@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.firstproject.databinding.ItemNewsContentBinding
+import com.ssafy.firstproject.util.TextUtil
 
 private const val TAG = "NewsContentAdapter"
 
@@ -26,8 +27,8 @@ class NewsContentAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: String) {
-            binding.tvNewsContent.text = item
-        }
+            binding.tvNewsContent.text = TextUtil.replaceSpacesWithNbsp(item)
+        }   
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {

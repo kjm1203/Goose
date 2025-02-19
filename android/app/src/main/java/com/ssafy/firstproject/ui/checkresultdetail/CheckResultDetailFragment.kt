@@ -13,7 +13,9 @@ import com.ssafy.firstproject.data.model.NewsParagraphAnalysis
 import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.databinding.FragmentCheckResultDetailBinding
 import com.ssafy.firstproject.ui.checkresultdetail.adapter.CheckResultDetailAdapter
+import com.ssafy.firstproject.util.CommonUtils
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
+import com.ssafy.firstproject.util.ViewUtil
 
 private const val TAG = "CheckResultDetailFragment_ssafy"
 class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>(
@@ -64,34 +66,54 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
             .into(binding.ivResultImage)
 
         binding.tvNewsTitle.text = newsArticle.title
-        binding.tvNewsDate.text = newsArticle.pubDate
+
+        newsArticle.pubDate?.let {
+            if (it.isNotEmpty()) binding.tvNewsDate.text = CommonUtils.convertPubDateToFormattedDate(it)
+        }
 
         newsArticle.reliability?.let {
             val truthPercent = it.toInt()
 
             binding.tvDetailPercentTruth.text = getString(R.string.trust_percentage, truthPercent)
+
+            ViewUtil.setProgressDrawableByTarget(binding.pbDetailTruth, truthPercent)
             animateProgress(binding.pbDetailTruth, truthPercent)
+        }
+
+        newsArticle.aiRate?.let {
+            val aiPercent = it.toInt()
+
+            binding.tvDetailAiWhetherPercent.text = getString(R.string.trust_percentage, aiPercent)
+            ViewUtil.setProgressDrawableByTarget(binding.pbDetailAi, aiPercent)
+            animateProgress(binding.pbDetailAi, aiPercent)
         }
 
         newsArticle.biasScore?.let {
             val biasPercent = it.toInt()
 
             binding.tvDetailBiasPercent.text = getString(R.string.trust_percentage, biasPercent)
+            ViewUtil.setProgressDrawableByTarget(binding.pbDetailBias, biasPercent)
             animateProgress(binding.pbDetailBias, biasPercent)
         }
     }
 
     private fun combineParagraphData(
-        paragraphs: List<String?>,
-        reliabilities: List<Double?>,
-        reasons: List<String?>
+        paragraphs: List<String?>?,
+        reliabilities: List<Double?>?,
+        reasons: List<String?>?
     ): List<NewsParagraphAnalysis> {
+        val safeParagraphs = paragraphs ?: emptyList()
+        val safeReliabilities = reliabilities ?: emptyList()
+        val safeReasons = reasons ?: emptyList()
+
+        val size = minOf(safeParagraphs.size, safeReliabilities.size, safeReasons.size)
+
         val combinedList = mutableListOf<NewsParagraphAnalysis>()
 
-        for (i in paragraphs.indices) {
-            val paragraph = paragraphs[i]
-            val reliability = reliabilities.getOrNull(i)
-            val reason = reasons.getOrNull(i) ?: "이유 정보 없음"
+        for (i in 0 until size) {
+            val paragraph = safeParagraphs.getOrNull(i)
+            val reliability = safeReliabilities.getOrNull(i)
+            val reason = safeReasons.getOrNull(i)
 
             val analysis = NewsParagraphAnalysis(
                 paragraph = paragraph,
@@ -102,6 +124,6 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
             combinedList.add(analysis)
         }
 
-        return combinedList.toList()
+        return combinedList
     }
 }

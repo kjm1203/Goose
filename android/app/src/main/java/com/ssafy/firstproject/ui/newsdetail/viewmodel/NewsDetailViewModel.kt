@@ -6,15 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.firstproject.base.ApplicationClass
-import com.ssafy.firstproject.data.model.response.NewsArticle
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import kotlinx.coroutines.launch
 
 private const val TAG = "NewsDetailViewModel"
 
 class NewsDetailViewModel : ViewModel() {
 
-    private val _newsArticle: MutableLiveData<NewsArticle> = MutableLiveData()
-    val newsArticle: LiveData<NewsArticle> get() = _newsArticle
+    private val _newsArticle: MutableLiveData<NewsAnalysisArticle> = MutableLiveData()
+    val newsArticle: LiveData<NewsAnalysisArticle> get() = _newsArticle
 
     fun getNewsArticle(newsId: String) {
         viewModelScope.launch {

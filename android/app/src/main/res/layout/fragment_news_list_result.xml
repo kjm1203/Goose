@@ -75,18 +75,38 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_analogy_subtitle"
         tools:listitem="@layout/item_news" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_news_list_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="tv_news_result_fragment_title,tv_news_result_subtitle,tv_analogy_title,tv_analogy_subtitle,rv_news_result" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lav_loading_animation"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading"
         app:layout_constraintDimensionRatio="1:0.5"
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading" />
+        app:layout_constraintBottom_toTopOf="@+id/tv_loading" />
+
+    <TextView
+        android:id="@+id/tv_loading"
+        style="@style/Widget.TextView.Loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/analysis_loading"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lav_loading_animation"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

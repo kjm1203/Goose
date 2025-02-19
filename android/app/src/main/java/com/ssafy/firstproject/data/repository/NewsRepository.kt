@@ -1,5 +1,6 @@
 package com.ssafy.firstproject.data.repository
 
+import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.data.model.response.NewsArticle
 import com.ssafy.firstproject.data.source.remote.RetrofitUtil
 import retrofit2.Response
@@ -16,7 +17,7 @@ class NewsRepository {
         return newsService.getSearchNewsList(keyword)
     }
 
-    suspend fun getNewsArticle(newsId: String): Response<NewsArticle> {
+    suspend fun getNewsArticle(newsId: String): Response<NewsAnalysisArticle> {
         return newsService.getNewsArticle(newsId)
     }
 }

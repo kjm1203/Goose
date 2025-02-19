@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_24dp">
 
     <TextView
         android:id="@+id/tv_news_item_content"
@@ -19,7 +20,7 @@
         style="@style/Widget.TextView.Rate.Item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_16dp"
+        android:layout_marginTop="@dimen/spacing_8dp"
         android:text="@string/truth"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_news_item_content" />
@@ -39,7 +40,7 @@
 
     <TextView
         android:id="@+id/tv_item_percent"
-        style="@style/Widget.TextView.Rate.Percent"
+        style="@style/Widget.TextView.Rate.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="100%"
@@ -52,14 +53,13 @@
         android:id="@+id/cl_paragraph_area"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/spacing_16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginVertical="@dimen/spacing_8dp"
         android:background="@drawable/bg_lavender_blue_8dp"
         android:padding="@dimen/spacing_12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pb_news_paragraph_truth"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_truth">
 
         <ImageView
             android:id="@+id/iv_item"
@@ -71,28 +71,29 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.1" />
 
-
         <TextView
             android:id="@+id/tv_result"
             style="@style/Widget.TextView.Body.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_8dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/iv_item"
             app:layout_constraintTop_toTopOf="@+id/iv_item"
             tools:text="타 뉴스기사 5건과 비교한 결과 위 문단은 100.00% 확률로 올바른 내용입니다." />
 
         <TextView
             android:id="@+id/tv_item_result_detail"
-            style="@style/Widget.TextView.Body.Regular"
+            style="@style/Widget.TextView.Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="18sp"
             android:layout_marginTop="@dimen/spacing_8dp"
+            android:textColor="@color/black"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

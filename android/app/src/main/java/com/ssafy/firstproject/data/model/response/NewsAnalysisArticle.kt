@@ -20,5 +20,11 @@ data class NewsAnalysisArticle(
     val pubDateTimestamp: Long? = 0,
     val reliability: Double? = 0.0,
     val title: String? = "",
-    val topImage: String? = ""
-) : Parcelable
+    val topImage: String? = "",
+    val aiRate: Double? = 0.0,
+    val evaluationMessage: String? = ""
+) : Parcelable {
+    override fun hashCode(): Int {
+        return id?.hashCode() ?: 0
+    }
+}

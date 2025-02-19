@@ -15,7 +15,7 @@
         <scale android:scaleWidth="100%">
             <shape>
                 <corners android:radius="8dp"/>
-                <solid android:color="@color/primary"/>
+                <solid android:color="@color/icterine"/>
             </shape>
         </scale>
     </item>
