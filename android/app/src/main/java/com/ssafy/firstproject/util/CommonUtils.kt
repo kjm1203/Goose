@@ -7,7 +7,7 @@ import java.util.TimeZone
 
 object CommonUtils {
     fun formatDateYYMMDD(millis: Long): String {
-        val sdf = SimpleDateFormat("yy-MM-dd", Locale.getDefault())
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         return sdf.format(Date(millis))
     }
 
