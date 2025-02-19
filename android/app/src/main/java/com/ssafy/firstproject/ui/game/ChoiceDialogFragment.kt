@@ -12,6 +12,7 @@ import com.ssafy.firstproject.R
 import com.ssafy.firstproject.data.model.request.UserChoiceRequest
 import com.ssafy.firstproject.databinding.DialogChoiceBinding
 import com.ssafy.firstproject.ui.game.viewmodel.ChoiceDialogViewModel
+import com.ssafy.firstproject.util.setOnSingleClickListener
 
 class ChoiceDialogFragment : BottomSheetDialogFragment() {
 
@@ -35,9 +36,9 @@ class ChoiceDialogFragment : BottomSheetDialogFragment() {
         observeSubmitGameResultSuccess()
 
         with(binding) {
-            btnFakeNews.setOnClickListener { submitGameResult(getString(R.string.fake_news)) }
-            btnExaggeratedNews.setOnClickListener { submitGameResult(getString(R.string.exaggerated_news)) }
-            btnClickbait.setOnClickListener { submitGameResult(getString(R.string.clickbait)) }
+            btnFakeNews.setOnSingleClickListener { submitGameResult(getString(R.string.fake_news)) }
+            btnExaggeratedNews.setOnSingleClickListener { submitGameResult(getString(R.string.exaggerated_news)) }
+            btnClickbait.setOnSingleClickListener { submitGameResult(getString(R.string.clickbait)) }
         }
     }
 
