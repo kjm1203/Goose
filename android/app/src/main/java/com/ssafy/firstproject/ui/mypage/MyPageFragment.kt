@@ -133,7 +133,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     }
 
 
-
     private fun handleLoginState(isLoggedIn: Boolean) {
         if (isLoggedIn) {
             // 로그인된 경우: 마이페이지 콘텐츠 표시
@@ -163,7 +162,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         binding.tvUserName.text = userName
 
         // TextView 업데이트 (문제 수와 맞춘 문제 수)
-        val fullText = getString(R.string.my_growth_text, userGrowth.totalQuestions, userGrowth.correctCount)
+        val fullText =
+            getString(R.string.my_growth_text, userGrowth.totalQuestions, userGrowth.correctCount)
         val totalQuestionsPart = "${userGrowth.totalQuestions}문제"
         val correctCountPart = "${userGrowth.correctCount}문제"
 
