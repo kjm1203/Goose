@@ -162,14 +162,14 @@
                     android:id="@+id/tv_growth_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/my_growth_text"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_growth_img"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_growth_img"
-                    app:layout_constraintTop_toTopOf="@id/iv_growth_img" />
+                    app:layout_constraintTop_toTopOf="@id/iv_growth_img"
+                    tools:text="총 500문제를 풀어서\n5문제를 맞췄어요!" />
 
                 <ProgressBar
                     android:id="@+id/pb_progress_bar"
