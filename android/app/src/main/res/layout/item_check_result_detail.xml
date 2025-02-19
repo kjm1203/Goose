@@ -71,16 +71,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.1" />
 
-
         <TextView
             android:id="@+id/tv_result"
             style="@style/Widget.TextView.Body.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_8dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/iv_item"
             app:layout_constraintTop_toTopOf="@+id/iv_item"
             tools:text="타 뉴스기사 5건과 비교한 결과 위 문단은 100.00% 확률로 올바른 내용입니다." />
