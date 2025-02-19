@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FirstProject</string>
+    <string name="app_name">Goose</string>
 
     <!-- BottomNavigationView -->
     <string name="home">홈</string>
