@@ -5,32 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/spacing_16dp"
-    android:padding="@dimen/spacing_6dp"
     android:background="@drawable/bg_white_8dp">
 
-    <ImageView
-        android:id="@+id/iv_news_img"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_item_news_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/bg_radius_20dp"
-        android:clipToOutline="true"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerInside"
-        tools:src="@tools:sample/avatars"
-        tools:targetApi="s" />
+        app:layout_constraintDimensionRatio="1:1">
+
+        <ImageView
+            android:id="@+id/iv_news_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/avatars"
+            tools:targetApi="s" />
+
+    </androidx.cardview.widget.CardView>
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_news_img"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:background="@drawable/bg_radius_20dp"-->
+<!--        android:clipToOutline="true"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintDimensionRatio="1:1"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        tools:src="@tools:sample/avatars"-->
+<!--        tools:targetApi="s" />-->
 
     <TextView
         android:id="@+id/tv_date"
         style="@style/Widget.TextView.Date.Item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_8dp"
+        android:layout_marginStart="@dimen/spacing_16dp"
         android:layout_marginTop="@dimen/spacing_12dp"
         app:layout_constraintBottom_toTopOf="@id/tv_title"
-        app:layout_constraintStart_toEndOf="@id/iv_news_img"
+        app:layout_constraintStart_toEndOf="@id/cv_item_news_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginTop="@dimen/spacing_12dp"
         tools:text="25-01-28" />
