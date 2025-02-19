@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -89,10 +90,17 @@ class NewsDetailFragment : BaseFragment<FragmentNewsDetailBinding>(
         entries.add(PieEntry(100f - reliability, getString(R.string.not_trust_percent)))
 
         // 색상 세팅
-        val colorsArray = listOf(
-            Color.parseColor("#50A56F"),
-            Color.parseColor("#D2D1D4")
-        )
+        val colorsArray = mutableListOf<Int>()
+
+        if (reliability < 33) {
+            colorsArray.add(ContextCompat.getColor(requireContext(), R.color.coralReef))
+        } else if (reliability < 66) {
+            colorsArray.add(ContextCompat.getColor(requireContext(), R.color.icterine))
+        } else {
+            colorsArray.add(ContextCompat.getColor(requireContext(), R.color.eucalyptus))
+        }
+
+        colorsArray.add(Color.parseColor("#D2D1D4"))
 
         val pieDataSet = PieDataSet(entries, "")
         pieDataSet.apply {
