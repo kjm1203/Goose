@@ -179,5 +179,7 @@
     <string name="user_new_password">새 비밀번호</string>
     <string name="user_new_nickname">새 닉네임</string>
     <string name="user_do_edit">변경하기</string>
+    <string name="profile_edit_success_message">프로필 수정에 성공하였습니다.😊</string>
+    <string name="profile_edit_fail_message">프로필 수정에 실패하였습니다. 다시 시도해주세요.😅</string>
 
 </resources>
