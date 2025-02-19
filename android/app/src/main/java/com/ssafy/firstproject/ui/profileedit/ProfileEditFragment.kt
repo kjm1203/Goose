@@ -1,14 +1,17 @@
 package com.ssafy.firstproject.ui.profileedit
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import androidx.navigation.fragment.findNavController
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.textfield.TextInputEditText
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentProfileEditBinding
+import com.ssafy.firstproject.ui.profileedit.viewmodel.ProfileEditViewModel
+import com.ssafy.firstproject.util.setOnSingleClickListener
 
 
 private const val TAG = "MyPageEditFragment"
@@ -17,9 +20,13 @@ class ProfileEditFragment : BaseFragment<FragmentProfileEditBinding>(
     FragmentProfileEditBinding::bind,
     R.layout.fragment_profile_edit
 ) {
+
+    private val viewModel: ProfileEditViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeValidation()
         initEvent()
     }
 
@@ -29,66 +36,105 @@ class ProfileEditFragment : BaseFragment<FragmentProfileEditBinding>(
         }
 
         binding.tieEditPwInput.addTextChangedListener {
-            validateInput(binding.tieEditPwInput, binding.tvEditPwMetaInfo)
+            viewModel.checkPasswordValidation(binding.tieEditPwInput.text.toString())
         }
 
         binding.tieEditPwCheckInput.addTextChangedListener {
-            validatePassword(
-                passwordEditText = binding.tieEditPwInput,
-                confirmPasswordEditText = binding.tieEditPwCheckInput,
-                metaTextView = binding.tvEditPwMetaInfo
+            viewModel.checkPasswordMatch(
+                binding.tieEditPwInput.text.toString(),
+                binding.tieEditPwCheckInput.text.toString()
             )
         }
 
         binding.tieEditNicknameInput.addTextChangedListener {
-            validateInput(binding.tieEditNicknameInput, binding.tvEditNicknameMetaInfo)
+            viewModel.setNicknameDuplicateFalse()
+            viewModel.checkNickNameValidation(binding.tieEditNicknameInput.text.toString())
+        }
+
+        binding.btnEditCheckNickname.setOnSingleClickListener {
+            viewModel.checkNicknameDuplicate(binding.tieEditNicknameInput.text.toString())
         }
     }
 
-    private fun validateInput(editText: TextInputEditText, textView: TextView) {
-        val text = editText.text.toString().trim()
-        val pattern = "^[a-z0-9]{4,12}$".toRegex()
-
-        when {
-            text.isEmpty() -> {
-                textView.visibility = View.INVISIBLE
+    private fun observeValidation() {
+        viewModel.isPasswordValid.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.tvEditPwMetaInfo.visibility = View.GONE
+                viewModel.checkPasswordMatch(
+                    binding.tieEditPwInput.text.toString(),
+                    binding.tieEditPwCheckInput.text.toString()
+                )
+            } else {
+                binding.tvEditPwMetaInfo.visibility = View.VISIBLE
+                binding.tvEditPwMetaInfo.text = getString(R.string.user_limit_message)
+                binding.tvEditPwMetaInfo.setTextColor(
+                    getColor(
+                        requireContext(),
+                        R.color.maximumRed
+                    )
+                )
             }
-
-            !pattern.matches(text) -> {
-                textView.visibility = View.VISIBLE
-                textView.text = getString(R.string.user_limit_message)
-            }
-
-            else -> {
-                textView.visibility = View.INVISIBLE
-            }
+            viewModel.checkAllValidation()
         }
-    }
 
+        viewModel.isPasswordMatch.observe(viewLifecycleOwner) {
+            if (it) {
+                if (viewModel.isPasswordValid.value == true) {
+                    binding.tvEditPwMetaInfo.visibility = View.VISIBLE
+                    binding.tvEditPwMetaInfo.text = getString(R.string.user_password_message)
+                    binding.tvEditPwMetaInfo.setTextColor(Color.BLUE)
+                }
+            } else {
+                binding.tvEditPwMetaInfo.visibility = View.VISIBLE
+                binding.tvEditPwMetaInfo.text = getString(R.string.user_not_correct_message)
+                binding.tvEditPwMetaInfo.setTextColor(
+                    getColor(
+                        requireContext(),
+                        R.color.maximumRed
+                    )
+                )
+            }
+            viewModel.checkAllValidation()
+        }
 
-    private fun validatePassword(
-        passwordEditText: TextInputEditText,
-        confirmPasswordEditText: TextInputEditText,
-        metaTextView: TextView
-    ) {
-        val password = passwordEditText.text.toString().trim()
-        val confirmPassword = confirmPasswordEditText.text.toString().trim()
-
-        when {
-            password.isEmpty() || confirmPassword.isEmpty() -> {
-                metaTextView.visibility = View.INVISIBLE
+        viewModel.isNicknameValid.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.tvEditNicknameMetaInfo.visibility = View.GONE
+            } else {
+                binding.tvEditNicknameMetaInfo.visibility = View.VISIBLE
+                binding.tvEditNicknameMetaInfo.text = getString(R.string.nickname_limit_message)
+                binding.tvEditNicknameMetaInfo.setTextColor(
+                    getColor(
+                        requireContext(),
+                        R.color.maximumRed
+                    )
+                )
             }
 
-            password != confirmPassword -> {
-                metaTextView.visibility = View.VISIBLE
-                metaTextView.text =
-                    getString(R.string.user_not_correct_message)
+            binding.btnEditCheckNickname.isEnabled = it
+            viewModel.checkAllValidation()
+        }
 
+        viewModel.isNicknameDuplicate.observe(viewLifecycleOwner) {
+            if (it.available) {
+                binding.tvEditNicknameMetaInfo.visibility = View.VISIBLE
+                binding.tvEditNicknameMetaInfo.text = it.message
+                binding.tvEditNicknameMetaInfo.setTextColor(Color.BLUE)
+            } else {
+                binding.tvEditNicknameMetaInfo.visibility = View.VISIBLE
+                binding.tvEditNicknameMetaInfo.text = it.message
+                binding.tvEditNicknameMetaInfo.setTextColor(
+                    getColor(
+                        requireContext(),
+                        R.color.maximumRed
+                    )
+                )
             }
+            viewModel.checkAllValidation()
+        }
 
-            else -> {
-                metaTextView.visibility = View.INVISIBLE
-            }
+        viewModel.isAllValid.observe(viewLifecycleOwner) {
+            binding.btnEdit.isEnabled = it
         }
     }
 }
