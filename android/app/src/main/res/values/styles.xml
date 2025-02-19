@@ -91,9 +91,13 @@
     </style>
 
     <style name="Widget.TextView.Date">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/sonicSilver</item>
         <item name="android:fontFamily">@font/spoqahansansneo_medium</item>
+    </style>
+
+    <style name="Widget.TextView.Date.Item">
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Widget.TextView.Body">
