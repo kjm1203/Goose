@@ -47,6 +47,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
         observeValidation()
 
         binding.tieSignupIdInput.addTextChangedListener {
+            viewModel.setIdDuplicateFalse()
             viewModel.checkIdValidation(it.toString())
         }
 
@@ -62,6 +63,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
         }
 
         binding.tieSignupNicknameInput.addTextChangedListener {
+            viewModel.setNicknameDuplicateFalse()
             viewModel.checkNickNameValidation(it.toString())
         }
 
@@ -130,6 +132,12 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(
             } else {
                 binding.tvNicknameMetaInfo.visibility = View.VISIBLE
                 binding.tvNicknameMetaInfo.text = getString(R.string.nickname_limit_message)
+                binding.tvNicknameMetaInfo.setTextColor(
+                    getColor(
+                        requireContext(),
+                        R.color.maximumRed
+                    )
+                )
             }
 
             binding.btnCheckNickname.isEnabled = it

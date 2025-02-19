@@ -42,6 +42,10 @@ class SignupViewModel : ViewModel() {
         _isIdValid.value = id.matches("^[a-z0-9]{4,12}$".toRegex())
     }
 
+    fun setIdDuplicateFalse() {
+        _isIdDuplicate.value = DuplicateCheckResponse(available = false, "")
+    }
+
     fun checkPasswordValidation(password: String) {
         _isPasswordValid.value = password.matches("^[a-z0-9]{4,12}$".toRegex())
     }
@@ -52,6 +56,10 @@ class SignupViewModel : ViewModel() {
 
     fun checkNickNameValidation(nickname: String) {
         _isNicknameValid.value = nickname.matches("^[가-힣a-zA-Z0-9]{2,12}$".toRegex())
+    }
+
+    fun setNicknameDuplicateFalse() {
+        _isNicknameDuplicate.value = DuplicateCheckResponse(available = false, "")
     }
 
     fun checkAllValidation() {
