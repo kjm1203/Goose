@@ -15,4 +15,7 @@
     <color name="shadowGray">#1F000000</color>
     <color name="maximumRed">#db2323</color>
     <color name="cornflowerBlue17">#2B7189FF</color>
+    <color name="coralReef">#ff7f69</color>
+    <color name="icterine">#fff266</color>
+    <color name="eucalyptus">#2adba4</color>
 </resources>
