@@ -18,7 +18,9 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.ssafy.firstproject.base.ApplicationClass.Companion.sharedPreferencesUtil
+import com.ssafy.firstproject.data.model.response.GameRecord
 import com.ssafy.firstproject.data.model.response.UserGrowth
 import com.ssafy.firstproject.data.source.remote.RetrofitUtil
 import kotlinx.coroutines.Dispatchers
@@ -37,11 +39,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
             findNavController().navigate(R.id.dest_record)
         }
 
-        // 로그인 여부 확인 (false:비로그인)
         val isLogin = sharedPreferencesUtil.checkLogin()
         handleLoginState(isLogin)
 
-        // 기존 클릭 리스너 유지
         binding.tvProfileEdit.setOnClickListener {
             findNavController().navigate(R.id.dest_profile_edit)
         }
@@ -50,48 +50,88 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
             findNavController().navigate(R.id.dest_logout_dialog)
         }
 
-        setBarChart()
         fetchUserGrowthData()
     }
 
-    private fun setBarChart() {
+    private fun setBarChart(gameRecords: List<GameRecord>) {
         val barChart = binding.barChart
 
-        // 1️⃣ BarEntry 데이터 생성 (X축과 Y축 값)
-        val entries = listOf(
-            BarEntry(1f, 200f),
-            BarEntry(2f, 300f),
-            BarEntry(3f, 350f),
-            BarEntry(4f, 250f),
-            BarEntry(5f, 180f),
-            BarEntry(6f, 100f)
-        )
-
-        // 2️⃣ 데이터셋 생성 및 스타일 지정
-        val dataSet = BarDataSet(entries, "월 별").apply {
-            color = Color.parseColor("#7189FF")
-            valueTextSize = 12f
+        // 데이터가 없는 경우 처리
+        if (gameRecords.isEmpty()) {
+            barChart.clear()
+            barChart.setNoDataText("데이터가 없습니다.")
+            return
         }
 
-        // 3️⃣ BarData 객체 생성 및 차트에 설정
-        val barData = BarData(dataSet)
+        // 1️⃣ 포함된 월 리스트 가져오기
+        val months = gameRecords.map { it.month }.sorted()
+
+        // 2️⃣ 시작 월 설정
+        val startMonth = when {
+            8 in months -> 8 // 8월이 포함되어 있으면 8부터 시작
+            months.any { it in 9..12 } -> 9 // 9~12월이 포함되어 있으면 9부터 시작
+            else -> months.first() // 그 외는 가장 작은 월부터 시작
+        }
+
+        // 3️⃣ 연속적인 월 순서로 정렬
+        val sortedRecords = gameRecords.sortedBy { (it.month - startMonth + 12) % 12 }
+
+        // 4️⃣ X축 라벨 생성
+        val monthLabels = sortedRecords.map { "${it.month}월" }
+
+        // 5️⃣ 차트 데이터 매핑
+        val entries = sortedRecords.mapIndexed { index, record ->
+            BarEntry(index.toFloat(), record.correctRate.toFloat()) // X축: 0부터 시작
+        }
+
+        // 6️⃣ 데이터셋 스타일 설정
+        val dataSet = BarDataSet(entries, "월별 정답률").apply {
+            color = Color.parseColor("#7189FF")
+            valueTextSize = 12f
+            valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return "${value.toInt()}%" // 정수 값으로 표시
+                }
+            }
+        }
+
+        // 7️⃣ BarData 설정
+        val barData = BarData(dataSet).apply {
+            barWidth = 0.5f // 막대 너비 조정
+        }
         barChart.data = barData
 
-        // 4️⃣ X축 설정 (하단 표시)
+        // 8️⃣ X축 설정
         barChart.xAxis.apply {
             position = XAxis.XAxisPosition.BOTTOM
             setDrawGridLines(false)
             granularity = 1f
+            labelCount = monthLabels.size
+            valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    val index = value.toInt()
+                    return if (index in monthLabels.indices) monthLabels[index] else ""
+                }
+            }
         }
 
-        // 5️⃣ 기타 차트 속성 설정
+        // 9️⃣ Y축 설정
+        barChart.axisLeft.apply {
+            axisMinimum = 0f
+            axisMaximum = 100f
+            granularity = 10f
+        }
+        barChart.axisRight.isEnabled = false
+
+        // 🔟 기타 차트 속성
         barChart.apply {
             description.isEnabled = false
-            animateY(300)
-            setTouchEnabled(false)
+            animateY(1000)
+            setTouchEnabled(true)
             invalidate()
         }
     }
+
 
     private fun handleLoginState(isLoggedIn: Boolean) {
         if (isLoggedIn) {
@@ -115,29 +155,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         }
     }
 
-    private fun fetchUserGrowthData() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val response = RetrofitUtil.userGrowthService.getUserGrowth()
 
-                if (response.isSuccessful) {
-                    val userGrowth = response.body()
-
-                    if (userGrowth != null) {
-                        withContext(Dispatchers.Main) {
-                            updateUI(userGrowth)
-                        }
-                    } else {
-                        Log.e(TAG, "User growth data is null")
-                    }
-                } else {
-                    Log.e(TAG, "API Error: ${response.code()} - ${response.message()}")
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error fetching user growth data", e)
-            }
-        }
-    }
 
     private fun updateUI(userGrowth: UserGrowth) {
 
@@ -186,5 +204,34 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
 
         // 퍼센트 텍스트 업데이트
         binding.tvProgressPercentage.text = "${userGrowth.correctRate.toInt()}%"
+    }
+
+    private fun fetchUserGrowthData() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val response = RetrofitUtil.userGrowthService.getUserGrowth()
+
+                if (response.isSuccessful) {
+                    val userGrowth = response.body()
+                    Log.d(TAG, "API Response: $userGrowth")
+
+                    if (userGrowth != null) {
+                        withContext(Dispatchers.Main) {
+                            updateUI(userGrowth)
+                            setBarChart(userGrowth.gameRecords) // BarChart 업데이트
+                        }
+                    } else {
+                        Log.e(TAG, "User growth data is null")
+                        withContext(Dispatchers.Main) {
+                            binding.barChart.setNoDataText("데이터가 없습니다.")
+                        }
+                    }
+                } else {
+                    Log.e(TAG, "API Error: ${response.code()} - ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error fetching user growth data", e)
+            }
+        }
     }
 }
