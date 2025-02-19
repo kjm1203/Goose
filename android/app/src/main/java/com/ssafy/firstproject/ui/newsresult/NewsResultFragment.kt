@@ -10,6 +10,7 @@ import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -81,7 +82,7 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
             val fullText = getString(R.string.article_trust_score, trustScore)
 
             // 신뢰도 텍스트 색상 적용
-            setTextWithColoredSubString(binding.tvBubbleTruth, fullText, trustScore, Color.RED)
+            setTextWithColoredSubString(binding.tvBubbleTruth, fullText, trustScore, it.toInt())
 
             // 신뢰도 퍼센트 표시
             binding.tvPercentTruth.text = trustScore
@@ -113,7 +114,12 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
         }
     }
 
-    private fun setTextWithColoredSubString(textView: TextView, fullText: String, targetSubstring: String, color: Int) {
+    private fun setTextWithColoredSubString(
+        textView: TextView,
+        fullText: String,
+        targetSubstring: String,
+        score: Int
+    ) {
         val spannable = SpannableStringBuilder(fullText)
 
         // targetSubstring 부분의 시작 인덱스 찾기
@@ -121,7 +127,20 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
         val endIndex = startIndex + targetSubstring.length
 
         // 특정 부분만 색상 변경
-        spannable.setSpan(ForegroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        if (score < 33) {
+            val color = ContextCompat.getColor(requireContext(), R.color.coralReef)
+
+            spannable.setSpan(ForegroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } else if (score < 66) {
+            val color = ContextCompat.getColor(requireContext(), R.color.icterine)
+
+            spannable.setSpan(ForegroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } else {
+            val color = ContextCompat.getColor(requireContext(), R.color.eucalyptus)
+
+            spannable.setSpan(ForegroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
         spannable.setSpan(StyleSpan(Typeface.BOLD), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         // TextView에 적용
