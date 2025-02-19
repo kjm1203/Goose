@@ -12,7 +12,6 @@ import com.ssafy.firstproject.util.TextUtil
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 import com.ssafy.firstproject.util.ViewAnimationUtil.rotateImage
 import com.ssafy.firstproject.util.ViewUtil
-import org.w3c.dom.Text
 
 class CheckResultDetailAdapter :
     ListAdapter<NewsParagraphAnalysis, CheckResultDetailAdapter.CheckResultDetailViewHolder>(
@@ -25,6 +24,7 @@ class CheckResultDetailAdapter :
 
         fun bind(newsParagraphAnalysis: NewsParagraphAnalysis) {
             binding.tvNewsItemContent.text = TextUtil.replaceSpacesWithNbsp(newsParagraphAnalysis.paragraph.toString())
+            binding.tvResult.text = TextUtil.replaceSpacesWithNbsp(binding.root.context.getString(R.string.similar_news_content_expand))
 
             newsParagraphAnalysis.paragraphReliability?.let {
                 val percent = (it * 100).toInt()
@@ -32,11 +32,10 @@ class CheckResultDetailAdapter :
                 binding.tvItemPercent.text = binding.root.context.getString(R.string.trust_percentage, percent)
 
                 ViewUtil.setProgressDrawableByTarget(binding.pbNewsParagraphTruth, percent)
+                ViewUtil.setConstraintLayoutBackgroundByTarget(binding.clParagraphArea, percent)
 
                 animateProgress(binding.pbNewsParagraphTruth, percent)
             }
-
-            binding.tvResult.text = TextUtil.replaceSpacesWithNbsp("유사한 뉴스 기사 내용 보기")
 
             binding.tvItemResultDetail.text = TextUtil.replaceSpacesWithNbsp(
                 newsParagraphAnalysis.paragraphReason.toString()
@@ -47,7 +46,17 @@ class CheckResultDetailAdapter :
                 rotateImage(binding.ivItem, currentRotation)
 
                 binding.tvItemResultDetail.apply {
-                    visibility = if (visibility == View.VISIBLE) View.GONE else View.VISIBLE
+                    visibility = if (visibility == View.VISIBLE) {View.GONE} else View.VISIBLE
+                }
+
+                if (binding.tvItemResultDetail.visibility == View.VISIBLE) {
+                    binding.tvResult.text = TextUtil.replaceSpacesWithNbsp(
+                        binding.root.context.getString(R.string.similar_news_content_collapse)
+                    )
+                } else {
+                    binding.tvResult.text = TextUtil.replaceSpacesWithNbsp(
+                        binding.root.context.getString(R.string.similar_news_content_expand)
+                    )
                 }
             }
         }
