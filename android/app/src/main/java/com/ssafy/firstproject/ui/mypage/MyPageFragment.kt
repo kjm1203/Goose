@@ -127,10 +127,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         barChart.apply {
             description.isEnabled = false
             animateY(1000)
-            setTouchEnabled(true)
+            setTouchEnabled(false)
             invalidate()
         }
     }
+
 
 
     private fun handleLoginState(isLoggedIn: Boolean) {
@@ -156,22 +157,20 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     }
 
 
-
     private fun updateUI(userGrowth: UserGrowth) {
 
         val userName = getString(R.string.user_name, userGrowth.nickname)
         binding.tvUserName.text = userName
 
         // TextView 업데이트 (문제 수와 맞춘 문제 수)
-        val fullText =
-            getString(R.string.my_growth_text, userGrowth.totalQuestions, userGrowth.correctCount)
+        val fullText = getString(R.string.my_growth_text, userGrowth.totalQuestions, userGrowth.correctCount)
         val totalQuestionsPart = "${userGrowth.totalQuestions}문제"
         val correctCountPart = "${userGrowth.correctCount}문제"
 
-        // SpannableStringBuilder로 특정 부분 굵게 설정
+// SpannableStringBuilder로 특정 부분 굵게 설정
         val spannable = SpannableStringBuilder(fullText)
 
-        // %1$d문제 부분 굵게 설정
+// 문제 수 부분 굵게 설정
         val totalStartIndex = fullText.indexOf(totalQuestionsPart)
         if (totalStartIndex != -1) {
             spannable.setSpan(
@@ -182,7 +181,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
             )
         }
 
-        // %2$d문제 부분 굵게 설정
+// 맞춘 문제 수 부분 굵게 설정
         val correctStartIndex = fullText.indexOf(correctCountPart)
         if (correctStartIndex != -1) {
             spannable.setSpan(
@@ -191,6 +190,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
                 correctStartIndex + correctCountPart.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
+        } else {
+            Log.d(TAG, "Correct count part not found: $correctCountPart") // 로그로 확인
         }
 
         binding.tvGrowthText.text = spannable
@@ -209,9 +210,21 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     private fun fetchUserGrowthData() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
+                // API 호출
                 val response = RetrofitUtil.userGrowthService.getUserGrowth()
 
+                // 서버 응답이 성공적인 경우
                 if (response.isSuccessful) {
+                    // 응답 본문이 없으면 204 No Content 상태 코드가 반환됩니다.
+                    if (response.code() == 204) {
+                        Log.e(TAG, "No content in the response")
+                        withContext(Dispatchers.Main) {
+                            binding.barChart.setNoDataText("데이터가 없습니다.")
+                        }
+                        return@launch
+                    }
+
+                    // 응답 본문이 있을 경우 처리
                     val userGrowth = response.body()
                     Log.d(TAG, "API Response: $userGrowth")
 
@@ -227,10 +240,18 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
                         }
                     }
                 } else {
+                    // 응답이 실패한 경우, 상태 코드와 메시지를 로그로 출력
                     Log.e(TAG, "API Error: ${response.code()} - ${response.message()}")
+                    withContext(Dispatchers.Main) {
+                        binding.barChart.setNoDataText("API 오류가 발생했습니다.")
+                    }
                 }
             } catch (e: Exception) {
+                // 예외 발생 시 로그 출력
                 Log.e(TAG, "Error fetching user growth data", e)
+                withContext(Dispatchers.Main) {
+                    binding.barChart.setNoDataText("네트워크 오류가 발생했습니다.")
+                }
             }
         }
     }
