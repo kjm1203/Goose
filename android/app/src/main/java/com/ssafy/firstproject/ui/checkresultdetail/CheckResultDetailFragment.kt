@@ -13,6 +13,7 @@ import com.ssafy.firstproject.data.model.NewsParagraphAnalysis
 import com.ssafy.firstproject.data.model.response.NewsAnalysisArticle
 import com.ssafy.firstproject.databinding.FragmentCheckResultDetailBinding
 import com.ssafy.firstproject.ui.checkresultdetail.adapter.CheckResultDetailAdapter
+import com.ssafy.firstproject.util.CommonUtils
 import com.ssafy.firstproject.util.ViewAnimationUtil.animateProgress
 
 private const val TAG = "CheckResultDetailFragment_ssafy"
@@ -64,7 +65,10 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
             .into(binding.ivResultImage)
 
         binding.tvNewsTitle.text = newsArticle.title
-        binding.tvNewsDate.text = newsArticle.pubDate
+
+        newsArticle.pubDate?.let {
+            binding.tvNewsDate.text = CommonUtils.convertPubDateToFormattedDate(it)
+        }
 
         newsArticle.reliability?.let {
             val truthPercent = it.toInt()
@@ -89,16 +93,22 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
     }
 
     private fun combineParagraphData(
-        paragraphs: List<String?>,
-        reliabilities: List<Double?>,
-        reasons: List<String?>
+        paragraphs: List<String?>?,
+        reliabilities: List<Double?>?,
+        reasons: List<String?>?
     ): List<NewsParagraphAnalysis> {
+        val safeParagraphs = paragraphs ?: emptyList()  // 🔥 null이면 빈 리스트로 변경
+        val safeReliabilities = reliabilities ?: emptyList()
+        val safeReasons = reasons ?: emptyList()
+
+        val size = minOf(safeParagraphs.size, safeReliabilities.size, safeReasons.size) // 🔥 세 리스트 중 최소 크기 기준
+
         val combinedList = mutableListOf<NewsParagraphAnalysis>()
 
-        for (i in paragraphs.indices) {
-            val paragraph = paragraphs[i]
-            val reliability = reliabilities.getOrNull(i)
-            val reason = reasons.getOrNull(i) ?: "이유 정보 없음"
+        for (i in 0 until size) {
+            val paragraph = safeParagraphs.getOrNull(i) // 🔥 getOrNull() 사용하여 IndexOutOfBounds 방지
+            val reliability = safeReliabilities.getOrNull(i)
+            val reason = safeReasons.getOrNull(i)
 
             val analysis = NewsParagraphAnalysis(
                 paragraph = paragraph,
@@ -109,6 +119,6 @@ class CheckResultDetailFragment : BaseFragment<FragmentCheckResultDetailBinding>
             combinedList.add(analysis)
         }
 
-        return combinedList.toList()
+        return combinedList
     }
 }
