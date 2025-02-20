@@ -30,7 +30,7 @@ class ApplicationClass : Application() {
         lateinit var retrofit: Retrofit
         lateinit var spellCheckRetrofit: Retrofit
 
-        private val nullOnEmptyConverterFactory = object : Converter.Factory() {
+        val nullOnEmptyConverterFactory = object : Converter.Factory() {
             fun converterFactory() = this
             override fun responseBodyConverter(
                 type: Type,
@@ -53,6 +53,11 @@ class ApplicationClass : Application() {
                 }
             }
         }
+
+        //GSon은 엄격한 json type을 요구하는데, 느슨하게 하기 위한 설정. success, fail이 json이 아니라 단순 문자열로 리턴될 경우 처리..
+        val gson: Gson = GsonBuilder()
+            .setLenient()
+            .create()
 
         // repository 객체
         lateinit var userRepository: UserRepository
@@ -103,9 +108,4 @@ class ApplicationClass : Application() {
         spellCheckRepository = SpellCheckRepository()
         gameRepository = GameRepository()
     }
-
-    //GSon은 엄격한 json type을 요구하는데, 느슨하게 하기 위한 설정. success, fail이 json이 아니라 단순 문자열로 리턴될 경우 처리..
-    val gson: Gson = GsonBuilder()
-        .setLenient()
-        .create()
 }
