@@ -2,7 +2,6 @@ package com.ssafy.firstproject.ui.search
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ssafy.firstproject.R
@@ -10,6 +9,7 @@ import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentSearchBinding
 import com.ssafy.firstproject.ui.home.adapter.NewsAdapter
 import com.ssafy.firstproject.ui.search.viewmodel.SearchViewModel
+import com.ssafy.firstproject.util.setOnSingleClickListener
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(
     FragmentSearchBinding::bind,
@@ -29,9 +29,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(
         initAdapter()
         observeNewsList()
 
-        binding.etSearch.addTextChangedListener { keyword ->
+        binding.ivSearch.setOnSingleClickListener {
+            val keyword = binding.etSearch.text.toString()
             if (!keyword.isNullOrEmpty()) {
-                viewModel.getSearchNewsList(keyword.toString())
+                viewModel.getSearchNewsList(keyword)
             } else {
                 adapter.submitList(emptyList())
                 setVisibility(true)
