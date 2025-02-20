@@ -154,6 +154,7 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
             binding.groupNewsResult.visibility = View.VISIBLE
             binding.tvLoading.visibility = View.GONE
             binding.lavLoadingAnimation.visibility = View.GONE
+            binding.lavLoadingAnimation.pauseAnimation()
         }
     }
 }
