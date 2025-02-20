@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.ssafy.firstproject.R
 import com.ssafy.firstproject.base.BaseFragment
 import com.ssafy.firstproject.databinding.FragmentGameBinding
@@ -63,7 +64,11 @@ class GameFragment : BaseFragment<FragmentGameBinding>(
 
     private fun observeFakeNews() {
         viewModel.fakeNews.observe(viewLifecycleOwner) {
+            Glide.with(binding.root)
+                .load(it.imageUrl)
+                .into(binding.iv)
             binding.tvTitle.text = it.title
+            binding.tvDate.text = it.newsDate
             binding.tvBody.text = it.content
         }
     }
