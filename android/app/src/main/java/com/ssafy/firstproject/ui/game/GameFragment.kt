@@ -66,6 +66,9 @@ class GameFragment : BaseFragment<FragmentGameBinding>(
         viewModel.fakeNews.observe(viewLifecycleOwner) {
             Glide.with(binding.root)
                 .load(it.imageUrl)
+                .thumbnail(
+                    Glide.with(this).load(R.drawable.ic_loading)
+                )
                 .into(binding.iv)
             binding.tvTitle.text = it.title
             binding.tvDate.text = it.newsDate
