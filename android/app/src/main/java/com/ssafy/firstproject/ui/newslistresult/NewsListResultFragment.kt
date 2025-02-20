@@ -44,7 +44,9 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
         initAdapter()
         observeNewsArticle()
 
-        viewModel.getNewsArticle(KeywordSearch(text = newsText))
+        if (viewModel.newsAnalysisArticles.value == null) {
+            viewModel.getNewsArticle(KeywordSearch(text = newsText))
+        }
     }
 
     private fun initAdapter() {
