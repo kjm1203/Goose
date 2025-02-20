@@ -71,7 +71,9 @@ class GameResultDetailFragment : BaseFragment<FragmentGameResultDetailBinding>(
         // 데이터 세팅
         val entries = ArrayList<PieEntry>()
         selections.entries.forEach {
-            entries.add(PieEntry(it.value.toFloat(), it.key))
+            if (it.value != 0.0) {
+                entries.add(PieEntry(it.value.toFloat(), it.key))
+            }
         }
 
         // 색상 세팅
