@@ -16,7 +16,7 @@ class GameStartFragment : BaseFragment<FragmentGameStartBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         binding.btn.setOnClickListener {
-            findNavController().navigate(R.id.dest_game)
+            findNavController().navigate(R.id.action_dest_game_start_to_dest_game)
         }
     }
 }
