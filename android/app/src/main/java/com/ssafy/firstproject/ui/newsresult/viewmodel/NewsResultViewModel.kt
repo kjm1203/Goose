@@ -27,9 +27,7 @@ class NewsResultViewModel : ViewModel() {
                     ApplicationClass.contentSearchRepository.searchByUrl(url, readTimeout)
                 }.onSuccess { response ->
                     if (response.isSuccessful) {
-                        response.body()?.let {
-                            _newsAnalysisResult.value = it
-                        }
+                        _newsAnalysisResult.value = response.body()
                         Log.d(TAG, "searchByUrl: ${response.body()}")
                     } else {
                         Log.d(TAG, "searchByUrl fail: ${response.code()}")

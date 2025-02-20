@@ -148,12 +148,16 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
 
     private fun observeSearchNews() {
         viewModel.newsAnalysisResult.observe(viewLifecycleOwner) {
-            updateNewsArticleUI(it)
+            if (it != null) {
+                updateNewsArticleUI(it)
 
-            binding.groupNewsResult.visibility = View.VISIBLE
-            binding.tvLoading.visibility = View.GONE
-            binding.lavLoadingAnimation.visibility = View.GONE
-            binding.lavLoadingAnimation.pauseAnimation()
+                binding.groupNewsResult.visibility = View.VISIBLE
+                binding.groupLoading.visibility = View.GONE
+                binding.lavLoadingAnimation.pauseAnimation()
+            } else {
+                binding.groupNull.visibility = View.VISIBLE
+                binding.groupLoading.visibility = View.GONE
+            }
         }
     }
 }
