@@ -20,7 +20,16 @@
         android:id="@+id/dest_game_start"
         android:name="com.ssafy.firstproject.ui.gamestart.GameStartFragment"
         android:label="GameStartFragment"
-        tools:layout="@layout/fragment_game_start" />
+        tools:layout="@layout/fragment_game_start">
+
+        <action
+            android:id="@+id/action_dest_game_start_to_dest_game"
+            app:destination="@id/dest_game"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/dest_check"
@@ -34,10 +43,18 @@
             app:argType="string" />
         <action
             android:id="@+id/action_dest_check_to_dest_news_list_result"
-            app:destination="@id/dest_news_list_result" />
+            app:destination="@id/dest_news_list_result"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_dest_check_to_dest_news_result"
-            app:destination="@id/dest_news_result" />
+            app:destination="@id/dest_news_result"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -166,7 +183,7 @@
         android:id="@+id/dest_record"
         android:name="com.ssafy.firstproject.ui.record.RecordFragment"
         android:label="RecordFragment"
-        tools:layout="@layout/fragment_record" >
+        tools:layout="@layout/fragment_record">
         <action
             android:id="@+id/action_dest_record_to_dest_check_result_detail"
             app:destination="@id/dest_check_result_detail" />
