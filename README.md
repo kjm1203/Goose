@@ -86,12 +86,12 @@ AI 모델을 활용하여 가짜 뉴스 문장을 학습하고,
 
  ## 📌 주요 기능
 
-### 1️⃣ <b>메인 페이지</b>
-> 메인 페이지
+### 1️⃣ <b>로그인 페이지</b>
+> 로그인 페이지
 
-|                     **Login Page**                      |                        **Main Page**                        |                       **Main Page**                        |
+|                     **Splash Page**                      |                        **Login Page**                        |                       **Search Page**                        |
 | :-----------------------------------------------------: | :---------------------------------------------------------: | :--------------------------------------------------------: |
-| <img src="./resources/gif/main_login.gif" height="400"> | <img src="./resources/gif/main_bestalbum.gif" height="400"> | <img src="./resources/gif/main_tagalbum.gif" height="400"> |
+| <img src="./assets/gif/splash.gif" height="400"> | <img src="./assets/gif/login.gif" height="400"> | <img src="./assets/gif/search.gif" height="400"> |
 
 <br>
 
@@ -99,9 +99,9 @@ AI 모델을 활용하여 가짜 뉴스 문장을 학습하고,
 
 > 검색 페이지
 
-|                      **Melting Page**                      |                      **AI Cover Page**                      |
-| :--------------------------------------------------------: | :---------------------------------------------------------: |
-| <img src="./resources/gif/music_melting.gif" height="400"> | <img src="./resources/gif/music_ai_cover.gif" height="400"> |
+|                      **Check Page**                      |                      **Check Page**                      |                       **Check Page**                      |
+| :--------------------------------------------------------: | :---------------------------------------------------------: | :---------------------------------------------------------: |
+| <img src="./assets/gif/live_camera.gif" height="400"> | <img src="./assets/gif/url_analy.gif" height="400"> | <img src="./assets/gif/image_analy.gif" height="400"> |
 
 <br>
 
@@ -109,9 +109,9 @@ AI 모델을 활용하여 가짜 뉴스 문장을 학습하고,
 
 > 판별 페이지
 
-|                   **Album Register Page**                   |
-| :---------------------------------------------------------: |
-| <img src="./resources/gif/album_creation.gif" height="400"> |
+|                      **My Analy Page**                      |                      **Game Page**                      |                       **Profile edit Page**                      |
+| :--------------------------------------------------------: | :---------------------------------------------------------: | :---------------------------------------------------------: |
+| <img src="./assets/gif/my_analy.gif" height="400"> | <img src="./assets/gif/game.gif" height="400"> | <img src="./assets/gif/profile_edit.gif" height="400"> |
 
 <br>
 
@@ -119,32 +119,18 @@ AI 모델을 활용하여 가짜 뉴스 문장을 학습하고,
 
 > 게임 페이지
 
-|                     **Community Page**                      |                        **Search Page**                        |
-| :---------------------------------------------------------: | :-----------------------------------------------------------: |
-| <img src="./resources/gif/community_main.gif" height="400"> | <img src="./resources/gif/community_search.gif" height="400"> |
-
-|                    **Album Detail Page**                     |                     **Album Streaming Page**                     |                     **Album Comment Page**                     |
-| :----------------------------------------------------------: | :--------------------------------------------------------------: | :------------------------------------------------------------: |
-| <img src="./resources/gif/community_liked.gif" height="400"> | <img src="./resources/gif/community_streaming.gif" height="400"> | <img src="./resources/gif/community_comment.gif" height="400"> |
+|                      **Logout Page**                      |                      **Home Page**                      |                 
+| :--------------------------------------------------------: | :---------------------------------------------------------: |
+| <img src="./assets/gif/logout.gif" height="400"> | <img src="./assets/gif/home.gif" height="400"> | 
 
 <br>
-
-### 5️⃣ <b>마이페이지</b>
-
-> 마이페이지
-
-|                          **Info Page**                          |                      **My Album/Song Page**                       |                      **Liked Album/Song Page**                       |
-| :-------------------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------: |
-| <img src="./resources/gif/mypage_member_info.gif" height="400"> | <img src="./resources/gif/mypage_my_album_song.gif" height="400"> | <img src="./resources/gif/mypage_liked_album_song.gif" height="400"> |
-
-<br/>
 
 
 ---
 
 ## 🧑‍💻 팀원 소개
 
-| **강인혁** | **권정민** | **구민성** | **민수현** | **박장훈** | **양다혜** | 
+| **강인혁** | **권정민** | **구민성** | **박장훈** | **민수현** | **양다혜** | 
 |:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
 | 팀장 & Infra & BE | BE & AI | BE & AI | UI/UX & AOS | UI/UX & AOS | UI/UX & AOS |
 | 뉴스 분석 | 뉴스 게임 | AI 아키텍쳐 설계  | 뉴스 판별 | 뉴스 게임 | 회원 |
@@ -238,13 +224,13 @@ AI 모델을 활용하여 가짜 뉴스 문장을 학습하고,
 
 ## 🔨 시스템 아키텍처
 
-<img src="./assets/architecture.png" alt="Architecture"/>
+<img src="./assets/image/architecture.png" alt="Architecture"/>
 
 ---
 
 ## 📊 ERD
 
-<img src="./assets/erd.png" alt="ERD"/>
+<img src="./assets/image/erd.png" alt="ERD"/>
 
 <!-- ---
 
