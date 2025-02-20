@@ -50,7 +50,7 @@ AI 모델을 활용하여 가짜 뉴스 문장을 학습하고,
 
 - 뉴스 분석 기능: 사용자가 뉴스 기사의 단락 캡쳐 이미지를 통해 
 텍스트를 추출 및 내용을 입력하거나 URL 정보를 입력해, 유사한 뉴스 정보 및 분석 정보 제공합니다.
-- 거짓 뉴스 맞추기 게임 제공: 사용자의 거짓 뉴스 분석 능력을 향상시키기 위해,
+- 거짓 뉴스 판별 게임: 사용자의 거짓 뉴스 분석 능력을 향상시키기 위해,
 가짜 뉴스의 어떤 부분이 허위인지 판별하는 기능을 제공합니다.
 - 최신 뉴스 정보 제공: 인기 키워드를 기반으로 뉴스를 크롤링하여 
 실시간 뉴스 및 분석된 정보를 제공합니다.
@@ -83,3 +83,177 @@ AI 모델을 활용하여 가짜 뉴스 문장을 학습하고,
 - **미디어 리터러시 향상 및 가짜 뉴스 판별 역량 강화**: ‘거짓 뉴스 맞추기’ 게임과 뉴스 분석 기능을 통해 사용자들이 가짜 뉴스를 판별하는 능력을 자연스럽게 습득할 수 있도록 유도합니다.
 
 ---
+
+ ## 📌 주요 기능
+
+### 1️⃣ <b>메인 페이지</b>
+> 메인 페이지
+
+|                     **Login Page**                      |                        **Main Page**                        |                       **Main Page**                        |
+| :-----------------------------------------------------: | :---------------------------------------------------------: | :--------------------------------------------------------: |
+| <img src="./resources/gif/main_login.gif" height="400"> | <img src="./resources/gif/main_bestalbum.gif" height="400"> | <img src="./resources/gif/main_tagalbum.gif" height="400"> |
+
+<br>
+
+### 2️⃣ <b>검색 페이지</b>
+
+> 검색 페이지
+
+|                      **Melting Page**                      |                      **AI Cover Page**                      |
+| :--------------------------------------------------------: | :---------------------------------------------------------: |
+| <img src="./resources/gif/music_melting.gif" height="400"> | <img src="./resources/gif/music_ai_cover.gif" height="400"> |
+
+<br>
+
+### 3️⃣ <b>판별 페이지</b>
+
+> 판별 페이지
+
+|                   **Album Register Page**                   |
+| :---------------------------------------------------------: |
+| <img src="./resources/gif/album_creation.gif" height="400"> |
+
+<br>
+
+### 4️⃣ <b>게임 페이지</b>
+
+> 게임 페이지
+
+|                     **Community Page**                      |                        **Search Page**                        |
+| :---------------------------------------------------------: | :-----------------------------------------------------------: |
+| <img src="./resources/gif/community_main.gif" height="400"> | <img src="./resources/gif/community_search.gif" height="400"> |
+
+|                    **Album Detail Page**                     |                     **Album Streaming Page**                     |                     **Album Comment Page**                     |
+| :----------------------------------------------------------: | :--------------------------------------------------------------: | :------------------------------------------------------------: |
+| <img src="./resources/gif/community_liked.gif" height="400"> | <img src="./resources/gif/community_streaming.gif" height="400"> | <img src="./resources/gif/community_comment.gif" height="400"> |
+
+<br>
+
+### 5️⃣ <b>마이페이지</b>
+
+> 마이페이지
+
+|                          **Info Page**                          |                      **My Album/Song Page**                       |                      **Liked Album/Song Page**                       |
+| :-------------------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------------: |
+| <img src="./resources/gif/mypage_member_info.gif" height="400"> | <img src="./resources/gif/mypage_my_album_song.gif" height="400"> | <img src="./resources/gif/mypage_liked_album_song.gif" height="400"> |
+
+<br/>
+
+
+---
+
+## 🧑‍💻 팀원 소개
+
+| **강인혁** | **권정민** | **구민성** | **민수현** | **박장훈** | **양다혜** | 
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+| 팀장 & Infra & BE | BE & AI | BE & AI | UI/UX & AOS | UI/UX & AOS | UI/UX & AOS |
+| 뉴스 분석 | 뉴스 게임 | AI 아키텍쳐 설계  | 뉴스 판별 | 뉴스 게임 | 회원 |
+
+
+---
+
+## ⚙️ 기술 스택
+
+<table>
+    <thead>
+        <tr>
+            <th>분류</th>
+            <th>기술 스택</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>안드로이드</td>
+            <td>
+                <img src="https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=Kotlin&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Android%20Studio-3DDC84?style=flat&logo=android-studio&logoColor=white"/>
+            </td>
+        </tr>
+        <tr>
+            <td>백엔드</td>
+            <td>
+                <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Spring_Security-6DB33F?style=flat&logo=spring-security&logoColor=white"/>
+                <img src="https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white"/>
+                <img src="https://img.shields.io/badge/JWT-000000?style=flat&logo=json-web-tokens&logoColor=white"/>
+            </td>
+        </tr>
+        <tr>
+            <td>데이터베이스</td>
+            <td>
+                <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white"/>
+                <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white"/>
+                <img src="https://img.shields.io/badge/ChromaDB-FF0000?style=flat&logo=Adobe&logoColor=white">
+            </td>
+        </tr>
+        <tr>
+            <td>AI</td>
+            <td>
+                <img src="https://img.shields.io/badge/SBert-3084bb?style=flat&logo=Adobe&logoColor=white">
+                <img src="https://img.shields.io/badge/KoBert-251a1d?style=flat&logo=Adobe&logoColor=white">
+                <img src="https://img.shields.io/badge/Bert-db4308?style=flat&logo=Adobe&logoColor=white">
+            </td>
+        </tr>
+        <tr>
+            <td>데이터</td>
+            <td>
+                <img src="https://img.shields.io/badge/OpenAI-412991?style=flat&logo=openai&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Numpy-013243?style=flat&logo=numpy&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Konlpy-00599C?style=flat"/>
+            </td>
+        </tr>
+        <tr>
+            <td>인프라</td>
+            <td>
+                <img src="https://img.shields.io/badge/AWS_EC2-FF9900?style=flat&logo=amazon-ec2&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=jenkins&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Ubuntu-E95420?style=flat&logo=ubuntu&logoColor=white"/>
+            </td>
+        </tr>
+        <tr>
+            <td>API</td>
+            <td>
+                <img src="https://img.shields.io/badge/NaverSearch-08c942?style=flat&logo=Adobe&logoColor=white">
+                <img src="https://img.shields.io/badge/Bareun-174b77?style=flat&logo=Adobe&logoColor=white">
+            </td>
+        </tr>
+        <tr>
+            <td>협업 도구</td>
+            <td>
+                <img src="https://img.shields.io/badge/GitLab-FC6D26?style=flat&logo=gitlab&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Jira-0052CC?style=flat&logo=jira&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=notion&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Mattermost-0072C6?style=flat&logo=mattermost&logoColor=white"/>
+                <img src="https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+---
+
+## 🔨 시스템 아키텍처
+
+<img src="./assets/architecture.png" alt="Architecture"/>
+
+---
+
+## 📊 ERD
+
+<img src="./assets/erd.png" alt="ERD"/>
+
+<!-- ---
+
+
+## 📂 문서 자료
+
+- [포팅 메뉴얼]()
+- [시연 시나리오]()
+- [발표 자료]()
+- [DATA]()
+
+--- -->
