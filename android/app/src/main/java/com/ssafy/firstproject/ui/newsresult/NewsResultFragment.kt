@@ -1,6 +1,5 @@
 package com.ssafy.firstproject.ui.newsresult
 
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
@@ -149,11 +148,16 @@ class NewsResultFragment : BaseFragment<FragmentNewsResultBinding>(
 
     private fun observeSearchNews() {
         viewModel.newsAnalysisResult.observe(viewLifecycleOwner) {
-            updateNewsArticleUI(it)
+            if (it != null) {
+                updateNewsArticleUI(it)
 
-            binding.groupNewsResult.visibility = View.VISIBLE
-            binding.tvLoading.visibility = View.GONE
-            binding.lavLoadingAnimation.visibility = View.GONE
+                binding.groupNewsResult.visibility = View.VISIBLE
+                binding.groupLoading.visibility = View.GONE
+                binding.lavLoadingAnimation.pauseAnimation()
+            } else {
+                binding.groupNull.visibility = View.VISIBLE
+                binding.groupLoading.visibility = View.GONE
+            }
         }
     }
 }

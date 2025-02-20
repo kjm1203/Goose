@@ -160,6 +160,10 @@
         <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
     </style>
 
+    <style name="Widget.TextView.Loading.Small">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <!-- Button Style -->
     <style name="Widget.Button.Primary">
         <item name="android:textSize">18sp</item>
