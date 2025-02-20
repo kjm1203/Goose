@@ -1,5 +1,6 @@
 package com.ssafy.firstproject.ui.mypage.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,13 +40,16 @@ class UserGrowthViewModel : ViewModel() {
                             _errorMessage.postValue("데이터가 없습니다.")
                         }
                     }
+                    Log.d(TAG, "fetchUserGrowthData: ${response.body()}")
                 } else {
                     // API 실패 처리
                     _errorMessage.postValue("API 오류가 발생했습니다. 상태 코드: ${response.code()}")
+                    Log.d(TAG, "fetchUserGrowthData: ${response.code()}")
                 }
             } catch (e: Exception) {
                 // 네트워크 또는 기타 예외 처리
                 _errorMessage.postValue("네트워크 오류가 발생했습니다.")
+                Log.e(TAG, "fetchUserGrowthData: ${e.message}", e)
             }
         }
     }
