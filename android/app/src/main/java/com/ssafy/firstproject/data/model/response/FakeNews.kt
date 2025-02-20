@@ -5,6 +5,8 @@ data class FakeNews(
     val correctAnswer: String,
     val dwellTimeRanking: List<TimeRanking>,
     val fakeReason: String,
+    val imageUrl: String,
+    val newsDate: String,
     val id: String,
     val selectionPercentages: Map<String, Double>,
     val title: String,
