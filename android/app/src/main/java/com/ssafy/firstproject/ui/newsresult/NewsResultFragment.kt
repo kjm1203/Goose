@@ -1,6 +1,5 @@
 package com.ssafy.firstproject.ui.newsresult
 
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
