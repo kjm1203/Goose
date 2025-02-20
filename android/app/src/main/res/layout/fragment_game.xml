@@ -48,11 +48,11 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="43dp"
                 android:contentDescription="@string/news_img"
-                android:src="@drawable/img_test"
-                app:layout_constraintDimensionRatio="1:0.6"
+                app:layout_constraintDimensionRatio="1:0.72"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_header" />
+                app:layout_constraintTop_toBottomOf="@id/tv_header"
+                tools:src="@tools:sample/backgrounds/scenic" />
 
             <TextView
                 android:id="@+id/tv_title"
