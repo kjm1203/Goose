@@ -77,6 +77,7 @@
     <string name="other_check">다른 것도 분석하기</string>
     <string name="detail">자세히 보기</string>
     <string name="article_trust_score">해당 기사의\n신뢰도는\n%s 입니다.</string>
+    <string name="url_error">올바른 URL이 아닙니다.</string>
 
     <string name="check_result_detail_title">결과 자세히보기</string>
     <string name="check_other_news">다른 것도 분석하러 가기</string>
