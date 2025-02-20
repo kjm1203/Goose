@@ -227,6 +227,10 @@
         tools:layout="@layout/fragment_news_list_result">
 
         <argument
+            android:name="newsType"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
             android:name="newsText"
             android:defaultValue=""
             app:argType="string" />

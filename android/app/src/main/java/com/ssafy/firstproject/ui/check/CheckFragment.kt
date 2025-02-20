@@ -156,7 +156,10 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 val text = binding.tieExtractTextInput.text.toString()
 
                 if (text.isNotEmpty()) {
-                    val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(text)
+                    val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(
+                        newsText = text,
+                        newsType = getString(R.string.type_img_en)
+                    )
 
                     navController.navigate(action)
                 } else {
@@ -182,7 +185,10 @@ class CheckFragment : BaseFragment<FragmentCheckBinding>(
                 val text = binding.tieContentInput.text.toString()
 
                 if (text.isNotEmpty()) {
-                    val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(text)
+                    val action = CheckFragmentDirections.actionDestCheckToDestNewsListResult(
+                        newsText = text,
+                        newsType = getString(R.string.type_content_en)
+                    )
 
                     navController.navigate(action)
                 } else {

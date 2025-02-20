@@ -34,6 +34,7 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
         binding.lavLoadingAnimation.playAnimation()
 
         val newsText = args.newsText
+        val newsType = args.newsType
 
         Log.d(TAG, "onViewCreated: $newsText")
 
@@ -45,7 +46,7 @@ class NewsListResultFragment : BaseFragment<FragmentNewsListResultBinding>(
         observeNewsArticle()
 
         if (viewModel.newsAnalysisArticles.value == null) {
-            viewModel.getNewsArticle(KeywordSearch(text = newsText))
+            viewModel.getNewsArticle(KeywordSearch(text = newsText, analysisType = newsType))
         }
     }
 
