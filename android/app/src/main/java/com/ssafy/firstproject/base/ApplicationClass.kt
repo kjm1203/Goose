@@ -29,6 +29,7 @@ class ApplicationClass : Application() {
         lateinit var sharedPreferencesUtil: SharedPreferencesUtil
         lateinit var retrofit: Retrofit
         lateinit var spellCheckRetrofit: Retrofit
+        lateinit var checkRetrofit: Retrofit
 
         val nullOnEmptyConverterFactory = object : Converter.Factory() {
             fun converterFactory() = this
@@ -98,6 +99,22 @@ class ApplicationClass : Application() {
             .addConverterFactory(nullOnEmptyConverterFactory)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
+            .build()
+
+        val checkOkHttpClient = OkHttpClient.Builder()
+            .readTimeout(60000, TimeUnit.MILLISECONDS)
+            .connectTimeout(5000, TimeUnit.MILLISECONDS)
+            .addInterceptor(AuthInterceptor())
+            .authenticator(TokenAuthenticator())
+            // 로그캣에 okhttp.OkHttpClient로 검색하면 http 통신 내용을 보여줍니다.
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build()
+
+        checkRetrofit = Retrofit.Builder()
+            .baseUrl(SERVER_URL)
+            .addConverterFactory(nullOnEmptyConverterFactory)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(checkOkHttpClient)
             .build()
 
         // repository 초기화
